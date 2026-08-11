@@ -1,7 +1,32 @@
 @import "tailwindcss";
 
-body {
-  margin: 0;
-  min-width: 320px;
-  min-height: 100vh;
+@theme {
+  --color-background: #fafafa;
+  --color-foreground: #141414;
+  --color-primary: #7e14ff;
+  --color-primary-foreground: #ffffff;
+  --color-muted: #f0f0f2;
+  --color-muted-foreground: #5c5c66;
+  --color-border: #e4e4e9;
+  --color-accent: #ede6ff;
+
+  --font-sans:
+    "Outfit", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei",
+    "Noto Sans SC", ui-sans-serif, system-ui, sans-serif;
+  --font-display:
+    "Outfit", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei",
+    "Noto Sans SC", ui-sans-serif, system-ui, sans-serif;
+
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+}
+
+@layer base {
+  body {
+    margin: 0;
+    min-width: 320px;
+    min-height: 100vh;
+    @apply bg-background text-foreground font-sans antialiased;
+  }
 }
