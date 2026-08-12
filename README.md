@@ -12,8 +12,8 @@ Koo product marketing website.
 ## Scripts
 
 ```bash
-npm install
-npm run dev
-npm run build
-npm run preview
+pnpm install
+pnpm dev
+pnpm build
+pnpm preview
 ```
