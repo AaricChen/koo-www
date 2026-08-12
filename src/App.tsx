@@ -13,19 +13,21 @@ import { WhatIsKooSection } from "./components/home/WhatIsKooSection"
 function App() {
   return (
     <div className="min-h-screen overflow-x-hidden bg-background text-foreground">
-      <SiteHeader />
-      <main>
-        <HeroSection />
-        <WhatIsKooSection />
-        <FeaturesSection />
-        <EdgesSection />
-        <ProductsSection />
-        <TokenSection />
-        <TechSection />
-        <QuantSection />
-        <CtaSection />
-      </main>
-      <SiteFooter />
+      <div className="mx-auto w-full max-w-[1440px]">
+        <SiteHeader />
+        <main>
+          <HeroSection />
+          <WhatIsKooSection />
+          <FeaturesSection />
+          <EdgesSection />
+          <ProductsSection />
+          <TokenSection />
+          <TechSection />
+          <QuantSection />
+          <CtaSection />
+        </main>
+        <SiteFooter />
+      </div>
     </div>
   )
 }
