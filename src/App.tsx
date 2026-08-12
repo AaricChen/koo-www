@@ -8,7 +8,7 @@ import { SiteFooter } from "./components/home/SiteFooter"
 import { SiteHeader } from "./components/home/SiteHeader"
 import { TechSection } from "./components/home/TechSection"
 import { TokenSection } from "./components/home/TokenSection"
-import { WhatIsKooSection } from "./components/home/WhatIsKooSection"
+import { WhyKooSection } from "./components/home/WhyKooSection"
 
 function App() {
   return (
@@ -17,7 +17,7 @@ function App() {
         <SiteHeader />
         <main>
           <HeroSection />
-          <WhatIsKooSection />
+          <WhyKooSection />
           <FeaturesSection />
           <EdgesSection />
           <ProductsSection />
