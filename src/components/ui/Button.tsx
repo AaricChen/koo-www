@@ -30,7 +30,7 @@ export function OutlineButton({
 }: OutlineButtonProps) {
   return (
     <a
-      className={`inline-flex w-[120px] items-center justify-center rounded-sm border border-border-strong bg-surface-soft px-4 py-[11px] text-sm font-medium text-primary transition duration-300 hover:bg-surface-muted ${className}`}
+      className={`inline-flex items-center justify-center rounded-sm border border-border-strong bg-surface-soft px-4 py-[11px] text-sm font-medium text-primary transition duration-300 hover:bg-surface-muted ${className}`}
       {...props}
     >
       {children}

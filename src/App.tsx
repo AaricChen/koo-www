@@ -5,6 +5,7 @@ import { HeroSection } from "./components/home/HeroSection"
 import { ProductsSection } from "./components/home/ProductsSection"
 import { QuantSection } from "./components/home/QuantSection"
 import { SiteFooter } from "./components/home/SiteFooter"
+import { SiteHeader } from "./components/home/SiteHeader"
 import { TechSection } from "./components/home/TechSection"
 import { TokenSection } from "./components/home/TokenSection"
 import { WhatIsKooSection } from "./components/home/WhatIsKooSection"
@@ -12,6 +13,7 @@ import { WhatIsKooSection } from "./components/home/WhatIsKooSection"
 function App() {
   return (
     <div className="min-h-screen overflow-x-hidden bg-background text-foreground">
+      <SiteHeader />
       <main>
         <HeroSection />
         <WhatIsKooSection />

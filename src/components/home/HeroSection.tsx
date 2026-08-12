@@ -3,7 +3,7 @@ import { GradientButton } from "../ui/Button"
 
 export function HeroSection() {
   return (
-    <section className="relative isolate flex min-h-[809px] items-center justify-center overflow-hidden px-6 pb-24 pt-20 sm:px-10 lg:px-20">
+    <section className="relative isolate -mt-20 flex min-h-[809px] items-center justify-center overflow-hidden px-6 pb-24 pt-28 sm:px-10 lg:px-20">
       <div className="pointer-events-none absolute inset-0">
         <img
           src="/assets/hero-bg.png"
