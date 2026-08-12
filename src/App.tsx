@@ -1,13 +1,5 @@
-import { CtaSection } from "./components/home/CtaSection"
-import { EdgesSection } from "./components/home/EdgesSection"
-import { FeaturesSection } from "./components/home/FeaturesSection"
 import { HeroSection } from "./components/home/HeroSection"
-import { ProductsSection } from "./components/home/ProductsSection"
-import { QuantSection } from "./components/home/QuantSection"
-import { SiteFooter } from "./components/home/SiteFooter"
 import { SiteHeader } from "./components/home/SiteHeader"
-import { TechSection } from "./components/home/TechSection"
-import { TokenSection } from "./components/home/TokenSection"
 import { WhyKooSection } from "./components/home/WhyKooSection"
 
 function App() {
@@ -18,15 +10,7 @@ function App() {
         <main>
           <HeroSection />
           <WhyKooSection />
-          <FeaturesSection />
-          <EdgesSection />
-          <ProductsSection />
-          <TokenSection />
-          <TechSection />
-          <QuantSection />
-          <CtaSection />
         </main>
-        <SiteFooter />
       </div>
     </div>
   )
