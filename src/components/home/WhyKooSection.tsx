@@ -27,7 +27,7 @@ const features = [
 
 export function WhyKooSection() {
   return (
-    <section className="relative flex flex-col items-center overflow-x-hidden px-6 pb-[60px] pt-14 sm:px-10 sm:pb-[100px] sm:pt-20 lg:px-20">
+    <section className="relative flex flex-col items-center overflow-x-clip px-6 pb-[60px] pt-14 sm:px-10 sm:pb-[100px] sm:pt-20 lg:px-20">
       {/* Figma Frame 100 — 1280×442 content */}
       <div className="relative w-full max-w-[1280px]">
         {/* Group 5 — exact Figma box: 501.98×402.88 @ (757.96, -67) */}
