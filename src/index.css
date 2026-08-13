@@ -83,6 +83,51 @@
   .animate-logo-glow {
     animation: logo-glow 2.4s ease-in-out infinite alternate;
   }
+
+  .milestone-ease {
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .milestone-features {
+    display: grid;
+    grid-template-rows: 0fr;
+    opacity: 0;
+    margin-top: 0;
+    transition:
+      grid-template-rows 500ms cubic-bezier(0.4, 0, 0.2, 1),
+      opacity 400ms cubic-bezier(0.4, 0, 0.2, 1),
+      margin-top 500ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .milestone-features[data-open="true"] {
+    grid-template-rows: 1fr;
+    opacity: 1;
+    margin-top: 32px;
+  }
+
+  .milestone-features-inner {
+    overflow: hidden;
+  }
+
+  .milestone-feature-item {
+    animation: milestone-feature-in 0.45s cubic-bezier(0.4, 0, 0.2, 1) both;
+  }
+
+  .milestone-feature-item:nth-child(1) {
+    animation-delay: 40ms;
+  }
+  .milestone-feature-item:nth-child(2) {
+    animation-delay: 80ms;
+  }
+  .milestone-feature-item:nth-child(3) {
+    animation-delay: 120ms;
+  }
+  .milestone-feature-item:nth-child(4) {
+    animation-delay: 160ms;
+  }
+  .milestone-feature-item:nth-child(5) {
+    animation-delay: 200ms;
+  }
 }
 
 @keyframes fade-up {
@@ -111,5 +156,16 @@
   }
   to {
     filter: drop-shadow(0 0 28px rgba(47, 203, 238, 0.45));
+  }
+}
+
+@keyframes milestone-feature-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
