@@ -1,4 +1,5 @@
 import { DevelopmentMilestonesSection } from "./components/home/DevelopmentMilestonesSection"
+import { EnterKooSection } from "./components/home/EnterKooSection"
 import { ExclusiveExperienceSection } from "./components/home/ExclusiveExperienceSection"
 import { HeroSection } from "./components/home/HeroSection"
 import { SiteHeader } from "./components/home/SiteHeader"
@@ -13,6 +14,7 @@ function App() {
         <WhyKooSection />
         <ExclusiveExperienceSection />
         <DevelopmentMilestonesSection />
+        <EnterKooSection />
       </main>
     </div>
   )
