@@ -74,7 +74,7 @@ function FeatureCopy({
   return (
     <>
       <p className="text-base leading-6 text-muted-foreground">{description}</p>
-      <div className="flex flex-wrap content-start gap-4">
+      <div className="flex flex-wrap content-start gap-4 p-px">
         {tags.map((tag) => (
           <FeatureTag key={tag} label={tag} />
         ))}
@@ -83,8 +83,8 @@ function FeatureCopy({
   )
 }
 
-const HEADER_OFFSET = 80
-const EXPAND_SLACK = 160
+const MID_ZONE_TOP = 0.4
+const MID_ZONE_BOTTOM = 0.6
 
 export function ExclusiveExperienceSection() {
   const [activeIndex, setActiveIndex] = useState(0)
@@ -94,26 +94,40 @@ export function ExclusiveExperienceSection() {
 
   useEffect(() => {
     let frame = 0
+    let lastScrollY = window.scrollY
 
     const updateActiveFromViewport = () => {
       frame = 0
-      const viewportBottom = window.innerHeight
+      const scrollY = window.scrollY
+      const goingDown = scrollY >= lastScrollY
+      lastScrollY = scrollY
+
+      const zoneTop = window.innerHeight * MID_ZONE_TOP
+      const zoneBottom = window.innerHeight * MID_ZONE_BOTTOM
       const nodes = itemRefs.current
       const prev = activeIndexRef.current
-      let next = -1
+      let next = prev
 
-      for (let i = 0; i < nodes.length; i++) {
-        const el = nodes[i]
-        if (!el) continue
-        const rect = el.getBoundingClientRect()
-        const slack = i === prev ? EXPAND_SLACK : 0
-        const fullyVisible =
-          rect.top >= HEADER_OFFSET - slack &&
-          rect.bottom <= viewportBottom + slack
-        if (fullyVisible) next = i
+      if (goingDown) {
+        next = 0
+        for (let i = 0; i < nodes.length; i++) {
+          const el = nodes[i]
+          if (!el) continue
+          if (el.getBoundingClientRect().top <= zoneBottom) next = i
+        }
+      } else {
+        next = Math.max(nodes.length - 1, 0)
+        for (let i = 0; i < nodes.length; i++) {
+          const el = nodes[i]
+          if (!el) continue
+          if (el.getBoundingClientRect().bottom >= zoneTop) {
+            next = i
+            break
+          }
+        }
       }
 
-      if (next < 0 || next === prev) return
+      if (next === prev) return
       activeIndexRef.current = next
       setActiveIndex(next)
     }
@@ -150,7 +164,7 @@ export function ExclusiveExperienceSection() {
           } catch {
             /* ignore seek errors before metadata */
           }
-        }, 600),
+        }, 320),
       )
     })
 
