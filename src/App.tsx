@@ -2,6 +2,7 @@ import { DevelopmentMilestonesSection } from "./components/home/DevelopmentMiles
 import { EnterKooSection } from "./components/home/EnterKooSection"
 import { ExclusiveExperienceSection } from "./components/home/ExclusiveExperienceSection"
 import { HeroSection } from "./components/home/HeroSection"
+import { SiteFooter } from "./components/home/SiteFooter"
 import { SiteHeader } from "./components/home/SiteHeader"
 import { WhyKooSection } from "./components/home/WhyKooSection"
 
@@ -16,6 +17,7 @@ function App() {
         <DevelopmentMilestonesSection />
         <EnterKooSection />
       </main>
+      <SiteFooter />
     </div>
   )
 }
