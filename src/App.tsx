@@ -1,3 +1,4 @@
+import { ExclusiveExperienceSection } from "./components/home/ExclusiveExperienceSection"
 import { HeroSection } from "./components/home/HeroSection"
 import { SiteHeader } from "./components/home/SiteHeader"
 import { WhyKooSection } from "./components/home/WhyKooSection"
@@ -10,6 +11,7 @@ function App() {
         <main>
           <HeroSection />
           <WhyKooSection />
+          <ExclusiveExperienceSection />
         </main>
       </div>
     </div>
