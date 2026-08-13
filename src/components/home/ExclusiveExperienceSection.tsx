@@ -64,8 +64,12 @@ function FeatureTag({ label }: { label: string }) {
   )
 }
 
+const HEADER_OFFSET = 80
+const EXPAND_SLACK = 160
+
 export function ExclusiveExperienceSection() {
   const [activeIndex, setActiveIndex] = useState(0)
+  const activeIndexRef = useRef(0)
   const videoRefs = useRef<Array<HTMLVideoElement | null>>([])
   const itemRefs = useRef<Array<HTMLElement | null>>([])
 
@@ -74,15 +78,25 @@ export function ExclusiveExperienceSection() {
 
     const updateActiveFromViewport = () => {
       frame = 0
-      const triggerY = window.innerHeight * 0.4
+      const viewportBottom = window.innerHeight
       const nodes = itemRefs.current
-      let next = 0
+      const prev = activeIndexRef.current
+      let next = -1
+
       for (let i = 0; i < nodes.length; i++) {
         const el = nodes[i]
         if (!el) continue
-        if (el.getBoundingClientRect().top <= triggerY) next = i
+        const rect = el.getBoundingClientRect()
+        const slack = i === prev ? EXPAND_SLACK : 0
+        const fullyVisible =
+          rect.top >= HEADER_OFFSET - slack &&
+          rect.bottom <= viewportBottom + slack
+        if (fullyVisible) next = i
       }
-      setActiveIndex((prev) => (prev === next ? prev : next))
+
+      if (next < 0 || next === prev) return
+      activeIndexRef.current = next
+      setActiveIndex(next)
     }
 
     const onScrollOrResize = () => {
