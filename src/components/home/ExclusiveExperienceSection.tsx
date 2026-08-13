@@ -64,6 +64,25 @@ function FeatureTag({ label }: { label: string }) {
   )
 }
 
+function FeatureCopy({
+  description,
+  tags,
+}: {
+  description: string
+  tags: readonly string[]
+}) {
+  return (
+    <>
+      <p className="text-base leading-6 text-muted-foreground">{description}</p>
+      <div className="flex flex-wrap content-start gap-4">
+        {tags.map((tag) => (
+          <FeatureTag key={tag} label={tag} />
+        ))}
+      </div>
+    </>
+  )
+}
+
 const HEADER_OFFSET = 80
 const EXPAND_SLACK = 160
 
@@ -115,6 +134,8 @@ export function ExclusiveExperienceSection() {
   }, [])
 
   useEffect(() => {
+    const resetTimers: number[] = []
+
     videoRefs.current.forEach((video, index) => {
       if (!video) return
       if (index === activeIndex) {
@@ -122,12 +143,20 @@ export function ExclusiveExperienceSection() {
         return
       }
       video.pause()
-      try {
-        video.currentTime = 0
-      } catch {
-        /* ignore seek errors before metadata */
-      }
+      resetTimers.push(
+        window.setTimeout(() => {
+          try {
+            video.currentTime = 0
+          } catch {
+            /* ignore seek errors before metadata */
+          }
+        }, 600),
+      )
     })
+
+    return () => {
+      resetTimers.forEach((timer) => window.clearTimeout(timer))
+    }
   }, [activeIndex])
 
   return (
@@ -151,12 +180,22 @@ export function ExclusiveExperienceSection() {
               className={`experience-item${isActive ? " is-active" : ""}`}
               aria-current={isActive ? "true" : undefined}
             >
-              <div className="experience-title">
-                <h3
-                  className={`font-display text-[26px] font-semibold leading-9 text-foreground sm:text-[32px] sm:leading-10 ${feature.titleClass}`}
-                >
-                  {feature.title}
-                </h3>
+              <div className="experience-left">
+                <div className="experience-title">
+                  <h3
+                    className={`font-display text-[26px] font-semibold leading-9 text-foreground sm:text-[32px] sm:leading-10 ${feature.titleClass}`}
+                  >
+                    {feature.title}
+                  </h3>
+                </div>
+                <div className="experience-under" aria-hidden="true">
+                  <div className="experience-under-inner">
+                    <FeatureCopy
+                      description={feature.description}
+                      tags={feature.tags}
+                    />
+                  </div>
+                </div>
               </div>
 
               <div
@@ -186,14 +225,12 @@ export function ExclusiveExperienceSection() {
                 />
               </div>
 
-              <div className="experience-content flex flex-col gap-[18px]">
-                <p className="text-base leading-6 text-muted-foreground">
-                  {feature.description}
-                </p>
-                <div className="flex flex-wrap content-start gap-4">
-                  {feature.tags.map((tag) => (
-                    <FeatureTag key={tag} label={tag} />
-                  ))}
+              <div className="experience-side">
+                <div className="experience-side-inner">
+                  <FeatureCopy
+                    description={feature.description}
+                    tags={feature.tags}
+                  />
                 </div>
               </div>
             </article>
