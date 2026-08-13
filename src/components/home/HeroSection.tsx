@@ -1,14 +1,15 @@
 import { APP_URL } from "../../lib/links"
 import { GradientButton } from "../ui/Button"
+import { BackgroundVideo } from "./BackgroundVideo"
 
 export function HeroSection() {
   return (
     <section className="relative isolate -mt-20 flex min-h-[640px] items-center justify-center overflow-hidden px-6 pb-16 pt-28 sm:min-h-[809px] sm:px-10 sm:pb-24 lg:px-20">
-      <div className="pointer-events-none absolute inset-0">
-        <img
-          src="/assets/hero-bg.png"
-          alt=""
-          className="size-full object-cover opacity-30"
+      <div className="pointer-events-none absolute inset-0 opacity-30">
+        <BackgroundVideo
+          src="/assets/hero-bg.mp4"
+          poster="/assets/hero-bg.png"
+          className="size-full object-cover"
         />
       </div>
 

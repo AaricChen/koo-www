@@ -1,5 +1,6 @@
 import { APP_URL } from "../../lib/links"
 import { GradientButton } from "../ui/Button"
+import { BackgroundVideo } from "./BackgroundVideo"
 
 /**
  * Figma `Enter KryptoX` (3732:11027) — 1440×572
@@ -12,10 +13,9 @@ export function EnterKooSection() {
   return (
     <section className="relative isolate flex flex-col items-center overflow-x-clip bg-background px-6 py-20 sm:px-20 sm:py-[140px]">
       <div className="pointer-events-none absolute inset-0">
-        <img
-          src="/assets/enter/section-bg.png"
-          alt=""
-          aria-hidden
+        <BackgroundVideo
+          src="/assets/enter/section-bg.mp4"
+          poster="/assets/enter/section-bg.png"
           className="size-full object-cover object-center"
         />
       </div>
