@@ -10,7 +10,7 @@ const navItems = [
 export function SiteHeader() {
   return (
     <header className="sticky top-0 z-50 w-full bg-transparent backdrop-blur-[12px]">
-      <div className="flex w-full items-center justify-between px-7 py-5">
+      <div className="flex w-full items-center justify-between px-4 py-5 sm:px-7">
         <a href="/" className="relative block h-10 w-[175px] shrink-0 overflow-hidden">
           <img
             src="/assets/koo-logo-2.png"

@@ -15,10 +15,12 @@ const socials = [
 
 export function SiteFooter() {
   return (
-    <footer className="bg-footer-bar flex flex-col items-start justify-between gap-10 px-6 pb-[60px] pt-10 sm:flex-row sm:items-end sm:gap-6 sm:px-10 lg:px-20">
-      {/* Frame 88 — logo + copyright, gap 20 */}
-      <div className="flex flex-col items-start justify-center gap-5">
-        <a href="/" className="relative block h-9 w-[158px] shrink-0 overflow-hidden">
+    <footer className="bg-footer-bar flex flex-col items-center gap-6 px-4 py-6 lg:flex-row lg:items-end lg:justify-between lg:px-20 lg:pb-[60px] lg:pt-10">
+      <div className="flex flex-col items-center justify-center gap-6 lg:items-start lg:gap-5">
+        <a
+          href="/"
+          className="relative block h-[26px] w-[115px] shrink-0 overflow-hidden lg:h-9 lg:w-[158px]"
+        >
           <div className="absolute inset-[20.75%_68.87%_20.92%_0.78%]">
             <img
               src="/assets/footer/logo-mark.svg"
@@ -35,16 +37,15 @@ export function SiteFooter() {
             />
           </div>
         </a>
-        <p className="whitespace-nowrap text-sm leading-[14px] text-muted-foreground">
+        <p className="hidden whitespace-nowrap text-sm leading-[14px] text-muted-foreground lg:block">
           © 2026 Koo. All Rights Reserved.
         </p>
       </div>
 
-      {/* Frame 92 — links + socials, gap 24, w 395 */}
-      <div className="flex w-full max-w-[395px] flex-col items-start gap-6 sm:items-end">
+      <div className="flex w-full max-w-[395px] flex-col items-center gap-6 lg:items-end">
         <nav
           aria-label="Footer"
-          className="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm leading-[14px] text-muted-foreground sm:justify-end"
+          className="flex flex-wrap items-center justify-center gap-x-3 gap-y-2 text-xs leading-3 text-muted-foreground lg:justify-end lg:gap-x-5 lg:text-sm lg:leading-[14px]"
         >
           {links.slice(0, 2).map((link) => (
             <a
@@ -57,7 +58,9 @@ export function SiteFooter() {
               {link.label}
             </a>
           ))}
-          <span aria-hidden>｜</span>
+          <span aria-hidden className="text-sm leading-[14px]">
+            ｜
+          </span>
           {links.slice(2).map((link) => (
             <a
               key={link.label}
@@ -69,7 +72,7 @@ export function SiteFooter() {
           ))}
         </nav>
 
-        <div className="flex items-center gap-4 sm:justify-end">
+        <div className="flex items-center gap-4 lg:justify-end">
           {socials.map((social) => (
             <a
               key={social.name}
@@ -88,6 +91,10 @@ export function SiteFooter() {
           ))}
         </div>
       </div>
+
+      <p className="mt-6 whitespace-nowrap text-xs leading-3 text-faint lg:hidden">
+        © 2026 Koo. All Rights Reserved.
+      </p>
     </footer>
   )
 }

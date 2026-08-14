@@ -58,7 +58,7 @@ const features = [
 
 function FeatureTag({ label }: { label: string }) {
   return (
-    <span className="experience-tag inline-flex h-[34px] shrink-0 items-center rounded-[18px] border border-[#3d7aff] bg-[rgba(61,122,255,0.06)] px-3.5 text-sm leading-[14px] text-secondary">
+    <span className="experience-tag inline-flex h-6 shrink-0 items-center rounded-[18px] border border-[#3d7aff] bg-[rgba(61,122,255,0.06)] px-2 text-xs leading-3 text-secondary lg:h-[34px] lg:px-3.5 lg:text-sm lg:leading-[14px]">
       {label}
     </span>
   )
@@ -73,8 +73,10 @@ function FeatureCopy({
 }) {
   return (
     <>
-      <p className="text-base leading-6 text-muted-foreground">{description}</p>
-      <div className="flex flex-wrap content-start gap-4 p-px">
+      <p className="text-xs leading-4 text-muted-foreground lg:text-base lg:leading-6">
+        {description}
+      </p>
+      <div className="flex flex-wrap content-start gap-3 p-px lg:gap-4">
         {tags.map((tag) => (
           <FeatureTag key={tag} label={tag} />
         ))}
@@ -174,14 +176,14 @@ export function ExclusiveExperienceSection() {
   }, [activeIndex])
 
   return (
-    <section className="bg-section-alt flex flex-col items-center gap-[72px] px-6 pb-20 pt-14 sm:gap-[100px] sm:px-10 sm:pb-[120px] sm:pt-[100px] lg:gap-[120px] lg:px-20">
-      <div className="w-full max-w-[1280px] px-0 text-center sm:px-10">
-        <h2 className="font-display text-[28px] font-bold leading-9 text-foreground sm:text-[40px] sm:leading-10">
+    <section className="bg-section-alt flex flex-col items-center gap-10 px-4 py-10 sm:px-10 lg:gap-[120px] lg:px-20 lg:pb-[120px] lg:pt-[100px]">
+      <div className="w-full max-w-[1280px] px-10 text-center">
+        <h2 className="font-display text-2xl font-bold leading-8 text-foreground sm:text-[28px] sm:leading-9 lg:text-[40px] lg:leading-10">
           The Koo Exclusive Experience
         </h2>
       </div>
 
-      <div className="flex w-full max-w-[1280px] flex-col gap-10 sm:gap-16 lg:gap-[140px]">
+      <div className="flex w-full max-w-[1280px] flex-col gap-16 lg:gap-[140px]">
         {features.map((feature, index) => {
           const isActive = index === activeIndex
 
@@ -193,25 +195,11 @@ export function ExclusiveExperienceSection() {
               }}
               className={`experience-item${isActive ? " is-active" : ""}`}
               aria-current={isActive ? "true" : undefined}
+              onClick={() => {
+                activeIndexRef.current = index
+                setActiveIndex(index)
+              }}
             >
-              <div className="experience-left">
-                <div className="experience-title">
-                  <h3
-                    className={`font-display text-[26px] font-semibold leading-9 text-foreground sm:text-[32px] sm:leading-10 ${feature.titleClass}`}
-                  >
-                    {feature.title}
-                  </h3>
-                </div>
-                <div className="experience-under" aria-hidden="true">
-                  <div className="experience-under-inner">
-                    <FeatureCopy
-                      description={feature.description}
-                      tags={feature.tags}
-                    />
-                  </div>
-                </div>
-              </div>
-
               <div
                 className={`experience-media ${
                   feature.blendLighten ? "mix-blend-lighten" : ""
@@ -237,6 +225,24 @@ export function ExclusiveExperienceSection() {
                   aria-hidden
                   className="pointer-events-none absolute inset-0 rounded-[inherit] shadow-[inset_16px_16px_16px_rgba(0,0,0,0.4)]"
                 />
+              </div>
+
+              <div className="experience-left">
+                <div className="experience-title">
+                  <h3 className="font-display text-base font-semibold leading-4 text-foreground lg:text-[32px] lg:leading-10">
+                    <span className={`lg:inline-block ${feature.titleClass}`}>
+                      {feature.title}
+                    </span>
+                  </h3>
+                </div>
+                <div className="experience-under" aria-hidden="true">
+                  <div className="experience-under-inner">
+                    <FeatureCopy
+                      description={feature.description}
+                      tags={feature.tags}
+                    />
+                  </div>
+                </div>
               </div>
 
               <div className="experience-side">

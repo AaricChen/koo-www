@@ -1,6 +1,12 @@
 import { useEffect, useRef, useState } from "react"
 
 type PhaseId = "phase-1" | "phase-2" | "phase-3" | "phase-4"
+type PhaseAccent = "green" | "blue" | "orange"
+
+type PhaseGoal = {
+  title: string
+  body: string
+}
 
 type Phase = {
   id: PhaseId
@@ -10,6 +16,10 @@ type Phase = {
   description: string | null
   tags: readonly string[]
   features?: readonly string[]
+  detailsTitle?: string
+  upgrades?: readonly string[]
+  goals?: readonly PhaseGoal[]
+  accent: PhaseAccent
   tagMaxWidth: string
   gapClass: string
 }
@@ -30,6 +40,8 @@ const phases: readonly Phase[] = [
       "Contract-Based Offline Withdrawal",
       "Governance Token & Shared Insurance Fund",
     ],
+    detailsTitle: "Core Features",
+    accent: "green",
     tagMaxWidth: "w-[510px]",
     gapClass: "gap-8",
   },
@@ -40,6 +52,14 @@ const phases: readonly Phase[] = [
     title: "Q4 2026",
     description: "Ecosystem expansion for higher capital flexibility.",
     tags: ["Multi-Chain", "Multi-Yeld Sources", "Unified Margin"],
+    detailsTitle: "Upgrades",
+    upgrades: [
+      "Multi-chain deployment on Optimism, Base, etc..",
+      "Extra yield strategies for idle margin.",
+      "Diversified yield-bearing collateral assets",
+      "Cross-asset unified margin account",
+    ],
+    accent: "blue",
     tagMaxWidth: "w-[431px]",
     gapClass: "gap-8",
   },
@@ -51,6 +71,14 @@ const phases: readonly Phase[] = [
     description:
       "Deep infrastructure construction & full decentralized iteration.",
     tags: ["Custom Block Chain", "Pro trading tools", "DAO Governance"],
+    detailsTitle: "Upgrades",
+    upgrades: [
+      "Custom Block Chain for settlement & execution",
+      "Professional-grade trading tools & order types",
+      "Multi-asset markets: spot, predictions, etc..",
+      "Full DAO control of protocol parameters",
+    ],
+    accent: "blue",
     tagMaxWidth: "w-[381px]",
     gapClass: "gap-8",
   },
@@ -66,6 +94,25 @@ const phases: readonly Phase[] = [
       "Full Market",
       "DAO Decentralization",
     ],
+    goals: [
+      {
+        title: "1. Superior Execution",
+        body: "Low-latency institutional trading tools",
+      },
+      {
+        title: "2. Maximized Capital Efficiency",
+        body: "Diversified collateral & multi-stream yields",
+      },
+      {
+        title: "3. Comprehensive Market Coverage",
+        body: "All asset classes on a single platform",
+      },
+      {
+        title: "4. Full Decentralization",
+        body: "On-chain rules & community DAO governance",
+      },
+    ],
+    accent: "orange",
     tagMaxWidth: "w-[327px]",
     gapClass: "gap-9",
   },
@@ -280,17 +327,270 @@ function MilestonePhase({
   )
 }
 
-function MilestonesHeader() {
+function MilestonesHeader({ compact = false }: { compact?: boolean }) {
   return (
-    <header className="flex w-full flex-col items-center justify-center gap-8 px-4 text-center">
-      <h2 className="font-display text-[28px] font-bold leading-9 text-foreground sm:text-[40px] sm:leading-10">
+    <header
+      className={`flex w-full flex-col items-center justify-center px-4 text-center ${
+        compact ? "gap-5" : "gap-8"
+      }`}
+    >
+      <h2
+        className={`font-display font-bold text-foreground ${
+          compact
+            ? "text-2xl leading-8"
+            : "text-[28px] leading-9 sm:text-[40px] sm:leading-10"
+        }`}
+      >
         Koo Development Milestones
       </h2>
-      <p className="max-w-[952px] text-base leading-6 text-muted-foreground">
+      <p
+        className={
+          compact
+            ? "text-xs leading-4 text-muted-foreground"
+            : "max-w-[952px] text-base leading-6 text-muted-foreground"
+        }
+      >
         Koo rolls out upgrades in progressive phases to boost market reach,
         capital efficiency and decentralization.
       </p>
     </header>
+  )
+}
+
+const accentText: Record<PhaseAccent, string> = {
+  green: "text-[#1aaf7d]",
+  blue: "text-[#3d9bf3]",
+  orange: "text-[#f28d21]",
+}
+
+function TintedIcon({
+  src,
+  className,
+}: {
+  src: string
+  className?: string
+}) {
+  return (
+    <span
+      aria-hidden
+      className={`inline-block size-4 shrink-0 ${className ?? ""}`}
+      style={{
+        backgroundColor: "currentColor",
+        maskImage: `url("${src}")`,
+        WebkitMaskImage: `url("${src}")`,
+        maskSize: "contain",
+        maskRepeat: "no-repeat",
+        maskPosition: "center",
+      }}
+    />
+  )
+}
+
+function ChevronIcon({ open }: { open: boolean }) {
+  return (
+    <svg
+      width="20"
+      height="20"
+      viewBox="0 0 20 20"
+      fill="none"
+      aria-hidden
+      className={`milestone-ease size-5 shrink-0 text-foreground duration-500 ${
+        open ? "rotate-180" : ""
+      }`}
+    >
+      <path
+        d="M5 7.5 10 12.5 15 7.5"
+        stroke="currentColor"
+        strokeWidth="1.6"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  )
+}
+
+function MobilePhaseCard({
+  phase,
+  selected,
+  onSelect,
+}: {
+  phase: Phase
+  selected: boolean
+  onSelect: (id: PhaseId) => void
+}) {
+  const details = phase.features ?? phase.upgrades
+
+  return (
+    <button
+      type="button"
+      aria-expanded={selected}
+      onClick={() => onSelect(phase.id)}
+      data-accent={phase.accent}
+      className={`milestone-m-card w-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background ${selected ? "is-open" : ""}`}
+    >
+      <div className="milestone-m-glow" aria-hidden>
+        <div className="milestone-m-glow-blob" />
+      </div>
+
+      <div className="relative z-10 flex flex-col gap-4">
+        <div className="flex items-start justify-between gap-3">
+          <div className="flex min-w-0 flex-1 flex-col gap-2">
+            <div className="flex items-center gap-1.5">
+              <span
+                className={`milestone-ease ${
+                  selected ? accentText[phase.accent] : "text-foreground/80"
+                }`}
+              >
+                <TintedIcon src={phase.icon} />
+              </span>
+              <p
+                className={`milestone-ease text-sm leading-[14px] ${
+                  selected ? accentText[phase.accent] : "text-foreground/80"
+                }`}
+              >
+                {phase.label}
+              </p>
+            </div>
+            <h3
+              className={`font-display text-xl font-semibold leading-5 ${
+                selected ? "text-foreground" : "text-foreground/80"
+              }`}
+            >
+              {phase.title}
+            </h3>
+          </div>
+          <ChevronIcon open={selected} />
+        </div>
+
+        {phase.goals ? (
+          <div>
+            <div
+              className="milestone-features milestone-m-extra"
+              data-open={selected ? "false" : "true"}
+            >
+              <div className="milestone-features-inner">
+                <div className="flex flex-wrap content-start gap-3">
+                  {phase.tags.map((tag) => (
+                    <span key={tag} className="milestone-m-tag">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+            <div
+              className="milestone-features milestone-m-extra"
+              data-open={selected ? "true" : "false"}
+            >
+              <div className="milestone-features-inner">
+                <div className="flex flex-col gap-4">
+                  {phase.goals.map((goal) => (
+                    <div key={goal.title} className="flex flex-col gap-1.5">
+                      <p className="font-display text-sm font-semibold leading-[14px] text-foreground">
+                        {goal.title}
+                      </p>
+                      <p className="text-xs leading-4 text-muted-foreground">
+                        {goal.body}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        ) : (
+          <div>
+            <div className="flex flex-col gap-3">
+              {phase.description ? (
+                <p
+                  className={`text-xs leading-4 ${
+                    selected ? "text-muted-foreground" : "text-faint"
+                  }`}
+                >
+                  {phase.description}
+                </p>
+              ) : null}
+              <div className="flex flex-wrap content-start gap-3">
+                {phase.tags.map((tag) => (
+                  <span key={tag} className="milestone-m-tag">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </div>
+            {details ? (
+              <div
+                className="milestone-features milestone-m-extra"
+                data-open={selected ? "true" : "false"}
+              >
+                <div className="milestone-features-inner">
+                  <div className="flex flex-col gap-3">
+                    <p className="font-display text-sm font-semibold leading-[14px] text-foreground">
+                      {phase.detailsTitle}
+                    </p>
+                    <ol className="list-decimal pl-[18px] text-xs leading-4 text-muted-foreground">
+                      {details.map((item) => (
+                        <li
+                          key={item}
+                          className={`mb-1 last:mb-0 ${
+                            selected ? "milestone-feature-item" : ""
+                          }`}
+                        >
+                          {item}
+                        </li>
+                      ))}
+                    </ol>
+                  </div>
+                </div>
+              </div>
+            ) : null}
+          </div>
+        )}
+      </div>
+    </button>
+  )
+}
+
+function MobileComposition({
+  selectedId,
+  onSelect,
+}: {
+  selectedId: PhaseId
+  onSelect: (id: PhaseId) => void
+}) {
+  return (
+    <div className="relative flex flex-col items-center gap-[220px] px-4 pb-6 pt-10 lg:hidden">
+      <MilestonesHeader compact />
+      <div
+        className="pointer-events-none absolute left-1/2 top-[206px] h-[168px] w-[310px] -translate-x-1/2"
+        aria-hidden
+      >
+        <img
+          src="/assets/milestones/center-glow.png"
+          alt=""
+          className="absolute left-1/2 top-4 h-[160px] w-auto max-w-none -translate-x-1/2 opacity-80"
+        />
+        <img
+          src="/assets/milestones/center-logo.png"
+          alt=""
+          className="absolute left-1/2 top-0 h-[168px] w-[195px] max-w-none -translate-x-1/2 object-contain"
+        />
+      </div>
+      <div
+        className="relative z-10 flex w-full max-w-[343px] flex-col gap-4"
+        role="group"
+        aria-label="Development milestone phases"
+      >
+        {phases.map((phase) => (
+          <MobilePhaseCard
+            key={phase.id}
+            phase={phase}
+            selected={selectedId === phase.id}
+            onSelect={onSelect}
+          />
+        ))}
+      </div>
+    </div>
   )
 }
 
@@ -417,36 +717,7 @@ export function DevelopmentMilestonesSection() {
         />
       </div>
 
-      <div className="flex flex-col items-center gap-16 px-6 pb-20 pt-14 sm:gap-[100px] sm:px-10 sm:pb-[120px] sm:pt-[100px] lg:hidden">
-        <MilestonesHeader />
-        <div
-          className="flex w-full max-w-[560px] flex-col gap-10"
-          role="group"
-          aria-label="Development milestone phases"
-        >
-          <div className="relative mx-auto h-[220px] w-full max-w-[320px]">
-            <img
-              src="/assets/milestones/center-glow.png"
-              alt=""
-              aria-hidden
-              className="absolute inset-x-0 top-8 mx-auto h-[160px] w-auto opacity-80"
-            />
-            <img
-              src="/assets/milestones/center-logo.png"
-              alt="Koo"
-              className="relative mx-auto h-[200px] w-auto object-contain"
-            />
-          </div>
-          {phases.map((phase) => (
-            <MilestonePhase
-              key={phase.id}
-              phase={phase}
-              selected={selectedId === phase.id}
-              onSelect={setSelectedId}
-            />
-          ))}
-        </div>
-      </div>
+      <MobileComposition selectedId={selectedId} onSelect={setSelectedId} />
     </section>
   )
 }
