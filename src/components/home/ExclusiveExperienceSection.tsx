@@ -200,6 +200,24 @@ export function ExclusiveExperienceSection() {
                 setActiveIndex(index)
               }}
             >
+              <div className="experience-left">
+                <div className="experience-title">
+                  <h3 className="font-display text-base font-semibold leading-4 text-foreground lg:text-[32px] lg:leading-10">
+                    <span className={`lg:inline-block ${feature.titleClass}`}>
+                      {feature.title}
+                    </span>
+                  </h3>
+                </div>
+                <div className="experience-under" aria-hidden={!isActive}>
+                  <div className="experience-under-inner">
+                    <FeatureCopy
+                      description={feature.description}
+                      tags={feature.tags}
+                    />
+                  </div>
+                </div>
+              </div>
+
               <div
                 className={`experience-media ${
                   feature.blendLighten ? "mix-blend-lighten" : ""
@@ -211,10 +229,11 @@ export function ExclusiveExperienceSection() {
                   }}
                   className="experience-media-video"
                   src={feature.video}
+                  poster={feature.image}
                   muted
                   loop
                   playsInline
-                  preload="metadata"
+                  preload="auto"
                 />
                 <img
                   className="experience-media-image"
@@ -225,24 +244,6 @@ export function ExclusiveExperienceSection() {
                   aria-hidden
                   className="pointer-events-none absolute inset-0 rounded-[inherit] shadow-[inset_16px_16px_16px_rgba(0,0,0,0.4)]"
                 />
-              </div>
-
-              <div className="experience-left">
-                <div className="experience-title">
-                  <h3 className="font-display text-base font-semibold leading-4 text-foreground lg:text-[32px] lg:leading-10">
-                    <span className={`lg:inline-block ${feature.titleClass}`}>
-                      {feature.title}
-                    </span>
-                  </h3>
-                </div>
-                <div className="experience-under" aria-hidden="true">
-                  <div className="experience-under-inner">
-                    <FeatureCopy
-                      description={feature.description}
-                      tags={feature.tags}
-                    />
-                  </div>
-                </div>
               </div>
 
               <div className="experience-side">
