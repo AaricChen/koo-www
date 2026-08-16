@@ -1,4 +1,9 @@
 import { useEffect, useRef, useState, type CSSProperties } from "react"
+import {
+  MILESTONE_DESIGN_HEIGHT,
+  MILESTONE_DESIGN_WIDTH,
+  milestoneWrapperHeight,
+} from "../../lib/milestone-layout"
 
 type PhaseId = "phase-1" | "phase-2" | "phase-3" | "phase-4"
 type PhaseAccent = "green" | "blue" | "cyan" | "orange"
@@ -51,10 +56,10 @@ const phases: readonly Phase[] = [
     icon: "/assets/milestones/time-lapse.svg",
     title: "Q4 2026",
     description: "Ecosystem expansion for higher capital flexibility.",
-    tags: ["Multi-Chain", "Multi-Yeld Sources", "Unified Margin"],
+    tags: ["Multi-Chain", "Multi-Yield Sources", "Unified Margin"],
     detailsTitle: "Upgrades",
     upgrades: [
-      "Multi-chain deployment on Optimism, Base, etc..",
+      "Multi-chain deployment on Optimism, Base, etc.",
       "Extra yield strategies for idle margin.",
       "Diversified yield-bearing collateral assets",
       "Cross-asset unified margin account",
@@ -70,12 +75,12 @@ const phases: readonly Phase[] = [
     title: "Q1 2027",
     description:
       "Deep infrastructure construction & full decentralized iteration.",
-    tags: ["Custom Block Chain", "Pro trading tools", "DAO Governance"],
+    tags: ["Custom Blockchain", "Pro trading tools", "DAO Governance"],
     detailsTitle: "Upgrades",
     upgrades: [
-      "Custom Block Chain for settlement & execution",
+      "Custom Blockchain for settlement & execution",
       "Professional-grade trading tools & order types",
-      "Multi-asset markets: spot, predictions, etc..",
+      "Multi-asset markets: spot, predictions, etc.",
       "Full DAO control of protocol parameters",
     ],
     accent: "cyan",
@@ -118,9 +123,6 @@ const phases: readonly Phase[] = [
   },
 ]
 
-const DESIGN_WIDTH = 1440
-const DESIGN_HEIGHT = 1228
-
 function useScaleToWidth(designWidth: number) {
   const ref = useRef<HTMLDivElement>(null)
   const canvasRef = useRef<HTMLDivElement>(null)
@@ -129,26 +131,22 @@ function useScaleToWidth(designWidth: number) {
       ? 1
       : Math.min(1, window.innerWidth / designWidth),
   )
-  const [canvasHeight, setCanvasHeight] = useState(DESIGN_HEIGHT)
 
   useEffect(() => {
     const node = ref.current
-    const canvas = canvasRef.current
-    if (!node || !canvas) return
+    if (!node) return
 
     const update = () => {
       setScale(Math.min(1, node.clientWidth / designWidth))
-      setCanvasHeight(Math.max(DESIGN_HEIGHT, canvas.scrollHeight))
     }
 
     update()
     const observer = new ResizeObserver(update)
     observer.observe(node)
-    observer.observe(canvas)
     return () => observer.disconnect()
   }, [designWidth])
 
-  return { ref, canvasRef, scale, canvasHeight }
+  return { ref, canvasRef, scale }
 }
 
 function MilestoneTag({
@@ -257,9 +255,8 @@ function MilestonePhase({
       type="button"
       aria-pressed={selected}
       onClick={() => onSelect(phase.id)}
-      onMouseEnter={() => onSelect(phase.id)}
       onFocus={() => onSelect(phase.id)}
-      className="relative flex cursor-pointer flex-col items-start justify-center text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1aaf7d]/ring-offset-2 focus-visible:ring-offset-background"
+      className="relative flex cursor-pointer flex-col items-start justify-center text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1aaf7d] focus-visible:ring-offset-2 focus-visible:ring-offset-background"
     >
       <div
         className={`milestone-ease pointer-events-none absolute left-[-32px] top-[-10px] h-[366px] w-[392px] duration-500 ${
@@ -664,16 +661,20 @@ function DesktopComposition({
   selectedId: PhaseId
   onSelect: (id: PhaseId) => void
 }) {
-  const { ref, canvasRef, scale, canvasHeight } = useScaleToWidth(DESIGN_WIDTH)
+  const { ref, canvasRef, scale } = useScaleToWidth(MILESTONE_DESIGN_WIDTH)
 
   return (
-    <div ref={ref} className="w-full" style={{ height: canvasHeight * scale }}>
+    <div
+      ref={ref}
+      className="w-full"
+      style={{ height: milestoneWrapperHeight(MILESTONE_DESIGN_HEIGHT, scale) }}
+    >
       <div
         ref={canvasRef}
         className="relative origin-top-left"
         style={{
-          width: DESIGN_WIDTH,
-          minHeight: DESIGN_HEIGHT,
+          width: MILESTONE_DESIGN_WIDTH,
+          minHeight: MILESTONE_DESIGN_HEIGHT,
           transform: `scale(${scale})`,
         }}
         role="group"

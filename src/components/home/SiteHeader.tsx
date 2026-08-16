@@ -2,9 +2,8 @@ import { APP_URL, DOCS_URL } from "../../lib/links"
 import { OutlineButton } from "../ui/Button"
 
 const navItems = [
-  { label: "Home", href: "#", active: true },
+  { label: "Home", href: "/", active: true },
   { label: "Docs", href: DOCS_URL, active: false },
-  { label: "Community", href: "#", active: false },
 ] as const
 
 export function SiteHeader() {

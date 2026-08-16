@@ -3,7 +3,7 @@ import { GradientButton } from "../ui/Button"
 import { BackgroundVideo } from "./BackgroundVideo"
 
 /**
- * Figma `Enter KryptoX` (3732:11027) / `Enter KryptoX-m` (3487:58734)
+ * Figma `Enter Koo` (3732:11027) / `Enter Koo-m` (3487:58734)
  */
 export function EnterKooSection() {
   return (

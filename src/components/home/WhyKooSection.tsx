@@ -67,8 +67,7 @@ export function WhyKooSection() {
       <div className="relative w-full max-w-[1280px] pt-[164px] lg:pt-0">
         <ProductFrame className="pointer-events-none absolute top-0 left-1/2 z-0 h-[230px] w-[315px] -translate-x-1/2 lg:hidden" />
 
-        {/* Group 5 — exact Figma box: 501.98×402.88 @ (757.96, -67) */}
-        <div className="pointer-events-none absolute top-[-67px] left-[758px] z-0 hidden h-[403px] w-[502px] lg:block">
+        <div className="pointer-events-none absolute top-[-67px] right-0 z-0 hidden h-[403px] w-[min(502px,46%)] max-w-full lg:block">
           <img
             src="/assets/why/product.png"
             alt=""

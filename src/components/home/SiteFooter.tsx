@@ -1,18 +1,5 @@
 import { DOCS_URL } from "../../lib/links"
 
-const links = [
-  { label: "Docs", href: DOCS_URL },
-  { label: "Support", href: "#" },
-  { label: "Terms of Service", href: "#" },
-  { label: "Privacy Policy", href: "#" },
-] as const
-
-const socials = [
-  { name: "X", src: "/assets/footer/social-x.svg", href: "#" },
-  { name: "Discord", src: "/assets/footer/social-discord.svg", href: "#" },
-  { name: "Telegram", src: "/assets/footer/social-tg.svg", href: "#" },
-] as const
-
 export function SiteFooter() {
   return (
     <footer className="bg-footer-bar flex flex-col items-center gap-6 px-4 py-6 lg:flex-row lg:items-end lg:justify-between lg:px-20 lg:pb-[60px] lg:pt-10">
@@ -42,55 +29,19 @@ export function SiteFooter() {
         </p>
       </div>
 
-      <div className="flex w-full max-w-[395px] flex-col items-center gap-6 lg:items-end">
-        <nav
-          aria-label="Footer"
-          className="flex flex-wrap items-center justify-center gap-x-3 gap-y-2 text-xs leading-3 text-muted-foreground lg:justify-end lg:gap-x-5 lg:text-sm lg:leading-[14px]"
+      <nav
+        aria-label="Footer"
+        className="flex flex-wrap items-center justify-center text-xs leading-3 text-muted-foreground lg:justify-end lg:text-sm lg:leading-[14px]"
+      >
+        <a
+          href={DOCS_URL}
+          className="transition hover:text-foreground"
+          target="_blank"
+          rel="noreferrer"
         >
-          {links.slice(0, 2).map((link) => (
-            <a
-              key={link.label}
-              href={link.href}
-              className="transition hover:text-foreground"
-              target={link.href.startsWith("http") ? "_blank" : undefined}
-              rel={link.href.startsWith("http") ? "noreferrer" : undefined}
-            >
-              {link.label}
-            </a>
-          ))}
-          <span aria-hidden className="text-sm leading-[14px]">
-            ｜
-          </span>
-          {links.slice(2).map((link) => (
-            <a
-              key={link.label}
-              href={link.href}
-              className="transition hover:text-foreground"
-            >
-              {link.label}
-            </a>
-          ))}
-        </nav>
-
-        <div className="flex items-center gap-4 lg:justify-end">
-          {socials.map((social) => (
-            <a
-              key={social.name}
-              href={social.href}
-              aria-label={social.name}
-              className="size-6 overflow-hidden opacity-90 transition hover:opacity-100"
-            >
-              <img
-                src={social.src}
-                alt=""
-                className="size-full"
-                width={24}
-                height={24}
-              />
-            </a>
-          ))}
-        </div>
-      </div>
+          Docs
+        </a>
+      </nav>
 
       <p className="mt-6 whitespace-nowrap text-xs leading-3 text-faint lg:hidden">
         © 2026 Koo. All Rights Reserved.

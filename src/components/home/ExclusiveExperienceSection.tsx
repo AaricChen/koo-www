@@ -1,4 +1,9 @@
 import { useEffect, useRef, useState } from "react"
+import {
+  isExperienceActivateKey,
+  shouldPlayExperienceVideo,
+} from "../../lib/experience-media"
+import { reportMediaFailure } from "../../lib/report"
 
 const features = [
   {
@@ -31,7 +36,7 @@ const features = [
     title: "Event Futures",
     titleClass: "max-w-[300px]",
     description:
-      "Trade every event on-chain. Sport matches, CEX market share, political and economic events etc..",
+      "Trade every event on-chain. Sport matches, CEX market share, political and economic events etc.",
     tags: ["Trade Everything"],
     image: "/assets/experience/futures.png",
     video: "/assets/experience/futures.mp4",
@@ -90,9 +95,34 @@ const MID_ZONE_BOTTOM = 0.6
 
 export function ExclusiveExperienceSection() {
   const [activeIndex, setActiveIndex] = useState(0)
+  const [sectionVisible, setSectionVisible] = useState(false)
+  const [reducedMotion, setReducedMotion] = useState(false)
   const activeIndexRef = useRef(0)
   const videoRefs = useRef<Array<HTMLVideoElement | null>>([])
   const itemRefs = useRef<Array<HTMLElement | null>>([])
+  const sectionRef = useRef<HTMLElement>(null)
+
+  useEffect(() => {
+    const motion = window.matchMedia("(prefers-reduced-motion: reduce)")
+    const syncMotion = () => setReducedMotion(motion.matches)
+    syncMotion()
+    motion.addEventListener("change", syncMotion)
+    return () => motion.removeEventListener("change", syncMotion)
+  }, [])
+
+  useEffect(() => {
+    const section = sectionRef.current
+    if (!section) return
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setSectionVisible(entry.isIntersecting)
+      },
+      { threshold: 0.15 },
+    )
+    observer.observe(section)
+    return () => observer.disconnect()
+  }, [])
 
   useEffect(() => {
     let frame = 0
@@ -154,29 +184,44 @@ export function ExclusiveExperienceSection() {
 
     videoRefs.current.forEach((video, index) => {
       if (!video) return
-      if (index === activeIndex) {
-        void video.play().catch(() => {})
+      if (
+        shouldPlayExperienceVideo({
+          isActive: index === activeIndex,
+          sectionVisible,
+          reducedMotion,
+        })
+      ) {
+        video.muted = true
+        video.defaultMuted = true
+        void video.play().catch((error) => {
+          reportMediaFailure(features[index].video, error)
+        })
         return
       }
       video.pause()
-      resetTimers.push(
-        window.setTimeout(() => {
-          try {
-            video.currentTime = 0
-          } catch {
-            /* ignore seek errors before metadata */
-          }
-        }, 320),
-      )
+      if (index !== activeIndex) {
+        resetTimers.push(
+          window.setTimeout(() => {
+            try {
+              video.currentTime = 0
+            } catch {
+              /* ignore seek errors before metadata */
+            }
+          }, 320),
+        )
+      }
     })
 
     return () => {
       resetTimers.forEach((timer) => window.clearTimeout(timer))
     }
-  }, [activeIndex])
+  }, [activeIndex, sectionVisible, reducedMotion])
 
   return (
-    <section className="bg-section-alt flex flex-col items-center gap-10 px-4 py-10 sm:px-10 lg:gap-[120px] lg:px-20 lg:pb-[120px] lg:pt-[100px]">
+    <section
+      ref={sectionRef}
+      className="bg-section-alt flex flex-col items-center gap-10 px-4 py-10 sm:px-10 lg:gap-[120px] lg:px-20 lg:pb-[120px] lg:pt-[100px]"
+    >
       <div className="w-full max-w-[1280px] px-10 text-center">
         <h2 className="font-display text-2xl font-bold leading-8 text-foreground sm:text-[28px] sm:leading-9 lg:text-[40px] lg:leading-10">
           The Koo Exclusive Experience
@@ -194,8 +239,16 @@ export function ExclusiveExperienceSection() {
                 itemRefs.current[index] = node
               }}
               className={`experience-item${isActive ? " is-active" : ""}`}
+              aria-label={feature.title}
               aria-current={isActive ? "true" : undefined}
+              tabIndex={0}
               onClick={() => {
+                activeIndexRef.current = index
+                setActiveIndex(index)
+              }}
+              onKeyDown={(event) => {
+                if (!isExperienceActivateKey(event.key)) return
+                event.preventDefault()
                 activeIndexRef.current = index
                 setActiveIndex(index)
               }}
@@ -233,7 +286,7 @@ export function ExclusiveExperienceSection() {
                   muted
                   loop
                   playsInline
-                  preload="auto"
+                  preload="metadata"
                 />
                 <img
                   className="experience-media-image"
@@ -246,7 +299,7 @@ export function ExclusiveExperienceSection() {
                 />
               </div>
 
-              <div className="experience-side">
+              <div className="experience-side" aria-hidden={isActive}>
                 <div className="experience-side-inner">
                   <FeatureCopy
                     description={feature.description}

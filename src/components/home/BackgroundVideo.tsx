@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react"
+import { reportMediaFailure } from "../../lib/report"
 
 type BackgroundVideoProps = {
   src: string
@@ -26,7 +27,9 @@ export function BackgroundVideo({
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          void video.play().catch(() => {})
+          void video.play().catch((error) => {
+            reportMediaFailure(src, error)
+          })
           return
         }
         video.pause()
@@ -36,7 +39,7 @@ export function BackgroundVideo({
 
     observer.observe(video)
     return () => observer.disconnect()
-  }, [])
+  }, [src])
 
   return (
     <>
