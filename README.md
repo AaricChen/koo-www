@@ -8,6 +8,7 @@ Koo product marketing website (PC + mobile homepage).
 - React
 - TypeScript
 - Tailwind CSS
+- Vitest + Testing Library
 
 ## Public URLs
 
@@ -29,8 +30,20 @@ pnpm build
 pnpm preview
 ```
 
-## Runtime notes
+## Homepage contracts
 
+- Exclusive Experience uses interpolatable `fr` tracks and a 320px desktop row height so enter/exit can animate. Scroll-spy waits `EXPERIENCE_ANIM_LOCK_MS` (420ms) before accepting another index.
 - Banner and Exclusive Experience videos play only when the section is on screen and `prefers-reduced-motion` is not `reduce`.
-- Media and render failures log as `[koo-www]` on the console.
+- Milestones desktop canvas is reserved at 1440×1480 and scaled by width. Wrapper height does not follow content `scrollHeight`.
 - Poppins is self-hosted from `/fonts/poppins-*.woff2`.
+- `index.html` sets `referrer` to `strict-origin-when-cross-origin`.
+
+## Diagnostics
+
+Media, render, window, and unhandled-rejection failures log as `[koo-www]` and are stored in an in-memory ring (50 events).
+
+```ts
+import { getDiagnosticCounts, getDiagnosticEvents } from "./src/lib/report"
+```
+
+Use the counts and latest events when a video or render fails in a session. There is no remote metrics backend.

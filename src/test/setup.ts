@@ -1,5 +1,5 @@
 import { cleanup } from "@testing-library/react"
-import { afterEach } from "vitest"
+import { afterEach, vi } from "vitest"
 
 afterEach(() => {
   cleanup()
@@ -8,4 +8,13 @@ afterEach(() => {
 if (typeof HTMLMediaElement !== "undefined") {
   HTMLMediaElement.prototype.play = async () => undefined
   HTMLMediaElement.prototype.pause = () => undefined
+}
+
+if (typeof ResizeObserver === "undefined") {
+  class FakeResizeObserver {
+    observe() {}
+    unobserve() {}
+    disconnect() {}
+  }
+  vi.stubGlobal("ResizeObserver", FakeResizeObserver)
 }

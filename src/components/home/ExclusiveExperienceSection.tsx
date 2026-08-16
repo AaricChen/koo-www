@@ -3,6 +3,11 @@ import {
   isExperienceActivateKey,
   shouldPlayExperienceVideo,
 } from "../../lib/experience-media"
+import {
+  EXPERIENCE_ANIM_LOCK_MS,
+  nextExperienceIndexFromRects,
+  shouldAcceptExperienceIndexChange,
+} from "../../lib/experience-scroll"
 import { reportMediaFailure } from "../../lib/report"
 
 const features = [
@@ -98,9 +103,16 @@ export function ExclusiveExperienceSection() {
   const [sectionVisible, setSectionVisible] = useState(false)
   const [reducedMotion, setReducedMotion] = useState(false)
   const activeIndexRef = useRef(0)
+  const lockUntilRef = useRef(0)
   const videoRefs = useRef<Array<HTMLVideoElement | null>>([])
   const itemRefs = useRef<Array<HTMLElement | null>>([])
   const sectionRef = useRef<HTMLElement>(null)
+
+  const activate = (index: number) => {
+    activeIndexRef.current = index
+    lockUntilRef.current = performance.now() + EXPERIENCE_ANIM_LOCK_MS
+    setActiveIndex(index)
+  }
 
   useEffect(() => {
     const motion = window.matchMedia("(prefers-reduced-motion: reduce)")
@@ -136,32 +148,27 @@ export function ExclusiveExperienceSection() {
 
       const zoneTop = window.innerHeight * MID_ZONE_TOP
       const zoneBottom = window.innerHeight * MID_ZONE_BOTTOM
-      const nodes = itemRefs.current
       const prev = activeIndexRef.current
-      let next = prev
-
-      if (goingDown) {
-        next = 0
-        for (let i = 0; i < nodes.length; i++) {
-          const el = nodes[i]
-          if (!el) continue
-          if (el.getBoundingClientRect().top <= zoneBottom) next = i
-        }
-      } else {
-        next = Math.max(nodes.length - 1, 0)
-        for (let i = 0; i < nodes.length; i++) {
-          const el = nodes[i]
-          if (!el) continue
-          if (el.getBoundingClientRect().bottom >= zoneTop) {
-            next = i
-            break
-          }
-        }
-      }
+      const next = nextExperienceIndexFromRects({
+        goingDown,
+        zoneTop,
+        zoneBottom,
+        rects: itemRefs.current.map((el) =>
+          el ? el.getBoundingClientRect() : null,
+        ),
+        prev,
+      })
 
       if (next === prev) return
-      activeIndexRef.current = next
-      setActiveIndex(next)
+      if (
+        !shouldAcceptExperienceIndexChange(
+          performance.now(),
+          lockUntilRef.current,
+        )
+      ) {
+        return
+      }
+      activate(next)
     }
 
     const onScrollOrResize = () => {
@@ -243,14 +250,12 @@ export function ExclusiveExperienceSection() {
               aria-current={isActive ? "true" : undefined}
               tabIndex={0}
               onClick={() => {
-                activeIndexRef.current = index
-                setActiveIndex(index)
+                activate(index)
               }}
               onKeyDown={(event) => {
                 if (!isExperienceActivateKey(event.key)) return
                 event.preventDefault()
-                activeIndexRef.current = index
-                setActiveIndex(index)
+                activate(index)
               }}
             >
               <div className="experience-left">
