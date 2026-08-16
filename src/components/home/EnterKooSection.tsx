@@ -11,7 +11,7 @@ export function EnterKooSection() {
       <div className="pointer-events-none absolute inset-0">
         <BackgroundVideo
           src="/assets/enter/section-bg.mp4"
-          poster="/assets/enter/section-bg.png"
+          playOnCompact
           className="size-full object-cover object-center"
         />
       </div>
@@ -37,7 +37,7 @@ export function EnterKooSection() {
           href={APP_URL}
           target="_blank"
           rel="noreferrer"
-          className="h-auto w-[300px] rounded-lg px-[34px] py-3 text-base font-medium leading-4 lg:h-12 lg:min-w-[200px] lg:w-auto lg:py-[14px] lg:text-xl lg:leading-5"
+          className="h-auto w-full max-w-[300px] rounded-lg px-[34px] py-3 text-base font-medium leading-4 lg:h-12 lg:min-w-[200px] lg:w-auto lg:py-[14px] lg:text-xl lg:leading-5"
         >
           Start Trading
         </GradientButton>

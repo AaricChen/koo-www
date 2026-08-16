@@ -10,7 +10,10 @@ export function SiteHeader() {
   return (
     <header className="sticky top-0 z-50 w-full bg-transparent backdrop-blur-[12px]">
       <div className="flex w-full items-center justify-between px-4 py-5 sm:px-7">
-        <a href="/" className="relative block h-10 w-[175px] shrink-0 overflow-hidden">
+        <a
+          href="/"
+          className="relative block h-8 w-[min(120px,38vw)] shrink-0 overflow-hidden sm:h-10 sm:w-[175px]"
+        >
           <img
             src="/assets/koo-logo-2.png"
             alt="Koo.xyz"
@@ -20,7 +23,15 @@ export function SiteHeader() {
           />
         </a>
 
-        <div className="flex items-center justify-end gap-6 sm:gap-12">
+        <div className="flex min-w-0 items-center justify-end gap-3 sm:gap-12">
+          <a
+            href={DOCS_URL}
+            className="whitespace-nowrap text-sm leading-4 text-muted-foreground transition hover:text-foreground md:hidden"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Docs
+          </a>
           <nav
             aria-label="Primary"
             className="hidden items-center gap-[29px] md:flex"
@@ -56,6 +67,7 @@ export function SiteHeader() {
             href={APP_URL}
             target="_blank"
             rel="noreferrer"
+            className="min-h-11 shrink-0 px-3 text-xs sm:min-h-0 sm:px-4 sm:py-[11px] sm:text-sm"
           >
             Launch App
           </OutlineButton>

@@ -87,7 +87,7 @@ export function HeroSection() {
             href={APP_URL}
             target="_blank"
             rel="noreferrer"
-            className="h-auto w-[300px] rounded-lg px-[34px] py-3 text-base leading-4 lg:h-14 lg:min-w-[212px] lg:w-auto lg:py-[14px] lg:text-xl lg:leading-5"
+            className="h-auto w-full max-w-[300px] rounded-lg px-[34px] py-3 text-base leading-4 lg:h-14 lg:min-w-[212px] lg:w-auto lg:py-[14px] lg:text-xl lg:leading-5"
           >
             Start Trading
           </GradientButton>

@@ -2,16 +2,21 @@ import { fireEvent, render, screen } from "@testing-library/react"
 import { beforeEach, describe, expect, it, vi } from "vitest"
 import { ExclusiveExperienceSection } from "./ExclusiveExperienceSection"
 
-beforeEach(() => {
+function stubMatchMedia(matchesQuery: (query: string) => boolean) {
   Object.defineProperty(window, "matchMedia", {
     writable: true,
+    configurable: true,
     value: (query: string) => ({
-      matches: false,
+      matches: matchesQuery(query),
       media: query,
       addEventListener: () => {},
       removeEventListener: () => {},
     }),
   })
+}
+
+beforeEach(() => {
+  stubMatchMedia(() => false)
   class FakeIntersectionObserver {
     observe() {}
     disconnect() {}
@@ -35,12 +40,17 @@ describe("ExclusiveExperienceSection", () => {
     expect(first.getAttribute("aria-current")).toBeNull()
   })
 
-  it("does not eager-preload experience videos", () => {
+  it("keeps stacked mobile copy visible to AT and still mounts clips", () => {
     const { container } = render(<ExclusiveExperienceSection />)
     const videos = container.querySelectorAll("video")
     expect(videos.length).toBe(4)
     for (const video of videos) {
       expect(video.getAttribute("preload")).toBe("metadata")
+    }
+    const under = container.querySelectorAll(".experience-under")
+    expect(under.length).toBeGreaterThan(0)
+    for (const node of under) {
+      expect(node.getAttribute("aria-hidden")).toBe("false")
     }
   })
 })

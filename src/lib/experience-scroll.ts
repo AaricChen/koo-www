@@ -7,6 +7,10 @@ export function shouldAcceptExperienceIndexChange(
   return now >= lockUntil
 }
 
+export function shouldBindExperienceScrollSpy(compactLayout: boolean): boolean {
+  return !compactLayout
+}
+
 export function nextExperienceIndexFromRects({
   goingDown,
   zoneTop,

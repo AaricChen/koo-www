@@ -3,6 +3,7 @@ import {
   EXPERIENCE_ANIM_LOCK_MS,
   nextExperienceIndexFromRects,
   shouldAcceptExperienceIndexChange,
+  shouldBindExperienceScrollSpy,
 } from "./experience-scroll"
 
 const rects = [
@@ -46,6 +47,13 @@ describe("nextExperienceIndexFromRects", () => {
         prev: 2,
       }),
     ).toBe(2)
+  })
+})
+
+describe("shouldBindExperienceScrollSpy", () => {
+  it("does not bind the desktop mid-zone spy on the compact stack", () => {
+    expect(shouldBindExperienceScrollSpy(true)).toBe(false)
+    expect(shouldBindExperienceScrollSpy(false)).toBe(true)
   })
 })
 

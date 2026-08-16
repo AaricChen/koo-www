@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest"
 import {
   isExperienceActivateKey,
+  shouldHideExperienceUnderFromAT,
   shouldPlayExperienceVideo,
 } from "./experience-media"
 import { milestoneWrapperHeight } from "./milestone-layout"
@@ -16,7 +17,7 @@ describe("shouldPlayExperienceVideo", () => {
     ).toBe(true)
   })
 
-  it("does not play off-screen, inactive, or reduced-motion clips", () => {
+  it("does not play off-screen, inactive desktop, or reduced-motion clips", () => {
     expect(
       shouldPlayExperienceVideo({
         isActive: true,
@@ -38,6 +39,44 @@ describe("shouldPlayExperienceVideo", () => {
         reducedMotion: true,
       }),
     ).toBe(false)
+  })
+
+  it("plays a stacked clip only when that card is on screen", () => {
+    expect(
+      shouldPlayExperienceVideo({
+        isActive: false,
+        sectionVisible: true,
+        reducedMotion: false,
+        compactLayout: true,
+        cardVisible: false,
+      }),
+    ).toBe(false)
+    expect(
+      shouldPlayExperienceVideo({
+        isActive: false,
+        sectionVisible: true,
+        reducedMotion: false,
+        compactLayout: true,
+        cardVisible: true,
+      }),
+    ).toBe(true)
+  })
+})
+
+describe("shouldHideExperienceUnderFromAT", () => {
+  it("keeps stacked mobile copy in the accessibility tree", () => {
+    expect(
+      shouldHideExperienceUnderFromAT({
+        isActive: false,
+        compactLayout: true,
+      }),
+    ).toBe(false)
+    expect(
+      shouldHideExperienceUnderFromAT({
+        isActive: false,
+        compactLayout: false,
+      }),
+    ).toBe(true)
   })
 })
 

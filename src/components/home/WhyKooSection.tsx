@@ -41,7 +41,8 @@ function ProductFrame({ className }: { className?: string }) {
           <div className="absolute inset-[2.5%] overflow-hidden rounded">
             <img
               src="/assets/why/product.png"
-              alt="Koo trading interface"
+              alt=""
+              aria-hidden
               className="size-full object-cover object-center"
               width={502}
               height={403}

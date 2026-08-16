@@ -10,6 +10,15 @@ if (typeof HTMLMediaElement !== "undefined") {
   HTMLMediaElement.prototype.pause = () => undefined
 }
 
+if (typeof IntersectionObserver === "undefined") {
+  class FakeIntersectionObserver {
+    observe() {}
+    unobserve() {}
+    disconnect() {}
+  }
+  vi.stubGlobal("IntersectionObserver", FakeIntersectionObserver)
+}
+
 if (typeof ResizeObserver === "undefined") {
   class FakeResizeObserver {
     observe() {}
@@ -17,4 +26,20 @@ if (typeof ResizeObserver === "undefined") {
     disconnect() {}
   }
   vi.stubGlobal("ResizeObserver", FakeResizeObserver)
+}
+
+if (typeof window.matchMedia !== "function") {
+  Object.defineProperty(window, "matchMedia", {
+    writable: true,
+    configurable: true,
+    value: (query: string) => ({
+      matches: false,
+      media: query,
+      addEventListener: () => {},
+      removeEventListener: () => {},
+      addListener: () => {},
+      removeListener: () => {},
+      dispatchEvent: () => false,
+    }),
+  })
 }

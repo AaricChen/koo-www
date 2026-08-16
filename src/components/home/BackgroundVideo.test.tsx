@@ -37,10 +37,60 @@ describe("BackgroundVideo", () => {
     expect(play).not.toHaveBeenCalled()
   })
 
-  it("preloads metadata only", () => {
-    vi.stubGlobal("matchMedia", () => ({
+  it("does not mount a video element on the compact layout", () => {
+    vi.stubGlobal("matchMedia", (query: string) => ({
       matches: false,
-      media: "",
+      media: query,
+      addEventListener: () => {},
+      removeEventListener: () => {},
+    }))
+    vi.stubGlobal(
+      "IntersectionObserver",
+      class {
+        observe() {}
+        disconnect() {}
+        unobserve() {}
+      },
+    )
+
+    const { container } = render(
+      <BackgroundVideo src="/assets/hero-bg.mp4" poster="/assets/hero-bg.png" />,
+    )
+    expect(container.querySelector("video")).toBeNull()
+    expect(container.querySelector("img")?.getAttribute("src")).toBe(
+      "/assets/hero-bg.png",
+    )
+  })
+
+  it("mounts a video on compact when playOnCompact is set", () => {
+    vi.stubGlobal("matchMedia", (query: string) => ({
+      matches: false,
+      media: query,
+      addEventListener: () => {},
+      removeEventListener: () => {},
+    }))
+    vi.stubGlobal(
+      "IntersectionObserver",
+      class {
+        observe() {}
+        disconnect() {}
+        unobserve() {}
+      },
+    )
+
+    const { container } = render(
+      <BackgroundVideo src="/assets/enter/section-bg.mp4" playOnCompact />,
+    )
+    expect(container.querySelector("img")).toBeNull()
+    expect(container.querySelector("video")?.getAttribute("src")).toBe(
+      "/assets/enter/section-bg.mp4",
+    )
+  })
+
+  it("preloads metadata only on lg", () => {
+    vi.stubGlobal("matchMedia", (query: string) => ({
+      matches: query.includes("min-width"),
+      media: query,
       addEventListener: () => {},
       removeEventListener: () => {},
     }))

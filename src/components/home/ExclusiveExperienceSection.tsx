@@ -1,14 +1,18 @@
 import { useEffect, useRef, useState } from "react"
 import {
   isExperienceActivateKey,
+  shouldHideExperienceUnderFromAT,
   shouldPlayExperienceVideo,
 } from "../../lib/experience-media"
 import {
   EXPERIENCE_ANIM_LOCK_MS,
   nextExperienceIndexFromRects,
   shouldAcceptExperienceIndexChange,
+  shouldBindExperienceScrollSpy,
 } from "../../lib/experience-scroll"
 import { reportMediaFailure } from "../../lib/report"
+import { useMatchMedia } from "../../lib/use-match-media"
+import { LG_MIN_WIDTH_QUERY } from "../../lib/viewport"
 
 const features = [
   {
@@ -99,8 +103,13 @@ const MID_ZONE_TOP = 0.4
 const MID_ZONE_BOTTOM = 0.6
 
 export function ExclusiveExperienceSection() {
+  const isLg = useMatchMedia(LG_MIN_WIDTH_QUERY, false)
+  const compactLayout = !isLg
   const [activeIndex, setActiveIndex] = useState(0)
   const [sectionVisible, setSectionVisible] = useState(false)
+  const [cardVisible, setCardVisible] = useState(() =>
+    features.map(() => false),
+  )
   const [reducedMotion, setReducedMotion] = useState(false)
   const activeIndexRef = useRef(0)
   const lockUntilRef = useRef(0)
@@ -137,6 +146,36 @@ export function ExclusiveExperienceSection() {
   }, [])
 
   useEffect(() => {
+    if (!compactLayout) {
+      setCardVisible(features.map(() => false))
+      return
+    }
+
+    const observers = itemRefs.current.map((el, index) => {
+      if (!el) return null
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          setCardVisible((prev) => {
+            if (prev[index] === entry.isIntersecting) return prev
+            const next = [...prev]
+            next[index] = entry.isIntersecting
+            return next
+          })
+        },
+        { threshold: 0.35 },
+      )
+      observer.observe(el)
+      return observer
+    })
+
+    return () => {
+      observers.forEach((observer) => observer?.disconnect())
+    }
+  }, [compactLayout])
+
+  useEffect(() => {
+    if (!shouldBindExperienceScrollSpy(compactLayout)) return
+
     let frame = 0
     let lastScrollY = window.scrollY
 
@@ -184,7 +223,7 @@ export function ExclusiveExperienceSection() {
       window.removeEventListener("resize", onScrollOrResize)
       if (frame) cancelAnimationFrame(frame)
     }
-  }, [])
+  }, [compactLayout])
 
   useEffect(() => {
     const resetTimers: number[] = []
@@ -196,6 +235,8 @@ export function ExclusiveExperienceSection() {
           isActive: index === activeIndex,
           sectionVisible,
           reducedMotion,
+          compactLayout,
+          cardVisible: cardVisible[index] === true,
         })
       ) {
         video.muted = true
@@ -206,7 +247,7 @@ export function ExclusiveExperienceSection() {
         return
       }
       video.pause()
-      if (index !== activeIndex) {
+      if (!compactLayout && index !== activeIndex) {
         resetTimers.push(
           window.setTimeout(() => {
             try {
@@ -222,7 +263,7 @@ export function ExclusiveExperienceSection() {
     return () => {
       resetTimers.forEach((timer) => window.clearTimeout(timer))
     }
-  }, [activeIndex, sectionVisible, reducedMotion])
+  }, [activeIndex, sectionVisible, reducedMotion, compactLayout, cardVisible])
 
   return (
     <section
@@ -266,7 +307,13 @@ export function ExclusiveExperienceSection() {
                     </span>
                   </h3>
                 </div>
-                <div className="experience-under" aria-hidden={!isActive}>
+                <div
+                  className="experience-under"
+                  aria-hidden={shouldHideExperienceUnderFromAT({
+                    isActive,
+                    compactLayout,
+                  })}
+                >
                   <div className="experience-under-inner">
                     <FeatureCopy
                       description={feature.description}

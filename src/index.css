@@ -542,6 +542,7 @@
       flex-direction: column;
       gap: 24px;
       grid-template-columns: none;
+      opacity: 1;
     }
 
     .experience-left,
@@ -585,6 +586,14 @@
       min-height: unset;
       aspect-ratio: 530 / 306;
       border-radius: 12px;
+    }
+
+    .experience-media-video,
+    .experience-item.is-active .experience-media-video,
+    .experience-media-image,
+    .experience-item.is-active .experience-media-image {
+      opacity: 1;
+      transform: none;
     }
   }
 }

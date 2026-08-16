@@ -10,6 +10,8 @@ import {
   type PhaseAccent,
   type PhaseId,
 } from "../../lib/milestone-phases"
+import { useMatchMedia } from "../../lib/use-match-media"
+import { LG_MIN_WIDTH_QUERY } from "../../lib/viewport"
 
 function useScaleToWidth(designWidth: number) {
   const ref = useRef<HTMLDivElement>(null)
@@ -665,18 +667,21 @@ function DesktopComposition({
 }
 
 export function DevelopmentMilestonesSection() {
+  const isLg = useMatchMedia(LG_MIN_WIDTH_QUERY, false)
   const [selectedId, setSelectedId] = useState<PhaseId>("phase-1")
 
   return (
     <section className="overflow-x-clip bg-background">
-      <div className="mx-auto hidden w-full max-w-[1440px] lg:block">
-        <DesktopComposition
-          selectedId={selectedId}
-          onSelect={setSelectedId}
-        />
-      </div>
-
-      <MobileComposition selectedId={selectedId} onSelect={setSelectedId} />
+      {isLg ? (
+        <div className="mx-auto w-full max-w-[1440px]">
+          <DesktopComposition
+            selectedId={selectedId}
+            onSelect={setSelectedId}
+          />
+        </div>
+      ) : (
+        <MobileComposition selectedId={selectedId} onSelect={setSelectedId} />
+      )}
     </section>
   )
 }
