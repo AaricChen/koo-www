@@ -1,7 +1,7 @@
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useRef, useState, type CSSProperties } from "react"
 
 type PhaseId = "phase-1" | "phase-2" | "phase-3" | "phase-4"
-type PhaseAccent = "green" | "blue" | "orange"
+type PhaseAccent = "green" | "blue" | "cyan" | "orange"
 
 type PhaseGoal = {
   title: string
@@ -78,7 +78,7 @@ const phases: readonly Phase[] = [
       "Multi-asset markets: spot, predictions, etc..",
       "Full DAO control of protocol parameters",
     ],
-    accent: "blue",
+    accent: "cyan",
     tagMaxWidth: "w-[381px]",
     gapClass: "gap-8",
   },
@@ -123,53 +123,73 @@ const DESIGN_HEIGHT = 1228
 
 function useScaleToWidth(designWidth: number) {
   const ref = useRef<HTMLDivElement>(null)
+  const canvasRef = useRef<HTMLDivElement>(null)
   const [scale, setScale] = useState(() =>
     typeof window === "undefined"
       ? 1
       : Math.min(1, window.innerWidth / designWidth),
   )
+  const [canvasHeight, setCanvasHeight] = useState(DESIGN_HEIGHT)
 
   useEffect(() => {
     const node = ref.current
-    if (!node) return
+    const canvas = canvasRef.current
+    if (!node || !canvas) return
 
     const update = () => {
       setScale(Math.min(1, node.clientWidth / designWidth))
+      setCanvasHeight(Math.max(DESIGN_HEIGHT, canvas.scrollHeight))
     }
 
     update()
     const observer = new ResizeObserver(update)
     observer.observe(node)
+    observer.observe(canvas)
     return () => observer.disconnect()
   }, [designWidth])
 
-  return { ref, scale }
+  return { ref, canvasRef, scale, canvasHeight }
 }
 
 function MilestoneTag({
   label,
   active,
+  accent,
 }: {
   label: string
   active: boolean
+  accent: PhaseAccent
 }) {
   return (
     <span
-      className={`milestone-ease inline-flex h-[34px] shrink-0 items-center rounded-[18px] border px-3.5 text-sm leading-[14px] text-foreground transition-[background-color,border-color,box-shadow] duration-500 ${
-        active
-          ? "border-[#1aaf7d] bg-[rgba(26,175,125,0.6)] shadow-[0_0_16px_rgba(26,175,125,0.25)]"
-          : "border-foreground bg-transparent"
-      }`}
+      data-accent={accent}
+      data-active={active ? "true" : "false"}
+      className="milestone-d-tag"
     >
       {label}
     </span>
   )
 }
 
+const accentText: Record<PhaseAccent, string> = {
+  green: "text-[#1aaf7d]",
+  blue: "text-[#3d9bf3]",
+  cyan: "text-[#38bdf8]",
+  orange: "text-[#f28d21]",
+}
+
+const pathHue: Record<PhaseAccent, string> = {
+  green: "",
+  blue: "hue-rotate(49deg) saturate(1.3)",
+  cyan: "hue-rotate(34deg) saturate(1.2)",
+  orange: "hue-rotate(233deg) saturate(1.5)",
+}
+
 function MilestonePath({
   onSrc,
   offSrc,
   active,
+  accent,
   frameClass,
   innerClass,
   transformClass,
@@ -177,6 +197,7 @@ function MilestonePath({
   onSrc: string
   offSrc: string
   active: boolean
+  accent: PhaseAccent
   frameClass: string
   innerClass: string
   transformClass?: string
@@ -191,14 +212,19 @@ function MilestonePath({
           active ? "opacity-0" : "opacity-100"
         }`}
       />
-      <img
-        src={onSrc}
-        alt=""
+      <span
         aria-hidden
-        className={`milestone-ease absolute inset-0 size-full max-w-none duration-500 ${
-          active ? "opacity-100" : "opacity-0"
-        }`}
-      />
+        className={`milestone-path-glow milestone-ease absolute inset-0 size-full duration-500 ${
+          active ? "is-active opacity-100" : "opacity-0"
+        } ${accentText[accent]}`}
+      >
+        <img
+          src={onSrc}
+          alt=""
+          className="size-full max-w-none"
+          style={pathHue[accent] ? { filter: pathHue[accent] } : undefined}
+        />
+      </span>
     </div>
   )
 
@@ -224,46 +250,52 @@ function MilestonePhase({
   selected: boolean
   onSelect: (id: PhaseId) => void
 }) {
+  const details = phase.features ?? phase.upgrades
+
   return (
     <button
       type="button"
       aria-pressed={selected}
       onClick={() => onSelect(phase.id)}
-      className="relative flex flex-col items-start justify-center text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1aaf7d]/ring-offset-2 focus-visible:ring-offset-background"
+      onMouseEnter={() => onSelect(phase.id)}
+      onFocus={() => onSelect(phase.id)}
+      className="relative flex cursor-pointer flex-col items-start justify-center text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1aaf7d]/ring-offset-2 focus-visible:ring-offset-background"
     >
       <div
         className={`milestone-ease pointer-events-none absolute left-[-32px] top-[-10px] h-[366px] w-[392px] duration-500 ${
           selected ? "opacity-100" : "opacity-0"
-        }`}
+        } ${accentText[phase.accent]}`}
       >
         <div className="absolute inset-[-27.32%_-25.51%]">
-          <img
-            src="/assets/milestones/ellipse-glow.svg"
-            alt=""
+          <span
             aria-hidden
-            className="size-full max-w-none"
+            className="milestone-path-on size-full"
+            style={
+              {
+                "--milestone-mask": 'url("/assets/milestones/ellipse-glow.svg")',
+              } as CSSProperties
+            }
           />
         </div>
       </div>
 
       <div
         className={`milestone-ease relative z-10 flex flex-col duration-500 ${
-          selected ? "opacity-100" : "opacity-40 hover:opacity-70"
+          selected ? "opacity-100" : "opacity-[0.32] hover:opacity-70"
         } ${phase.gapClass}`}
       >
         <div className="flex flex-col gap-2.5">
           <div className="flex items-center gap-2">
-            <img
-              src={phase.icon}
-              alt=""
-              aria-hidden
-              className="size-8"
-              width={32}
-              height={32}
-            />
+            <span
+              className={`milestone-ease ${
+                selected ? accentText[phase.accent] : "text-foreground"
+              }`}
+            >
+              <TintedIcon src={phase.icon} className="size-8" />
+            </span>
             <p
               className={`milestone-ease text-2xl leading-6 duration-500 ${
-                selected ? "text-[#1aaf7d]" : "text-foreground"
+                selected ? accentText[phase.accent] : "text-foreground"
               }`}
             >
               {phase.label}
@@ -290,12 +322,17 @@ function MilestonePhase({
               className={`flex flex-wrap content-start gap-4 ${phase.tagMaxWidth}`}
             >
               {phase.tags.map((tag) => (
-                <MilestoneTag key={tag} label={tag} active={selected} />
+                <MilestoneTag
+                  key={tag}
+                  label={tag}
+                  active={selected}
+                  accent={phase.accent}
+                />
               ))}
             </div>
           </div>
 
-          {phase.features ? (
+          {details ? (
             <div
               className="milestone-features"
               data-open={selected ? "true" : "false"}
@@ -303,10 +340,10 @@ function MilestonePhase({
               <div className="milestone-features-inner">
                 <div className="flex flex-col gap-4">
                   <p className="font-display text-xl font-semibold leading-6 text-foreground">
-                    Core Features
+                    {phase.detailsTitle}
                   </p>
                   <ol className="list-decimal pl-6 text-base leading-7 text-muted-foreground">
-                    {phase.features.map((item) => (
+                    {details.map((item) => (
                       <li
                         key={item}
                         className={
@@ -317,6 +354,35 @@ function MilestonePhase({
                       </li>
                     ))}
                   </ol>
+                </div>
+              </div>
+            </div>
+          ) : null}
+
+          {phase.goals ? (
+            <div
+              className="milestone-features"
+              data-open={selected ? "true" : "false"}
+            >
+              <div className="milestone-features-inner">
+                <div className="flex flex-col gap-4">
+                  {phase.goals.map((goal) => (
+                    <div
+                      key={goal.title}
+                      className={
+                        selected
+                          ? "milestone-feature-item flex flex-col gap-1.5"
+                          : "flex flex-col gap-1.5"
+                      }
+                    >
+                      <p className="font-display text-base font-semibold leading-6 text-foreground">
+                        {goal.title}
+                      </p>
+                      <p className="text-sm leading-5 text-muted-foreground">
+                        {goal.body}
+                      </p>
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
@@ -357,12 +423,6 @@ function MilestonesHeader({ compact = false }: { compact?: boolean }) {
   )
 }
 
-const accentText: Record<PhaseAccent, string> = {
-  green: "text-[#1aaf7d]",
-  blue: "text-[#3d9bf3]",
-  orange: "text-[#f28d21]",
-}
-
 function TintedIcon({
   src,
   className,
@@ -373,14 +433,17 @@ function TintedIcon({
   return (
     <span
       aria-hidden
-      className={`inline-block size-4 shrink-0 ${className ?? ""}`}
+      className={`inline-block shrink-0 ${className ?? "size-4"}`}
       style={{
         backgroundColor: "currentColor",
         maskImage: `url("${src}")`,
         WebkitMaskImage: `url("${src}")`,
         maskSize: "contain",
+        WebkitMaskSize: "contain",
         maskRepeat: "no-repeat",
+        WebkitMaskRepeat: "no-repeat",
         maskPosition: "center",
+        WebkitMaskPosition: "center",
       }}
     />
   )
@@ -601,15 +664,16 @@ function DesktopComposition({
   selectedId: PhaseId
   onSelect: (id: PhaseId) => void
 }) {
-  const { ref, scale } = useScaleToWidth(DESIGN_WIDTH)
+  const { ref, canvasRef, scale, canvasHeight } = useScaleToWidth(DESIGN_WIDTH)
 
   return (
-    <div ref={ref} className="w-full" style={{ height: DESIGN_HEIGHT * scale }}>
+    <div ref={ref} className="w-full" style={{ height: canvasHeight * scale }}>
       <div
+        ref={canvasRef}
         className="relative origin-top-left"
         style={{
           width: DESIGN_WIDTH,
-          height: DESIGN_HEIGHT,
+          minHeight: DESIGN_HEIGHT,
           transform: `scale(${scale})`,
         }}
         role="group"
@@ -623,6 +687,7 @@ function DesktopComposition({
           onSrc="/assets/milestones/path-group9-on.svg"
           offSrc="/assets/milestones/path-group9-off.svg"
           active={selectedId === "phase-1"}
+          accent="green"
           frameClass="left-[329.1px] top-[201px] h-[460.499px] w-[387.727px]"
           innerClass="absolute inset-[0_-16.43%_0_-20.3%]"
         />
@@ -630,6 +695,7 @@ function DesktopComposition({
           onSrc="/assets/milestones/path-group124-on.svg"
           offSrc="/assets/milestones/path-group124-off.svg"
           active={selectedId === "phase-3"}
+          accent="cyan"
           frameClass="left-[730px] top-[385px] flex h-[194.5px] w-[222.526px] items-center justify-center"
           innerClass="absolute inset-[-16.8%_-10.79%_-12.34%_-14.68%]"
           transformClass="-scale-y-100 h-full w-full rotate-180"
@@ -638,6 +704,7 @@ function DesktopComposition({
           onSrc="/assets/milestones/path-group123-on.svg"
           offSrc="/assets/milestones/path-group123-off.svg"
           active={selectedId === "phase-4"}
+          accent="orange"
           frameClass="left-[747px] top-[632px] flex h-[164.5px] w-[206px] items-center justify-center"
           innerClass="absolute inset-[-19.86%_-11.65%_-14.59%_-15.86%]"
           transformClass="h-full w-full rotate-180"
@@ -646,6 +713,7 @@ function DesktopComposition({
           onSrc="/assets/milestones/path-group14-on.svg"
           offSrc="/assets/milestones/path-group14-off.svg"
           active={selectedId === "phase-2"}
+          accent="blue"
           frameClass="left-[371px] top-[578.46px] flex h-[385.081px] w-[348.922px] items-center justify-center"
           innerClass="absolute inset-[0_-1.68%_0_-9.27%]"
           transformClass="-scale-y-100 h-full w-full"
@@ -672,33 +740,35 @@ function DesktopComposition({
           />
         </div>
 
-        <div className="absolute left-20 top-[296px] w-[510px]">
-          <MilestonePhase
-            phase={phases[0]}
-            selected={selectedId === "phase-1"}
-            onSelect={onSelect}
-          />
-        </div>
-        <div className="absolute left-20 top-[867px] w-[431px]">
-          <MilestonePhase
-            phase={phases[1]}
-            selected={selectedId === "phase-2"}
-            onSelect={onSelect}
-          />
-        </div>
-        <div className="absolute left-[976px] top-[369px] w-[381px]">
-          <MilestonePhase
-            phase={phases[2]}
-            selected={selectedId === "phase-3"}
-            onSelect={onSelect}
-          />
-        </div>
-        <div className="absolute left-[976px] top-[781px] w-[327px]">
-          <MilestonePhase
-            phase={phases[3]}
-            selected={selectedId === "phase-4"}
-            onSelect={onSelect}
-          />
+        <div className="relative z-10 grid grid-cols-[510px_minmax(0,1fr)_381px] grid-rows-[auto_auto] items-start gap-x-0 gap-y-[128px] px-20 pb-16 pt-[296px]">
+          <div className="col-start-1 row-start-1 w-[510px]">
+            <MilestonePhase
+              phase={phases[0]}
+              selected={selectedId === "phase-1"}
+              onSelect={onSelect}
+            />
+          </div>
+          <div className="col-start-1 row-start-2 w-[431px]">
+            <MilestonePhase
+              phase={phases[1]}
+              selected={selectedId === "phase-2"}
+              onSelect={onSelect}
+            />
+          </div>
+          <div className="col-start-3 row-start-1 w-[381px]">
+            <MilestonePhase
+              phase={phases[2]}
+              selected={selectedId === "phase-3"}
+              onSelect={onSelect}
+            />
+          </div>
+          <div className="col-start-3 row-start-2 w-[327px]">
+            <MilestonePhase
+              phase={phases[3]}
+              selected={selectedId === "phase-4"}
+              onSelect={onSelect}
+            />
+          </div>
         </div>
       </div>
     </div>
