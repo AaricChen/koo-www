@@ -54,7 +54,7 @@ export function HeroSection() {
       </div>
 
       <div className="relative z-10 flex w-full max-w-[1050px] flex-col items-center gap-10 lg:gap-9">
-        <div className="animate-fade-in relative size-[120px] shrink-0 overflow-hidden sm:size-[140px] lg:size-[180px]">
+        <div className="animate-fade-in relative size-[120px] shrink-0 sm:size-[140px] lg:size-[180px]">
           <img
             src="/assets/hero-logo.png"
             alt="Koo"
