@@ -72,7 +72,7 @@ const features = [
 
 function FeatureTag({ label }: { label: string }) {
   return (
-    <span className="experience-tag inline-flex h-6 shrink-0 items-center rounded-[18px] border border-[#3d7aff] bg-[rgba(61,122,255,0.06)] px-2 text-xs leading-3 text-secondary lg:h-[34px] lg:px-3.5 lg:text-sm lg:leading-[14px]">
+    <span className="experience-tag inline-flex h-6 shrink-0 items-center rounded-[18px] border border-secondary bg-cta-gradient px-2 text-xs leading-3 text-foreground hover:brightness-110 hover:shadow-[0_0_16px_rgba(61,155,243,0.35)] lg:h-[34px] lg:px-3.5 lg:text-sm lg:leading-[14px]">
       {label}
     </span>
   )

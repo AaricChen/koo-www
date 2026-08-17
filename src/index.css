@@ -527,7 +527,10 @@
 
   .experience-tag {
     transform: translateY(4px);
-    transition: transform 0.5s var(--experience-ease);
+    transition:
+      transform 0.5s var(--experience-ease),
+      filter 0.3s var(--experience-ease),
+      box-shadow 0.3s var(--experience-ease);
   }
 
   .experience-item.is-active .experience-tag {
