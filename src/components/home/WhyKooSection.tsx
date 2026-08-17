@@ -52,7 +52,7 @@ function ProductFrame({ className }: { className?: string }) {
               className="absolute inset-0 rounded"
               style={{
                 backgroundImage:
-                  "linear-gradient(-52deg, rgba(0, 0, 0, 0.2) 27%, rgba(136, 136, 136, 0.2) 96%)",
+                  "linear-gradient(242deg, rgba(136, 136, 136, 0.2) 31%, rgba(0, 0, 0, 0.2) 98%)",
               }}
             />
           </div>
@@ -68,12 +68,20 @@ export function WhyKooSection() {
       <div className="relative w-full max-w-[1280px] pt-[164px] lg:pt-0">
         <ProductFrame className="pointer-events-none absolute top-0 left-1/2 z-0 h-[230px] w-[315px] -translate-x-1/2 lg:hidden" />
 
-        <div className="pointer-events-none absolute top-[-67px] right-0 z-0 hidden h-[403px] w-[min(502px,46%)] max-w-full lg:block">
+        <div
+          className="pointer-events-none absolute top-[-67px] right-0 z-0 hidden h-[403px] w-[min(502px,46%)] max-w-full lg:block"
+          style={{
+            maskImage:
+              "linear-gradient(to bottom, transparent, #000 32%, #000)",
+            WebkitMaskImage:
+              "linear-gradient(to bottom, transparent, #000 32%, #000)",
+          }}
+        >
           <img
             src="/assets/why/product.png"
             alt=""
             aria-hidden
-            className="size-full object-cover object-center"
+            className="size-full object-cover object-top"
             width={502}
             height={403}
           />

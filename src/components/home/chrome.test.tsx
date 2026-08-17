@@ -62,6 +62,7 @@ describe("primary CTAs", () => {
     expect(enterCta.className).toContain("max-w-[300px]")
     expect(enterCta.className.split(" ").includes("w-[300px]")).toBe(false)
     expect(enter.container.innerHTML).not.toContain("section-bg.png")
+    expect(enter.container.innerHTML).toContain("opacity-20")
   })
 })
 
@@ -71,6 +72,11 @@ describe("WhyKooSection", () => {
     expect(container.innerHTML).not.toContain("left-[758px]")
     expect(container.innerHTML).toContain("right-0")
     expect(container.innerHTML).toContain("w-[min(502px,46%)]")
+    expect(container.innerHTML).toContain("mask-image")
+    expect(container.innerHTML).toContain("object-top")
+    expect(container.innerHTML).toContain(
+      "linear-gradient(242deg, rgba(136, 136, 136, 0.2) 31%, rgba(0, 0, 0, 0.2) 98%)",
+    )
   })
 
   it("keeps the mobile product shot decorative", () => {

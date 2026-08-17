@@ -8,7 +8,7 @@ import { BackgroundVideo } from "./BackgroundVideo"
 export function EnterKooSection() {
   return (
     <section className="relative isolate flex flex-col items-center overflow-x-clip bg-background px-4 py-[60px] lg:px-20 lg:py-[140px]">
-      <div className="pointer-events-none absolute inset-0">
+      <div className="pointer-events-none absolute inset-0 opacity-20">
         <BackgroundVideo
           src="/assets/enter/section-bg.mp4"
           playOnCompact
