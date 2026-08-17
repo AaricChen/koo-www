@@ -48,23 +48,16 @@ export function BackgroundVideo({
   }, [src, mountVideo])
 
   return (
-    <>
-      {poster ? (
-        <img src={poster} alt="" aria-hidden className={className} />
-      ) : null}
-      {mountVideo ? (
-        <video
-          ref={videoRef}
-          className={`banner-video absolute inset-0 ${className}`}
-          src={src}
-          poster={poster}
-          muted
-          loop
-          playsInline
-          preload="metadata"
-          aria-hidden
-        />
-      ) : null}
-    </>
+    <video
+      ref={videoRef}
+      className={`banner-video absolute inset-0 ${className}`}
+      src={src}
+      poster={poster}
+      muted
+      loop
+      playsInline
+      preload="metadata"
+      aria-hidden
+    />
   )
 }

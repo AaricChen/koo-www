@@ -69,7 +69,11 @@ describe("HeroSection", () => {
     const { container } = render(<HeroSection />)
     expect(container.querySelector(".hero-bg-fade")).not.toBeNull()
     expect(container.querySelector(".hero-bottom-blur")).not.toBeNull()
-    expect(container.querySelector("section")?.className).toContain("lg:pb-40")
+    expect(container.querySelector("section")?.className).toContain("lg:pb-28")
+    expect(container.querySelector("img[src='/assets/hero-bg.png']")).toBeNull()
+    expect(
+      container.querySelector("video")?.getAttribute("poster"),
+    ).toBe("/assets/hero-bg.png")
   })
 })
 

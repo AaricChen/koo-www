@@ -37,7 +37,7 @@ describe("BackgroundVideo", () => {
     expect(play).not.toHaveBeenCalled()
   })
 
-  it("does not mount a video element on the compact layout", () => {
+  it("uses the poster on the video and never renders an img", () => {
     vi.stubGlobal("matchMedia", (query: string) => ({
       matches: false,
       media: query,
@@ -56,8 +56,8 @@ describe("BackgroundVideo", () => {
     const { container } = render(
       <BackgroundVideo src="/assets/hero-bg.mp4" poster="/assets/hero-bg.png" />,
     )
-    expect(container.querySelector("video")).toBeNull()
-    expect(container.querySelector("img")?.getAttribute("src")).toBe(
+    expect(container.querySelector("img")).toBeNull()
+    expect(container.querySelector("video")?.getAttribute("poster")).toBe(
       "/assets/hero-bg.png",
     )
   })
@@ -109,5 +109,6 @@ describe("BackgroundVideo", () => {
     expect(container.querySelector("video")?.getAttribute("preload")).toBe(
       "metadata",
     )
+    expect(container.querySelector("img")).toBeNull()
   })
 })
