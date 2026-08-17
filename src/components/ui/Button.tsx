@@ -30,7 +30,7 @@ export function OutlineButton({
 }: OutlineButtonProps) {
   return (
     <a
-      className={`inline-flex items-center justify-center rounded-[4px] border border-border-strong bg-surface-soft px-4 py-[11px] text-[14px] leading-[14px] font-medium text-primary transition duration-300 hover:border-secondary hover:bg-[rgba(61,122,255,0.16)] hover:text-secondary ${className}`}
+      className={`inline-flex items-center justify-center rounded-[4px] border border-border-strong bg-surface-soft font-medium text-primary transition duration-300 hover:border-secondary hover:bg-[rgba(61,122,255,0.16)] hover:text-secondary ${className}`}
       {...props}
     >
       {children}

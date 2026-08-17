@@ -1,4 +1,4 @@
-import { cleanup, render, screen } from "@testing-library/react"
+import { cleanup, fireEvent, render, screen } from "@testing-library/react"
 import { afterEach, describe, expect, it } from "vitest"
 import { APP_URL, DOCS_URL } from "../../lib/links"
 import { EnterKooSection } from "./EnterKooSection"
@@ -14,40 +14,75 @@ afterEach(() => {
 describe("SiteHeader", () => {
   it("exposes Home, Docs, and Launch App without placeholder hashes", () => {
     const { container } = render(<SiteHeader />)
-    expect(screen.getByRole("link", { name: "Home" }).getAttribute("href")).toBe(
-      "/",
-    )
+    const marks = screen.getAllByRole("link", { name: "Koo.xyz" })
+    expect(marks.length).toBeGreaterThanOrEqual(1)
+    for (const mark of marks) {
+      expect(mark.getAttribute("href")).toBe("/")
+    }
+    const homes = screen.getAllByRole("link", { name: "Home" })
+    expect(homes.length).toBeGreaterThanOrEqual(1)
+    for (const home of homes) {
+      expect(home.getAttribute("href")).toBe("/")
+    }
     const docs = screen.getAllByRole("link", { name: "Docs" })
     expect(docs.length).toBeGreaterThanOrEqual(1)
     for (const link of docs) {
       expect(link).toHaveProperty("href", DOCS_URL)
     }
     expect(container.innerHTML).toContain("md:hidden")
-    expect(container.innerHTML).toContain("w-[min(120px,38vw)]")
-    expect(screen.getByRole("link", { name: "Launch App" })).toHaveProperty(
-      "href",
-      APP_URL,
-    )
-    expect(screen.getByRole("link", { name: "Launch App" }).className).toContain(
-      "min-h-11",
-    )
-    expect(screen.getByRole("link", { name: "Launch App" }).className).toContain(
-      "rounded-[4px]",
-    )
-    expect(screen.getByRole("link", { name: "Launch App" }).className).toContain(
-      "sm:leading-[14px]",
-    )
-    expect(screen.getByRole("link", { name: "Launch App" }).className).toContain(
-      "sm:px-4",
-    )
-    expect(screen.getByRole("link", { name: "Launch App" }).className).toContain(
-      "sm:py-[11px]",
-    )
-    expect(screen.getByRole("link", { name: "Launch App" }).className).toContain(
-      "hover:text-secondary",
-    )
+    expect(container.innerHTML).toContain("logo-main.svg")
+    expect(container.innerHTML).toContain("h-[50px]")
+    const launch = screen.getAllByRole("link", { name: "Launch App" })
+    expect(launch.length).toBe(2)
+    for (const link of launch) {
+      expect(link).toHaveProperty("href", APP_URL)
+      expect(link.className).toContain("rounded-[4px]")
+      expect(link.className).toContain("hover:text-secondary")
+    }
+    expect(launch[0].className).toContain("h-7")
+    expect(launch[1].className).toContain("px-4")
+    expect(launch[1].className).toContain("py-[11px]")
     expect(container.querySelector('a[href="#"]')).toBeNull()
     expect(screen.queryByRole("link", { name: "Community" })).toBeNull()
+  })
+
+  it("slides the mobile drawer in from the left", () => {
+    const { container } = render(<SiteHeader />)
+    const overlay = container.querySelector(".mobile-nav-overlay")
+    const drawer = container.querySelector(".mobile-nav-drawer")
+    expect(overlay).not.toBeNull()
+    expect(drawer).not.toBeNull()
+    expect(overlay?.classList.contains("is-open")).toBe(false)
+    expect(drawer?.classList.contains("is-open")).toBe(false)
+    expect(screen.queryByRole("dialog", { name: "Menu" })).toBeNull()
+
+    fireEvent.click(screen.getByRole("button", { name: "Open menu" }))
+    expect(overlay?.classList.contains("is-open")).toBe(true)
+    expect(drawer?.classList.contains("is-open")).toBe(true)
+    expect(screen.getByRole("dialog", { name: "Menu" })).not.toBeNull()
+    expect(screen.getByRole("navigation", { name: "Mobile" })).not.toBeNull()
+    expect(
+      drawer?.querySelector(".flex.w-full.items-center.justify-between"),
+    ).not.toBeNull()
+
+    const community = screen.getByRole("button", { name: "Community" })
+    expect(community.getAttribute("aria-expanded")).toBe("false")
+    fireEvent.click(community)
+    expect(community.getAttribute("aria-expanded")).toBe("true")
+    expect(
+      container.querySelector('.mobile-nav-community[data-open="true"]'),
+    ).not.toBeNull()
+    expect(container.querySelector('img[src="/assets/social-x.svg"]')).not.toBeNull()
+    expect(screen.getByText("X / Twitter")).not.toBeNull()
+    expect(screen.getByText("Discord")).not.toBeNull()
+    expect(screen.getByText("Telegram")).not.toBeNull()
+    expect(screen.queryByText("Instagram")).toBeNull()
+    expect(container.querySelector('a[href="#"]')).toBeNull()
+
+    fireEvent.click(screen.getAllByRole("button", { name: "Close menu" })[0])
+    expect(overlay?.classList.contains("is-open")).toBe(false)
+    expect(drawer?.classList.contains("is-open")).toBe(false)
+    expect(screen.queryByRole("dialog", { name: "Menu" })).toBeNull()
   })
 })
 
