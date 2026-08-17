@@ -489,6 +489,45 @@
     animation: hero-scroll-hint 1.8s ease-in-out infinite;
   }
 
+  .hero-bg-fade {
+    mask-image: linear-gradient(
+      to bottom,
+      #000 0%,
+      #000 58%,
+      rgba(0, 0, 0, 0.5) 78%,
+      transparent 100%
+    );
+    -webkit-mask-image: linear-gradient(
+      to bottom,
+      #000 0%,
+      #000 58%,
+      rgba(0, 0, 0, 0.5) 78%,
+      transparent 100%
+    );
+  }
+
+  .hero-bottom-blur {
+    position: absolute;
+    inset-inline: 0;
+    bottom: 0;
+    height: 180px;
+    background: linear-gradient(
+      to bottom,
+      transparent 0%,
+      rgba(9, 9, 9, 0.35) 42%,
+      #090909 100%
+    );
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    mask-image: linear-gradient(to bottom, transparent 0%, #000 48%, #000 100%);
+    -webkit-mask-image: linear-gradient(
+      to bottom,
+      transparent 0%,
+      #000 48%,
+      #000 100%
+    );
+  }
+
   .experience-media-video,
   .experience-media-image {
     position: absolute;

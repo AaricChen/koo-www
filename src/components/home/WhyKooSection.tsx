@@ -64,7 +64,7 @@ function ProductFrame({ className }: { className?: string }) {
 
 export function WhyKooSection() {
   return (
-    <section className="relative flex flex-col items-center overflow-x-clip px-4 pb-6 pt-0 sm:px-10 lg:px-20 lg:pb-[100px] lg:pt-20">
+    <section className="relative flex flex-col items-center overflow-x-clip px-4 pb-6 pt-8 sm:px-10 sm:pt-12 lg:px-20 lg:pb-[100px] lg:pt-32">
       <div className="relative w-full max-w-[1280px] pt-[164px] lg:pt-0">
         <ProductFrame className="pointer-events-none absolute top-0 left-1/2 z-0 h-[230px] w-[315px] -translate-x-1/2 lg:hidden" />
 

@@ -64,6 +64,15 @@ describe("SiteFooter", () => {
   })
 })
 
+describe("HeroSection", () => {
+  it("fades and blurs the hero background into the next section", () => {
+    const { container } = render(<HeroSection />)
+    expect(container.querySelector(".hero-bg-fade")).not.toBeNull()
+    expect(container.querySelector(".hero-bottom-blur")).not.toBeNull()
+    expect(container.querySelector("section")?.className).toContain("lg:pb-40")
+  })
+})
+
 describe("primary CTAs", () => {
   it("uses a fluid 300px cap so 320px viewports do not clip Start Trading", () => {
     const hero = render(<HeroSection />)
