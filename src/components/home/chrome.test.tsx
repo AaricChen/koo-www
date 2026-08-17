@@ -31,6 +31,21 @@ describe("SiteHeader", () => {
     expect(screen.getByRole("link", { name: "Launch App" }).className).toContain(
       "min-h-11",
     )
+    expect(screen.getByRole("link", { name: "Launch App" }).className).toContain(
+      "rounded-[4px]",
+    )
+    expect(screen.getByRole("link", { name: "Launch App" }).className).toContain(
+      "sm:leading-[14px]",
+    )
+    expect(screen.getByRole("link", { name: "Launch App" }).className).toContain(
+      "sm:px-4",
+    )
+    expect(screen.getByRole("link", { name: "Launch App" }).className).toContain(
+      "sm:py-[11px]",
+    )
+    expect(screen.getByRole("link", { name: "Launch App" }).className).toContain(
+      "hover:text-secondary",
+    )
     expect(container.querySelector('a[href="#"]')).toBeNull()
     expect(screen.queryByRole("link", { name: "Community" })).toBeNull()
   })

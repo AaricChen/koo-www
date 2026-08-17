@@ -67,7 +67,7 @@ export function SiteHeader() {
             href={APP_URL}
             target="_blank"
             rel="noreferrer"
-            className="min-h-11 shrink-0 px-3 text-xs sm:min-h-0 sm:px-4 sm:py-[11px] sm:text-sm"
+            className="min-h-11 shrink-0 px-3 text-xs leading-3 sm:min-h-0 sm:px-4 sm:py-[11px] sm:text-[14px] sm:leading-[14px]"
           >
             Launch App
           </OutlineButton>
