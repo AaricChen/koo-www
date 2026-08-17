@@ -25,38 +25,45 @@ const features = [
   },
 ] as const
 
+/** Figma 3170:53036 Rectangle 4 */
+const WHY_KOO_PRODUCT_GLOW =
+  "linear-gradient(203.01deg, rgba(0, 46, 95, 0.3) 7.13%, rgba(0, 0, 0, 0.5) 51.37%)"
+
+/** Figma 3157:53006 1234 4 */
+const WHY_KOO_PRODUCT_WASH =
+  "linear-gradient(240.56deg, rgba(136, 136, 136, 0.2) 27.08%, rgba(0, 0, 0, 0.2) 85.26%)"
+
 function ProductFrame({ className }: { className?: string }) {
   return (
     <div className={className}>
       <div
         aria-hidden
-        className="absolute inset-0 rounded-[10px] blur-[28px]"
-        style={{
-          backgroundImage:
-            "linear-gradient(202deg, rgba(0, 46, 95, 0.3) 7%, rgba(0, 0, 0, 0.5) 51%)",
-        }}
+        data-why-glow=""
+        className="absolute inset-0 overflow-hidden rounded-2xl blur-[28px] [transform:rotate(3deg)_skewX(3deg)]"
+        style={{ backgroundImage: WHY_KOO_PRODUCT_GLOW }}
       />
-      <div className="absolute inset-[3%] overflow-hidden rounded-[9px] bg-[rgba(9,9,9,0.6)]">
-        <div className="absolute inset-[2%] overflow-hidden rounded-[9px] bg-[rgba(29,33,49,0.4)]">
-          <div className="absolute inset-[2.5%] overflow-hidden rounded">
-            <img
-              src="/assets/why/product.png"
-              alt=""
-              aria-hidden
-              className="size-full object-cover object-center"
-              width={502}
-              height={403}
-            />
-            <div
-              aria-hidden
-              className="absolute inset-0 rounded"
-              style={{
-                backgroundImage:
-                  "linear-gradient(242deg, rgba(136, 136, 136, 0.2) 31%, rgba(0, 0, 0, 0.2) 98%)",
-              }}
-            />
-          </div>
-        </div>
+      <div
+        aria-hidden
+        className="absolute left-[9%] top-[2.6%] h-[79%] w-[90%] rounded-[14px] bg-[rgba(9,9,9,0.6)] [transform:rotate(3deg)_skewX(3deg)]"
+      />
+      <div
+        aria-hidden
+        className="absolute left-[4%] top-[4.4%] h-[88%] w-[93%] rounded-[12px] bg-[rgba(29,33,49,0.4)] [transform:rotate(3deg)_skewX(3deg)]"
+      />
+      <div className="absolute left-[5.9%] top-[6.6%] h-[84%] w-[89%] overflow-hidden rounded-lg [transform:rotate(3deg)_skewX(3deg)]">
+        <img
+          src="/assets/why/product.png"
+          alt=""
+          aria-hidden
+          className="size-full object-cover object-center"
+          width={1728}
+          height={1208}
+        />
+        <div
+          aria-hidden
+          className="absolute inset-0"
+          style={{ backgroundImage: WHY_KOO_PRODUCT_WASH }}
+        />
       </div>
     </div>
   )
@@ -67,25 +74,7 @@ export function WhyKooSection() {
     <section className="relative flex flex-col items-center overflow-x-clip px-4 pb-6 pt-4 sm:px-10 sm:pt-8 lg:px-20 lg:pb-[100px] lg:pt-24">
       <div className="relative w-full max-w-[1280px] pt-[164px] lg:pt-0">
         <ProductFrame className="pointer-events-none absolute top-0 left-1/2 z-0 h-[230px] w-[315px] -translate-x-1/2 lg:hidden" />
-
-        <div
-          className="pointer-events-none absolute top-[-67px] right-0 z-0 hidden h-[403px] w-[min(502px,46%)] max-w-full lg:block"
-          style={{
-            maskImage:
-              "linear-gradient(to bottom, transparent, #000 32%, #000)",
-            WebkitMaskImage:
-              "linear-gradient(to bottom, transparent, #000 32%, #000)",
-          }}
-        >
-          <img
-            src="/assets/why/product.png"
-            alt=""
-            aria-hidden
-            className="size-full object-cover object-top"
-            width={502}
-            height={403}
-          />
-        </div>
+        <ProductFrame className="pointer-events-none absolute top-[-67px] right-0 z-0 hidden h-[403px] w-[min(502px,46%)] max-w-full lg:block" />
 
         <div className="relative z-10 flex flex-col gap-8 lg:gap-20">
           <div className="flex flex-col gap-5 px-0 text-center sm:px-4 lg:max-w-[541px] lg:gap-8 lg:text-left">

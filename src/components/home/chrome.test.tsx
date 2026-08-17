@@ -100,10 +100,13 @@ describe("WhyKooSection", () => {
     expect(container.innerHTML).not.toContain("left-[758px]")
     expect(container.innerHTML).toContain("right-0")
     expect(container.innerHTML).toContain("w-[min(502px,46%)]")
-    expect(container.innerHTML).toContain("mask-image")
-    expect(container.innerHTML).toContain("object-top")
+    expect(container.innerHTML).toContain("blur-[28px]")
+    expect(container.innerHTML).toContain("rounded-2xl")
     expect(container.innerHTML).toContain(
-      "linear-gradient(242deg, rgba(136, 136, 136, 0.2) 31%, rgba(0, 0, 0, 0.2) 98%)",
+      "linear-gradient(203.01deg, rgba(0, 46, 95, 0.3) 7.13%, rgba(0, 0, 0, 0.5) 51.37%)",
+    )
+    expect(container.innerHTML).toContain(
+      "linear-gradient(240.56deg, rgba(136, 136, 136, 0.2) 27.08%, rgba(0, 0, 0, 0.2) 85.26%)",
     )
   })
 
