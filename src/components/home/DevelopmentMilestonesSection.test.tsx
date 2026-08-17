@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react"
+import { fireEvent, render, screen } from "@testing-library/react"
 import { describe, expect, it } from "vitest"
 import { DevelopmentMilestonesSection } from "./DevelopmentMilestonesSection"
 
@@ -16,25 +16,47 @@ function stubMatchMedia(matchesQuery: (query: string) => boolean) {
 }
 
 describe("DevelopmentMilestonesSection", () => {
-  it("renders the four phases without hover-only selection hooks in markup", () => {
+  it("keeps mobile cards click-only", () => {
     stubMatchMedia(() => false)
     const { container } = render(<DevelopmentMilestonesSection />)
     expect(screen.getAllByText("Phase 1").length).toBeGreaterThan(0)
     expect(screen.getAllByText("Multi-Yield Sources").length).toBeGreaterThan(0)
-    expect(container.innerHTML).not.toContain("onMouseEnter")
+    expect(container.querySelectorAll(".milestone-m-card").length).toBe(4)
   })
 
   it("does not mount the desktop path canvas below lg", () => {
     stubMatchMedia(() => false)
     const { container } = render(<DevelopmentMilestonesSection />)
-    expect(container.innerHTML).not.toContain("path-group9-on.svg")
+    expect(container.querySelector(".milestone-line")).toBeNull()
     expect(container.querySelectorAll(".milestone-m-card").length).toBe(4)
   })
 
   it("mounts only the desktop canvas at lg", () => {
     stubMatchMedia((query) => query.includes("min-width"))
     const { container } = render(<DevelopmentMilestonesSection />)
-    expect(container.innerHTML).toContain("path-group9-on.svg")
+    expect(container.querySelectorAll(".milestone-line")).toHaveLength(4)
+    expect(container.querySelector(".milestone-line.is-active")).not.toBeNull()
     expect(container.querySelectorAll(".milestone-m-card")).toHaveLength(0)
+    expect(container.querySelector("[data-floor-glow]")).toBeNull()
+    expect(container.querySelector('[data-line-state="off"]')).not.toBeNull()
+    expect(container.querySelector(".milestone-line-glow")).toBeNull()
+    expect(container.querySelectorAll(".milestone-line-end-glow").length).toBe(8)
+  })
+
+  it("lights a desktop phase on hover", () => {
+    stubMatchMedia((query) => query.includes("min-width"))
+    const { container } = render(<DevelopmentMilestonesSection />)
+    fireEvent.mouseEnter(screen.getByRole("button", { name: /Phase 2/i }))
+    expect(
+      screen.getByRole("button", { name: /Phase 2/i }).getAttribute("aria-pressed"),
+    ).toBe("true")
+    expect(
+      container.querySelector(
+        '[data-phase="phase-2"][data-line-state="on"].is-active',
+      ),
+    ).not.toBeNull()
+    expect(
+      container.querySelector('[data-phase="phase-1"][data-line-state="off"]'),
+    ).not.toBeNull()
   })
 })

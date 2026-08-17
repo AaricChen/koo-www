@@ -1,7 +1,16 @@
-import { useEffect, useRef, useState, type CSSProperties } from "react"
+import {
+  useEffect,
+  useRef,
+  useState,
+  type CSSProperties,
+  type MouseEvent,
+} from "react"
 import {
   MILESTONE_DESIGN_HEIGHT,
   MILESTONE_DESIGN_WIDTH,
+  MILESTONE_LINES,
+  asPhaseId,
+  milestonePhaseFromPoint,
   milestoneWrapperHeight,
 } from "../../lib/milestone-layout"
 import {
@@ -66,66 +75,52 @@ const accentText: Record<PhaseAccent, string> = {
   orange: "text-[#f28d21]",
 }
 
-const pathHue: Record<PhaseAccent, string> = {
-  green: "",
-  blue: "hue-rotate(49deg) saturate(1.3)",
-  cyan: "hue-rotate(34deg) saturate(1.2)",
-  orange: "hue-rotate(233deg) saturate(1.5)",
-}
-
-function MilestonePath({
-  onSrc,
-  offSrc,
-  active,
-  accent,
-  frameClass,
-  innerClass,
-  transformClass,
-}: {
-  onSrc: string
-  offSrc: string
-  active: boolean
-  accent: PhaseAccent
-  frameClass: string
-  innerClass: string
-  transformClass?: string
-}) {
-  const images = (
-    <div className={innerClass}>
-      <img
-        src={offSrc}
-        alt=""
-        aria-hidden
-        className={`milestone-ease absolute inset-0 size-full max-w-none duration-500 ${
-          active ? "opacity-0" : "opacity-100"
-        }`}
-      />
-      <span
-        aria-hidden
-        className={`milestone-path-glow milestone-ease absolute inset-0 size-full duration-500 ${
-          active ? "is-active opacity-100" : "opacity-0"
-        } ${accentText[accent]}`}
-      >
-        <img
-          src={onSrc}
-          alt=""
-          className="size-full max-w-none"
-          style={pathHue[accent] ? { filter: pathHue[accent] } : undefined}
-        />
-      </span>
-    </div>
-  )
-
+function MilestoneLines({ activeId }: { activeId: PhaseId }) {
   return (
-    <div className={`pointer-events-none absolute ${frameClass}`}>
-      {transformClass ? (
-        <div className={transformClass}>
-          <div className="relative size-full">{images}</div>
-        </div>
-      ) : (
-        images
-      )}
-    </div>
+    <svg
+      className="pointer-events-none absolute inset-0 z-[1]"
+      viewBox={`0 0 ${MILESTONE_DESIGN_WIDTH} ${MILESTONE_DESIGN_HEIGHT}`}
+      width={MILESTONE_DESIGN_WIDTH}
+      height={MILESTONE_DESIGN_HEIGHT}
+      fill="none"
+      aria-hidden
+    >
+      {phases.map((phase) => {
+        const line = MILESTONE_LINES[phase.id]
+        const active = activeId === phase.id
+        return (
+          <g
+            key={phase.id}
+            data-phase={phase.id}
+            data-line-state={active ? "on" : "off"}
+            className={`milestone-line ${accentText[phase.accent]} ${
+              active ? "is-active" : ""
+            }`}
+          >
+            <path className="milestone-line-off" d={line.off} />
+            <path className="milestone-line-on" d={line.on} pathLength="1" />
+            <circle
+              className="milestone-line-end-glow"
+              cx={line.hub.x}
+              cy={line.hub.y}
+              r="18"
+            />
+            <circle
+              className="milestone-line-end-glow"
+              cx={line.dot.x}
+              cy={line.dot.y}
+              r="18"
+            />
+            <circle
+              className="milestone-line-dot"
+              cx={line.dot.x}
+              cy={line.dot.y}
+              r="4"
+            />
+          </g>
+        )
+      })}
+    </svg>
   )
 }
 
@@ -143,9 +138,11 @@ function MilestonePhase({
   return (
     <button
       type="button"
+      data-phase-id={phase.id}
       aria-pressed={selected}
       onClick={() => onSelect(phase.id)}
       onFocus={() => onSelect(phase.id)}
+      onMouseEnter={() => onSelect(phase.id)}
       className="relative flex cursor-pointer flex-col items-start justify-center text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1aaf7d] focus-visible:ring-offset-2 focus-visible:ring-offset-background"
     >
       <div
@@ -553,6 +550,19 @@ function DesktopComposition({
 }) {
   const { ref, canvasRef, scale } = useScaleToWidth(MILESTONE_DESIGN_WIDTH)
 
+  const handleCanvasHover = (event: MouseEvent<HTMLDivElement>) => {
+    const card = (event.target as HTMLElement | null)?.closest("[data-phase-id]")
+    const cardPhaseId = asPhaseId(card?.getAttribute("data-phase-id"))
+    const rect = event.currentTarget.getBoundingClientRect()
+    if (rect.width === 0 || rect.height === 0) return
+
+    const x = ((event.clientX - rect.left) / rect.width) * MILESTONE_DESIGN_WIDTH
+    const y =
+      ((event.clientY - rect.top) / rect.height) * MILESTONE_DESIGN_HEIGHT
+    const next = milestonePhaseFromPoint(x, y, cardPhaseId)
+    if (next && next !== selectedId) onSelect(next)
+  }
+
   return (
     <div
       ref={ref}
@@ -569,59 +579,13 @@ function DesktopComposition({
         }}
         role="group"
         aria-label="Development milestone phases"
+        onMouseMove={handleCanvasHover}
       >
         <div className="absolute left-20 top-[100px] w-[1280px]">
           <MilestonesHeader />
         </div>
 
-        <MilestonePath
-          onSrc="/assets/milestones/path-group9-on.svg"
-          offSrc="/assets/milestones/path-group9-off.svg"
-          active={selectedId === "phase-1"}
-          accent="green"
-          frameClass="left-[329.1px] top-[201px] h-[460.499px] w-[387.727px]"
-          innerClass="absolute inset-[0_-16.43%_0_-20.3%]"
-        />
-        <MilestonePath
-          onSrc="/assets/milestones/path-group124-on.svg"
-          offSrc="/assets/milestones/path-group124-off.svg"
-          active={selectedId === "phase-3"}
-          accent="cyan"
-          frameClass="left-[730px] top-[385px] flex h-[194.5px] w-[222.526px] items-center justify-center"
-          innerClass="absolute inset-[-16.8%_-10.79%_-12.34%_-14.68%]"
-          transformClass="-scale-y-100 h-full w-full rotate-180"
-        />
-        <MilestonePath
-          onSrc="/assets/milestones/path-group123-on.svg"
-          offSrc="/assets/milestones/path-group123-off.svg"
-          active={selectedId === "phase-4"}
-          accent="orange"
-          frameClass="left-[747px] top-[632px] flex h-[164.5px] w-[206px] items-center justify-center"
-          innerClass="absolute inset-[-19.86%_-11.65%_-14.59%_-15.86%]"
-          transformClass="h-full w-full rotate-180"
-        />
-        <MilestonePath
-          onSrc="/assets/milestones/path-group14-on.svg"
-          offSrc="/assets/milestones/path-group14-off.svg"
-          active={selectedId === "phase-2"}
-          accent="blue"
-          frameClass="left-[371px] top-[578.46px] flex h-[385.081px] w-[348.922px] items-center justify-center"
-          innerClass="absolute inset-[0_-1.68%_0_-9.27%]"
-          transformClass="-scale-y-100 h-full w-full"
-        />
-
-        <div className="pointer-events-none absolute left-[461px] top-[512px] h-[285px] w-[518px]">
-          <div className="absolute inset-[-35.09%_-19.31%]">
-            <img
-              src="/assets/milestones/center-glow.png"
-              alt=""
-              aria-hidden
-              className="size-full max-w-none"
-              width={718}
-              height={485}
-            />
-          </div>
-        </div>
+        <MilestoneLines activeId={selectedId} />
         <div className="pointer-events-none absolute left-[558px] top-[472px] h-[280px] w-[325px] overflow-hidden">
           <img
             src="/assets/milestones/center-logo.png"
