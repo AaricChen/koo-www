@@ -4,7 +4,7 @@ import {
   shouldHideExperienceUnderFromAT,
   shouldPlayExperienceVideo,
 } from "./experience-media"
-import { milestoneWrapperHeight } from "./milestone-layout"
+import { MILESTONE_DESIGN_HEIGHT, milestoneWrapperHeight } from "./milestone-layout"
 
 describe("shouldPlayExperienceVideo", () => {
   it("plays only the active clip when the section is on screen and motion is allowed", () => {
@@ -91,7 +91,7 @@ describe("isExperienceActivateKey", () => {
 
 describe("milestoneWrapperHeight", () => {
   it("scales the reserved design height and ignores content growth", () => {
-    expect(milestoneWrapperHeight(1480, 1)).toBe(1480)
-    expect(milestoneWrapperHeight(1480, 0.5)).toBe(740)
+    expect(milestoneWrapperHeight(MILESTONE_DESIGN_HEIGHT, 1)).toBe(1330)
+    expect(milestoneWrapperHeight(MILESTONE_DESIGN_HEIGHT, 0.5)).toBe(665)
   })
 })

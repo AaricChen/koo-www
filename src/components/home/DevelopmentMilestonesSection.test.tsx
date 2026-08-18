@@ -62,4 +62,22 @@ describe("DevelopmentMilestonesSection", () => {
       container.querySelector('[data-phase="phase-1"][data-line-state="off"]'),
     ).not.toBeNull()
   })
+
+  it("keeps the desktop canvas height fixed when switching phases", () => {
+    stubMatchMedia((query) => query.includes("min-width"))
+    const { container } = render(<DevelopmentMilestonesSection />)
+    const canvas = screen.getByRole("group", {
+      name: "Development milestone phases",
+    })
+
+    expect(canvas.style.height).toBe("1330px")
+    expect(container.querySelector(".milestone-features")).toBeNull()
+    expect(screen.getByText("Core Features")).toBeTruthy()
+
+    fireEvent.mouseEnter(screen.getByRole("button", { name: /Phase 2/i }))
+    expect(canvas.style.height).toBe("1330px")
+    expect(screen.getByText("Upgrades")).toBeTruthy()
+    expect(screen.queryByText("Core Features")).toBeNull()
+    expect(container.querySelector(".milestone-features")).toBeNull()
+  })
 })

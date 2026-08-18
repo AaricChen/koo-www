@@ -1,9 +1,19 @@
 import type { PhaseId } from "./milestone-phases"
 
 export const MILESTONE_DESIGN_WIDTH = 1440
-export const MILESTONE_DESIGN_HEIGHT = 1480
+export const MILESTONE_DESIGN_HEIGHT = 1330
 export const MILESTONE_HEADER_MAX_Y = 240
-export const MILESTONE_QUAD_SPLIT_Y = 640
+export const MILESTONE_QUAD_SPLIT_Y = 780
+
+export const MILESTONE_PHASE_FRAMES: Record<
+  PhaseId,
+  { left: number; top: number; width: number }
+> = {
+  "phase-1": { left: 80, top: 296, width: 510 },
+  "phase-2": { left: 82, top: 820, width: 431 },
+  "phase-3": { left: 976, top: 296, width: 381 },
+  "phase-4": { left: 976, top: 816, width: 372 },
+}
 
 /** Wrapper height is reserved from the design canvas, not content scrollHeight. */
 export function milestoneWrapperHeight(
@@ -48,38 +58,35 @@ export function milestonePhaseFromPoint(
   return cardPhaseId ?? milestoneQuadrantAt(x, y)
 }
 
+/** Center of the 325×280 logo frame at (558, 472). */
+export const MILESTONE_LOGO_HUB = { x: 720, y: 612 } as const
+
 export type MilestoneLineSpec = {
-  /** Hub → title. Starts at the stack so CSS can draw the line outward. */
-  on: string
-  off: string
+  /** Hub (logo center) → title. On/off share geometry; only stroke style changes. */
+  d: string
   hub: { x: number; y: number }
   dot: { x: number; y: number }
 }
 
-/** Focused paths attach higher on the plate stack than the dashed rest paths. */
 export const MILESTONE_LINES: Record<PhaseId, MilestoneLineSpec> = {
   "phase-1": {
-    on: "M 700 500 H 620 L 450 312 H 330",
-    off: "M 700 630 H 620 L 450 312 H 330",
-    hub: { x: 700, y: 500 },
+    d: "M 720 612 L 533 312 H 330",
+    hub: MILESTONE_LOGO_HUB,
     dot: { x: 330, y: 312 },
   },
   "phase-2": {
-    on: "M 700 680 H 620 L 450 880 H 330",
-    off: "M 700 740 H 620 L 450 880 H 330",
-    hub: { x: 700, y: 680 },
-    dot: { x: 330, y: 880 },
+    d: "M 720 612 L 536 840 H 372",
+    hub: MILESTONE_LOGO_HUB,
+    dot: { x: 372, y: 840 },
   },
   "phase-3": {
-    on: "M 740 500 H 820 L 900 312 H 990",
-    off: "M 740 630 H 820 L 900 312 H 990",
-    hub: { x: 740, y: 500 },
-    dot: { x: 990, y: 312 },
+    d: "M 720 612 L 847 312 H 961",
+    hub: MILESTONE_LOGO_HUB,
+    dot: { x: 961, y: 312 },
   },
   "phase-4": {
-    on: "M 740 680 H 820 L 900 880 H 990",
-    off: "M 740 740 H 820 L 900 880 H 990",
-    hub: { x: 740, y: 680 },
-    dot: { x: 990, y: 880 },
+    d: "M 720 612 L 828 829 H 953",
+    hub: MILESTONE_LOGO_HUB,
+    dot: { x: 953, y: 829 },
   },
 }

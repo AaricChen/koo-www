@@ -1,6 +1,9 @@
 import { describe, expect, it } from "vitest"
 import {
+  MILESTONE_DESIGN_HEIGHT,
   MILESTONE_LINES,
+  MILESTONE_LOGO_HUB,
+  MILESTONE_PHASE_FRAMES,
   asPhaseId,
   milestonePhaseFromPoint,
   milestoneQuadrantAt,
@@ -34,25 +37,39 @@ describe("milestonePhaseFromPoint", () => {
   })
 })
 
-describe("milestone inactive lines", () => {
-  it("keeps inactive connectors lower than the focused plate paths", () => {
-    expect(MILESTONE_LINES["phase-1"]?.off).toContain("630")
-    expect(MILESTONE_LINES["phase-1"]?.on).toContain("500")
-    expect(MILESTONE_LINES["phase-3"]?.off).toContain("630")
-    expect(MILESTONE_LINES["phase-2"]?.off).toContain("740")
-    expect(MILESTONE_LINES["phase-4"]?.off).toContain("740")
+describe("milestone lines", () => {
+  it("starts every connector at the logo center", () => {
+    expect(MILESTONE_LOGO_HUB).toEqual({ x: 720, y: 612 })
+    expect(MILESTONE_LINES["phase-1"]?.hub).toEqual(MILESTONE_LOGO_HUB)
+    expect(MILESTONE_LINES["phase-2"]?.hub).toEqual(MILESTONE_LOGO_HUB)
+    expect(MILESTONE_LINES["phase-3"]?.hub).toEqual(MILESTONE_LOGO_HUB)
+    expect(MILESTONE_LINES["phase-4"]?.hub).toEqual(MILESTONE_LOGO_HUB)
+    expect(MILESTONE_LINES["phase-1"]?.d.startsWith("M 720 612")).toBe(true)
+    expect(MILESTONE_LINES["phase-4"]?.d.startsWith("M 720 612")).toBe(true)
   })
 
-  it("places glow only at the hub and title endpoints", () => {
-    expect(MILESTONE_LINES["phase-1"]?.hub).toEqual({ x: 700, y: 500 })
+  it("places glow at the shared hub and each title endpoint", () => {
     expect(MILESTONE_LINES["phase-1"]?.dot).toEqual({ x: 330, y: 312 })
-    expect(MILESTONE_LINES["phase-4"]?.hub).toEqual({ x: 740, y: 680 })
+    expect(MILESTONE_LINES["phase-4"]?.dot).toEqual({ x: 953, y: 829 })
+  })
+})
+
+describe("milestone phase frames", () => {
+  it("pins every phase to the Figma 1330 canvas", () => {
+    expect(MILESTONE_PHASE_FRAMES["phase-1"]).toEqual({
+      left: 80,
+      top: 296,
+      width: 510,
+    })
+    expect(MILESTONE_PHASE_FRAMES["phase-2"]?.top).toBe(820)
+    expect(MILESTONE_PHASE_FRAMES["phase-3"]?.left).toBe(976)
+    expect(MILESTONE_PHASE_FRAMES["phase-4"]?.top).toBe(816)
   })
 })
 
 describe("milestoneWrapperHeight", () => {
   it("scales the reserved design height and ignores content growth", () => {
-    expect(milestoneWrapperHeight(1480, 1)).toBe(1480)
-    expect(milestoneWrapperHeight(1480, 0.5)).toBe(740)
+    expect(milestoneWrapperHeight(MILESTONE_DESIGN_HEIGHT, 1)).toBe(1330)
+    expect(milestoneWrapperHeight(MILESTONE_DESIGN_HEIGHT, 0.5)).toBe(665)
   })
 })

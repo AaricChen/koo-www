@@ -9,6 +9,7 @@ import {
   MILESTONE_DESIGN_HEIGHT,
   MILESTONE_DESIGN_WIDTH,
   MILESTONE_LINES,
+  MILESTONE_PHASE_FRAMES,
   asPhaseId,
   milestonePhaseFromPoint,
   milestoneWrapperHeight,
@@ -97,8 +98,8 @@ function MilestoneLines({ activeId }: { activeId: PhaseId }) {
               active ? "is-active" : ""
             }`}
           >
-            <path className="milestone-line-off" d={line.off} />
-            <path className="milestone-line-on" d={line.on} pathLength="1" />
+            <path className="milestone-line-off" d={line.d} />
+            <path className="milestone-line-on" d={line.d} pathLength="1" />
             <circle
               className="milestone-line-end-glow"
               cx={line.hub.x}
@@ -134,6 +135,9 @@ function MilestonePhase({
   onSelect: (id: PhaseId) => void
 }) {
   const details = phase.features ?? phase.upgrades
+  const showGoals = Boolean(phase.goals && selected)
+  const showTags = !showGoals
+  const showDetails = Boolean(details && selected)
 
   return (
     <button
@@ -165,7 +169,7 @@ function MilestonePhase({
 
       <div
         className={`milestone-ease relative z-10 flex flex-col duration-500 ${
-          selected ? "opacity-100" : "opacity-[0.32] hover:opacity-70"
+          selected ? "opacity-100" : "opacity-40"
         } ${phase.gapClass}`}
       >
         <div className="flex flex-col gap-2.5">
@@ -190,85 +194,59 @@ function MilestonePhase({
           </h3>
         </div>
 
-        <div className="flex w-full flex-col">
-          <div className="flex flex-col gap-6">
-            {phase.description ? (
-              <p
-                className={`text-base leading-6 text-muted-foreground ${
-                  phase.id === "phase-2" ? "w-[323px]" : "w-[311px]"
-                }`}
-              >
-                {phase.description}
-              </p>
-            ) : null}
-
-            <div
-              className={`flex flex-wrap content-start gap-4 ${phase.tagMaxWidth}`}
-            >
-              {phase.tags.map((tag) => (
-                <MilestoneTag
-                  key={tag}
-                  label={tag}
-                  active={selected}
-                  accent={phase.accent}
-                />
+        <div className={`flex w-full flex-col ${phase.gapClass}`}>
+          {showGoals ? (
+            <div className="flex flex-col gap-4">
+              {phase.goals?.map((goal) => (
+                <div key={goal.title} className="flex flex-col gap-1.5">
+                  <p className="font-display text-base font-semibold leading-6 text-foreground">
+                    {goal.title}
+                  </p>
+                  <p className="text-sm leading-5 text-muted-foreground">
+                    {goal.body}
+                  </p>
+                </div>
               ))}
             </div>
-          </div>
+          ) : (
+            <div className="flex flex-col gap-6">
+              {phase.description ? (
+                <p
+                  className={`text-base leading-6 text-muted-foreground ${
+                    phase.id === "phase-2" ? "w-[323px]" : "w-[311px]"
+                  }`}
+                >
+                  {phase.description}
+                </p>
+              ) : null}
 
-          {details ? (
-            <div
-              className="milestone-features"
-              data-open={selected ? "true" : "false"}
-            >
-              <div className="milestone-features-inner">
-                <div className="flex flex-col gap-4">
-                  <p className="font-display text-xl font-semibold leading-6 text-foreground">
-                    {phase.detailsTitle}
-                  </p>
-                  <ol className="list-decimal pl-6 text-base leading-7 text-muted-foreground">
-                    {details.map((item) => (
-                      <li
-                        key={item}
-                        className={
-                          selected ? "milestone-feature-item" : undefined
-                        }
-                      >
-                        {item}
-                      </li>
-                    ))}
-                  </ol>
-                </div>
-              </div>
-            </div>
-          ) : null}
-
-          {phase.goals ? (
-            <div
-              className="milestone-features"
-              data-open={selected ? "true" : "false"}
-            >
-              <div className="milestone-features-inner">
-                <div className="flex flex-col gap-4">
-                  {phase.goals.map((goal) => (
-                    <div
-                      key={goal.title}
-                      className={
-                        selected
-                          ? "milestone-feature-item flex flex-col gap-1.5"
-                          : "flex flex-col gap-1.5"
-                      }
-                    >
-                      <p className="font-display text-base font-semibold leading-6 text-foreground">
-                        {goal.title}
-                      </p>
-                      <p className="text-sm leading-5 text-muted-foreground">
-                        {goal.body}
-                      </p>
-                    </div>
+              {showTags ? (
+                <div
+                  className={`flex flex-wrap content-start gap-4 ${phase.tagMaxWidth}`}
+                >
+                  {phase.tags.map((tag) => (
+                    <MilestoneTag
+                      key={tag}
+                      label={tag}
+                      active={selected}
+                      accent={phase.accent}
+                    />
                   ))}
                 </div>
-              </div>
+              ) : null}
+            </div>
+          )}
+
+          {showDetails ? (
+            <div className="flex flex-col gap-4">
+              <p className="font-display text-xl font-semibold leading-6 text-foreground">
+                {phase.detailsTitle}
+              </p>
+              <ol className="list-decimal pl-6 text-base leading-7 text-muted-foreground">
+                {details?.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ol>
             </div>
           ) : null}
         </div>
@@ -578,7 +556,7 @@ function DesktopComposition({
         className="relative origin-top-left"
         style={{
           width: MILESTONE_DESIGN_WIDTH,
-          minHeight: MILESTONE_DESIGN_HEIGHT,
+          height: MILESTONE_DESIGN_HEIGHT,
           transform: `scale(${scale})`,
         }}
         role="group"
@@ -590,6 +568,14 @@ function DesktopComposition({
         </div>
 
         <MilestoneLines activeId={selectedId} />
+        <div className="pointer-events-none absolute left-[461px] top-[512px] h-[285px] w-[518px]">
+          <img
+            src="/assets/milestones/center-glow.png"
+            alt=""
+            aria-hidden
+            className="absolute inset-[-35.09%_-19.31%] size-full max-w-none"
+          />
+        </div>
         <div className="pointer-events-none absolute left-[558px] top-[472px] h-[280px] w-[325px] overflow-hidden">
           <img
             src="/assets/milestones/center-logo.png"
@@ -599,36 +585,26 @@ function DesktopComposition({
           />
         </div>
 
-        <div className="relative z-10 grid grid-cols-[510px_minmax(0,1fr)_381px] grid-rows-[auto_auto] items-start gap-x-0 gap-y-[128px] px-20 pb-16 pt-[296px]">
-          <div className="col-start-1 row-start-1 w-[510px]">
-            <MilestonePhase
-              phase={phases[0]}
-              selected={selectedId === "phase-1"}
-              onSelect={onSelect}
-            />
-          </div>
-          <div className="col-start-1 row-start-2 w-[431px]">
-            <MilestonePhase
-              phase={phases[1]}
-              selected={selectedId === "phase-2"}
-              onSelect={onSelect}
-            />
-          </div>
-          <div className="col-start-3 row-start-1 w-[381px]">
-            <MilestonePhase
-              phase={phases[2]}
-              selected={selectedId === "phase-3"}
-              onSelect={onSelect}
-            />
-          </div>
-          <div className="col-start-3 row-start-2 w-[327px]">
-            <MilestonePhase
-              phase={phases[3]}
-              selected={selectedId === "phase-4"}
-              onSelect={onSelect}
-            />
-          </div>
-        </div>
+        {phases.map((phase) => {
+          const frame = MILESTONE_PHASE_FRAMES[phase.id]
+          return (
+            <div
+              key={phase.id}
+              className="absolute z-10"
+              style={{
+                left: frame.left,
+                top: frame.top,
+                width: frame.width,
+              }}
+            >
+              <MilestonePhase
+                phase={phase}
+                selected={selectedId === phase.id}
+                onSelect={onSelect}
+              />
+            </div>
+          )
+        })}
       </div>
     </div>
   )
