@@ -299,6 +299,30 @@ export function ExclusiveExperienceSection() {
                 activate(index)
               }}
             >
+              <div className="experience-left">
+                <div className="experience-title">
+                  <h3 className="font-display text-base font-semibold leading-4 text-foreground lg:text-[32px] lg:leading-10">
+                    <span className={`lg:inline-block ${feature.titleClass}`}>
+                      {feature.title}
+                    </span>
+                  </h3>
+                </div>
+                <div
+                  className="experience-under"
+                  aria-hidden={shouldHideExperienceUnderFromAT({
+                    isActive,
+                    compactLayout,
+                  })}
+                >
+                  <div className="experience-under-inner">
+                    <FeatureCopy
+                      description={feature.description}
+                      tags={feature.tags}
+                    />
+                  </div>
+                </div>
+              </div>
+
               <div
                 className={`experience-media ${
                   feature.blendLighten ? "mix-blend-lighten" : ""
@@ -325,30 +349,6 @@ export function ExclusiveExperienceSection() {
                   aria-hidden
                   className="pointer-events-none absolute inset-0 rounded-[inherit] shadow-[inset_16px_16px_16px_rgba(0,0,0,0.4)]"
                 />
-              </div>
-
-              <div className="experience-left">
-                <div className="experience-title">
-                  <h3 className="font-display text-base font-semibold leading-4 text-foreground lg:text-[32px] lg:leading-10">
-                    <span className={`lg:inline-block ${feature.titleClass}`}>
-                      {feature.title}
-                    </span>
-                  </h3>
-                </div>
-                <div
-                  className="experience-under"
-                  aria-hidden={shouldHideExperienceUnderFromAT({
-                    isActive,
-                    compactLayout,
-                  })}
-                >
-                  <div className="experience-under-inner">
-                    <FeatureCopy
-                      description={feature.description}
-                      tags={feature.tags}
-                    />
-                  </div>
-                </div>
               </div>
 
               <div className="experience-side" aria-hidden={isActive}>

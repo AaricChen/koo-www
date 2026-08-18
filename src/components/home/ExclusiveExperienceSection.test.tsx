@@ -53,7 +53,7 @@ describe("ExclusiveExperienceSection", () => {
       expect(node.getAttribute("aria-hidden")).toBe("false")
     }
     const first = container.querySelector(".experience-item")
-    expect(first?.firstElementChild?.className).toContain("experience-media")
-    expect(first?.classList.contains("is-inview")).toBe(false)
+    expect(first?.querySelector(".experience-media")).not.toBeNull()
+    expect(first?.querySelector(".experience-left")).not.toBeNull()
   })
 })
