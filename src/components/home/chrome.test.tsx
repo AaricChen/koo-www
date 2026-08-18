@@ -139,9 +139,10 @@ describe("WhyKooSection", () => {
     expect(container.innerHTML).toContain("rounded-2xl")
     expect(container.innerHTML).toContain("object-cover")
     expect(container.innerHTML).toContain("object-top")
-    expect(container.innerHTML).toContain("aspect-ratio:1728/1208")
+    expect(container.innerHTML).toContain("aspect-ratio: 1728 / 1208")
     expect(container.innerHTML).toContain("backface-visibility:hidden")
     expect(container.innerHTML).toContain("h-[370px]")
+    expect(container.innerHTML).toContain("/assets/why/product.png")
     expect(container.innerHTML).toContain(
       "linear-gradient(203.01deg, rgba(0, 46, 95, 0.3) 7.13%, rgba(0, 0, 0, 0.5) 51.37%)",
     )
@@ -152,11 +153,29 @@ describe("WhyKooSection", () => {
 
   it("keeps the mobile product shot decorative", () => {
     const { container } = render(<WhyKooSection />)
-    const shots = container.querySelectorAll('img[src="/assets/why/product.png"]')
-    expect(shots.length).toBeGreaterThan(0)
-    for (const shot of shots) {
-      expect(shot.getAttribute("alt")).toBe("")
-      expect(shot.getAttribute("aria-hidden")).toBe("true")
+    const mobile = container.querySelector(
+      'img[src="/assets/why/product-mobile.png"]',
+    )
+    const desktop = container.querySelector(
+      'img[src="/assets/why/product.png"]',
+    )
+    expect(mobile).not.toBeNull()
+    expect(desktop).not.toBeNull()
+    expect(container.innerHTML).toContain("h-[230px]")
+    expect(container.innerHTML).toContain("w-[315px]")
+    expect(container.innerHTML).toContain("rounded-[10px]")
+    expect(container.innerHTML).toContain("left-[6.8px]")
+    expect(container.innerHTML).toContain("w-[281px]")
+    expect(container.innerHTML).toContain(
+      "linear-gradient(202.49deg, rgba(0, 46, 95, 0.3) 7.13%, rgba(0, 0, 0, 0.5) 51.37%)",
+    )
+    expect(container.innerHTML).toContain(
+      "linear-gradient(241.8deg, rgba(136, 136, 136, 0.2) 31.37%, rgba(0, 0, 0, 0.2) 98.15%)",
+    )
+    expect(mobile?.className).toContain("object-cover")
+    for (const shot of [mobile, desktop]) {
+      expect(shot?.getAttribute("alt")).toBe("")
+      expect(shot?.getAttribute("aria-hidden")).toBe("true")
     }
   })
 })
