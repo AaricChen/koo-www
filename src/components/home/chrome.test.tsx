@@ -105,6 +105,9 @@ describe("HeroSection", () => {
     expect(container.querySelector(".hero-bg-fade")).not.toBeNull()
     expect(container.querySelector(".hero-bottom-blur")).not.toBeNull()
     expect(container.querySelector("section")?.className).toContain("lg:pb-28")
+    expect(container.querySelector("section")?.className).toContain("-mt-[50px]")
+    expect(container.querySelector("section")?.className).toContain("md:-mt-20")
+    expect(container.querySelector("section")?.className).toContain("pt-[105px]")
     expect(container.querySelector("img[src='/assets/hero-bg.png']")).toBeNull()
     expect(
       container.querySelector("video")?.getAttribute("poster"),

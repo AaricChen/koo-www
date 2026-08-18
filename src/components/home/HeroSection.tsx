@@ -44,7 +44,7 @@ function ScrollHint() {
 
 export function HeroSection() {
   return (
-    <section className="relative isolate -mt-20 flex min-h-[644px] items-start justify-center overflow-hidden px-4 pb-12 pt-[105px] sm:px-10 sm:pb-24 lg:min-h-[809px] lg:items-center lg:px-20 lg:pb-28 lg:pt-28">
+    <section className="relative isolate -mt-[50px] flex min-h-[644px] items-start justify-center overflow-hidden px-4 pb-[15px] pt-[105px] sm:px-10 sm:pb-24 md:-mt-20 lg:min-h-[809px] lg:items-center lg:px-20 lg:pb-28 lg:pt-28">
       <div className="pointer-events-none absolute inset-0">
         <div className="hero-bg-fade absolute inset-0 opacity-40">
           <BackgroundVideo
