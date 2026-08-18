@@ -22,6 +22,9 @@ describe("DevelopmentMilestonesSection", () => {
     expect(screen.getAllByText("Phase 1").length).toBeGreaterThan(0)
     expect(screen.getAllByText("Multi-Yield Sources").length).toBeGreaterThan(0)
     expect(container.querySelectorAll(".milestone-m-card").length).toBe(4)
+    expect(container.innerHTML).toContain("w-[82.67vw]")
+    expect(container.innerHTML).toContain("left-[-12.05%]")
+    expect(container.innerHTML).not.toContain("max-w-[343px]")
   })
 
   it("does not mount the desktop path canvas below lg", () => {

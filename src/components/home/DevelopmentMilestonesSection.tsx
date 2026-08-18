@@ -506,25 +506,29 @@ function MobileComposition({
   onSelect: (id: PhaseId) => void
 }) {
   return (
-    <div className="relative flex flex-col items-center gap-[220px] px-4 pb-6 pt-10 lg:hidden">
+    <div className="relative flex flex-col items-center px-4 pb-6 pt-10 lg:hidden">
       <MilestonesHeader compact />
       <div
-        className="pointer-events-none absolute left-1/2 top-[206px] h-[168px] w-[310px] -translate-x-1/2"
+        className="pointer-events-none relative mx-auto mt-[34px] mb-2 aspect-[310/177] w-[82.67vw] max-w-full shrink-0"
         aria-hidden
       >
         <img
           src="/assets/milestones/center-glow.png"
           alt=""
-          className="absolute left-1/2 top-4 h-[160px] w-auto max-w-none -translate-x-1/2 opacity-80"
+          className="absolute inset-x-0 top-[10%] h-[90%] w-full object-contain opacity-80"
         />
-        <img
-          src="/assets/milestones/center-logo.png"
-          alt=""
-          className="absolute left-1/2 top-0 h-[168px] w-[195px] max-w-none -translate-x-1/2 object-contain"
-        />
+        <div className="absolute left-1/2 top-0 aspect-[194.5/167.57] h-[94.5%] -translate-x-1/2 overflow-hidden">
+          <img
+            src="/assets/milestones/center-logo.png"
+            alt=""
+            className="absolute left-[-12.05%] top-[-31.29%] h-[155.94%] w-[124.1%] max-w-none"
+            width={1480}
+            height={1600}
+          />
+        </div>
       </div>
       <div
-        className="relative z-10 flex w-full max-w-[343px] flex-col gap-4"
+        className="relative z-10 flex w-full flex-col gap-4"
         role="group"
         aria-label="Development milestone phases"
       >
