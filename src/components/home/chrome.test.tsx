@@ -137,6 +137,11 @@ describe("WhyKooSection", () => {
     expect(container.innerHTML).toContain("w-[min(502px,46%)]")
     expect(container.innerHTML).toContain("blur-[28px]")
     expect(container.innerHTML).toContain("rounded-2xl")
+    expect(container.innerHTML).toContain("object-cover")
+    expect(container.innerHTML).toContain("object-top")
+    expect(container.innerHTML).toContain("aspect-ratio:1728/1208")
+    expect(container.innerHTML).toContain("backface-visibility:hidden")
+    expect(container.innerHTML).toContain("h-[370px]")
     expect(container.innerHTML).toContain(
       "linear-gradient(203.01deg, rgba(0, 46, 95, 0.3) 7.13%, rgba(0, 0, 0, 0.5) 51.37%)",
     )

@@ -39,31 +39,41 @@ function ProductFrame({ className }: { className?: string }) {
       <div
         aria-hidden
         data-why-glow=""
-        className="absolute inset-0 overflow-hidden rounded-2xl blur-[28px] [transform:rotate(3deg)_skewX(3deg)]"
-        style={{ backgroundImage: WHY_KOO_PRODUCT_GLOW }}
-      />
-      <div
-        aria-hidden
-        className="absolute left-[9%] top-[2.6%] h-[79%] w-[90%] rounded-[14px] bg-[rgba(9,9,9,0.6)] [transform:rotate(3deg)_skewX(3deg)]"
-      />
-      <div
-        aria-hidden
-        className="absolute left-[4%] top-[4.4%] h-[88%] w-[93%] rounded-[12px] bg-[rgba(29,33,49,0.4)] [transform:rotate(3deg)_skewX(3deg)]"
-      />
-      <div className="absolute left-[5.9%] top-[6.6%] h-[84%] w-[89%] overflow-hidden rounded-lg [transform:rotate(3deg)_skewX(3deg)]">
-        <img
-          src="/assets/why/product.png"
-          alt=""
-          aria-hidden
-          className="size-full object-cover object-center"
-          width={1728}
-          height={1208}
-        />
+        className="absolute inset-0 [transform:rotate(3deg)_skewX(3deg)] [backface-visibility:hidden]"
+      >
         <div
-          aria-hidden
-          className="absolute inset-0"
-          style={{ backgroundImage: WHY_KOO_PRODUCT_WASH }}
+          className="size-full overflow-hidden rounded-2xl blur-[28px]"
+          style={{ backgroundImage: WHY_KOO_PRODUCT_GLOW }}
         />
+      </div>
+      <div
+        aria-hidden
+        className="absolute left-[9%] top-[2.6%] h-[79%] w-[90%] [transform:rotate(3deg)_skewX(3deg)] [backface-visibility:hidden]"
+      >
+        <div className="size-full rounded-[14px] bg-[rgba(9,9,9,0.6)]" />
+      </div>
+      <div
+        aria-hidden
+        className="absolute left-[4%] top-[4.4%] h-[88%] w-[93%] [transform:rotate(3deg)_skewX(3deg)] [backface-visibility:hidden]"
+      >
+        <div className="size-full rounded-[12px] bg-[rgba(29,33,49,0.4)]" />
+      </div>
+      <div className="absolute left-[5.9%] top-[6.6%] w-[89%] [aspect-ratio:1728/1208] [transform:rotate(3deg)_skewX(3deg)] [backface-visibility:hidden]">
+        <div className="size-full overflow-hidden rounded-lg">
+          <img
+            src="/assets/why/product.png"
+            alt=""
+            aria-hidden
+            className="size-full object-cover object-top"
+            width={1728}
+            height={1208}
+          />
+          <div
+            aria-hidden
+            className="absolute inset-0"
+            style={{ backgroundImage: WHY_KOO_PRODUCT_WASH }}
+          />
+        </div>
       </div>
     </div>
   )
@@ -73,8 +83,8 @@ export function WhyKooSection() {
   return (
     <section className="relative flex flex-col items-center overflow-x-clip px-4 pb-6 pt-4 sm:px-10 sm:pt-8 lg:px-20 lg:pb-[100px] lg:pt-24">
       <div className="relative w-full max-w-[1280px] pt-[164px] lg:pt-0">
-        <ProductFrame className="pointer-events-none absolute top-0 left-1/2 z-0 h-[230px] w-[315px] -translate-x-1/2 lg:hidden" />
-        <ProductFrame className="pointer-events-none absolute top-[-67px] right-0 z-0 hidden h-[403px] w-[min(502px,46%)] max-w-full lg:block" />
+        <ProductFrame className="pointer-events-none absolute top-0 left-1/2 z-0 h-[233px] w-[315px] -translate-x-1/2 lg:hidden" />
+        <ProductFrame className="pointer-events-none absolute top-[-67px] right-0 z-0 hidden h-[370px] w-[min(502px,46%)] max-w-full lg:block" />
 
         <div className="relative z-10 flex flex-col gap-8 lg:gap-20">
           <div className="flex flex-col gap-5 px-0 text-center sm:px-4 lg:max-w-[541px] lg:gap-8 lg:text-left">
