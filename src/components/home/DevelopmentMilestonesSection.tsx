@@ -487,14 +487,18 @@ function MobileComposition({
     <div className="relative flex flex-col items-center px-4 pb-6 pt-10 lg:hidden">
       <MilestonesHeader compact />
       <div
-        className="pointer-events-none relative mx-auto mt-[34px] mb-2 aspect-[310/177] w-[82.67vw] max-w-full shrink-0"
+        className="pointer-events-none relative mx-auto mt-[34px] mb-2 aspect-[310/177] w-[82.67vw] max-w-full shrink-0 overflow-visible"
         aria-hidden
       >
-        <img
-          src="/assets/milestones/center-glow.png"
-          alt=""
-          className="absolute inset-x-0 top-[10%] h-[90%] w-full object-contain opacity-80"
-        />
+        <div className="absolute inset-x-0 top-[10%] h-[90%] w-full">
+          <div className="absolute inset-[-62.68%_-32.26%]">
+            <img
+              src="/assets/milestones/center-glow-mobile.svg"
+              alt=""
+              className="block size-full max-w-none"
+            />
+          </div>
+        </div>
         <div className="absolute left-1/2 top-0 aspect-[194.5/167.57] h-[94.5%] -translate-x-1/2 overflow-hidden">
           <img
             src="/assets/milestones/center-logo.png"

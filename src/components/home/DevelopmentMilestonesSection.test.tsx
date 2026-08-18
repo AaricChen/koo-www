@@ -24,6 +24,8 @@ describe("DevelopmentMilestonesSection", () => {
     expect(container.querySelectorAll(".milestone-m-card").length).toBe(4)
     expect(container.innerHTML).toContain("w-[82.67vw]")
     expect(container.innerHTML).toContain("left-[-12.05%]")
+    expect(container.innerHTML).toContain("center-glow-mobile.svg")
+    expect(container.innerHTML).toContain("inset-[-62.68%_-32.26%]")
     expect(container.innerHTML).not.toContain("max-w-[343px]")
   })
 
