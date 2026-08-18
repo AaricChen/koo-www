@@ -776,6 +776,10 @@
       grid-column: auto;
     }
 
+    .experience-media {
+      order: -1;
+    }
+
     .experience-left {
       gap: 12px;
       overflow: visible;
@@ -819,6 +823,7 @@
     .experience-item.is-active .experience-media-image {
       opacity: 1;
       transform: none;
+      transition: none;
     }
   }
 }
