@@ -46,6 +46,15 @@ describe("DevelopmentMilestonesSection", () => {
     expect(container.querySelector('[data-line-state="off"]')).not.toBeNull()
     expect(container.querySelector(".milestone-line-glow")).toBeNull()
     expect(container.querySelectorAll(".milestone-line-end-glow").length).toBe(8)
+    expect(container.querySelector("[data-milestone-logo]")?.className).toContain(
+      "z-[1]",
+    )
+    expect(
+      container
+        .querySelector("svg[aria-hidden]")
+        ?.getAttribute("class")
+        ?.includes("z-[1]"),
+    ).toBe(false)
   })
 
   it("lights a desktop phase on hover", () => {

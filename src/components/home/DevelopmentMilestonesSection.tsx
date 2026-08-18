@@ -79,7 +79,7 @@ const accentText: Record<PhaseAccent, string> = {
 function MilestoneLines({ activeId }: { activeId: PhaseId }) {
   return (
     <svg
-      className="pointer-events-none absolute inset-0 z-[1]"
+      className="pointer-events-none absolute inset-0 z-0"
       viewBox={`0 0 ${MILESTONE_DESIGN_WIDTH} ${MILESTONE_DESIGN_HEIGHT}`}
       width={MILESTONE_DESIGN_WIDTH}
       height={MILESTONE_DESIGN_HEIGHT}
@@ -572,7 +572,7 @@ function DesktopComposition({
         </div>
 
         <MilestoneLines activeId={selectedId} />
-        <div className="pointer-events-none absolute left-[461px] top-[512px] h-[285px] w-[518px]">
+        <div className="pointer-events-none absolute left-[461px] top-[512px] z-[1] h-[285px] w-[518px]">
           <img
             src="/assets/milestones/center-glow.png"
             alt=""
@@ -580,7 +580,10 @@ function DesktopComposition({
             className="absolute inset-[-35.09%_-19.31%] size-full max-w-none"
           />
         </div>
-        <div className="pointer-events-none absolute left-[558px] top-[472px] h-[280px] w-[325px] overflow-hidden">
+        <div
+          data-milestone-logo
+          className="pointer-events-none absolute left-[558px] top-[472px] z-[1] h-[280px] w-[325px] overflow-hidden"
+        >
           <img
             src="/assets/milestones/center-logo.png"
             alt=""
