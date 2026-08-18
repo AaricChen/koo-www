@@ -16,7 +16,7 @@ function ScrollHint() {
         className="text-foreground"
       >
         <path
-          d="M3.2 5.6 8 10.4l4.8-4.8"
+          d="M3.2 10.4 8 5.6l4.8 4.8"
           stroke="currentColor"
           strokeWidth="1.6"
           strokeLinecap="round"
@@ -31,7 +31,7 @@ function ScrollHint() {
         className="-mt-2 text-foreground"
       >
         <path
-          d="M3.2 5.6 8 10.4l4.8-4.8"
+          d="M3.2 10.4 8 5.6l4.8 4.8"
           stroke="currentColor"
           strokeWidth="1.6"
           strokeLinecap="round"
