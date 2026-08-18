@@ -16,12 +16,6 @@ const navItems = [
   { label: "Docs", href: DOCS_URL, active: false },
 ] as const
 
-const communitySocials = [
-  { label: "X / Twitter", icon: "/assets/social-x.svg" },
-  { label: "Discord", icon: "/assets/social-discord.svg" },
-  { label: "Telegram", icon: "/assets/social-tg.svg" },
-] as const
-
 const MD_MIN_WIDTH_QUERY = "(min-width: 768px)"
 
 function MenuIcon() {
@@ -50,35 +44,6 @@ function CloseIcon() {
         stroke="currentColor"
         strokeWidth="1.5"
         strokeLinecap="round"
-      />
-    </svg>
-  )
-}
-
-function ChevronDownIcon() {
-  return (
-    <svg viewBox="0 0 16 16" className="size-4" fill="none" aria-hidden>
-      <path
-        d="M4.2 6.2 8 10l3.8-3.8"
-        stroke="currentColor"
-        strokeWidth="1.4"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  )
-}
-
-function ChevronRightIcon() {
-  return (
-    <svg viewBox="0 0 16 16" className="size-4" fill="none" aria-hidden>
-      <path
-        d="M6.2 4.2 10 8l-3.8 3.8"
-        stroke="currentColor"
-        strokeWidth="1.4"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeOpacity="0.6"
       />
     </svg>
   )
@@ -134,23 +99,19 @@ function MobileMark({ onClick }: { onClick?: () => void }) {
 
 export function SiteHeader() {
   const [menuOpen, setMenuOpen] = useState(false)
-  const [communityOpen, setCommunityOpen] = useState(false)
   const isDesktop = useMatchMedia(MD_MIN_WIDTH_QUERY)
   const menuId = useId()
-  const communityId = useId()
   const openButtonRef = useRef<HTMLButtonElement>(null)
   const closeButtonRef = useRef<HTMLButtonElement>(null)
 
   const closeMenu = useCallback(() => {
     openButtonRef.current?.focus()
     setMenuOpen(false)
-    setCommunityOpen(false)
   }, [])
 
   useEffect(() => {
     if (isDesktop) {
       setMenuOpen(false)
-      setCommunityOpen(false)
     }
   }, [isDesktop])
 
@@ -304,65 +265,6 @@ export function SiteHeader() {
           >
             Docs
           </a>
-          <div className="mobile-nav-rule" aria-hidden />
-          <div
-            className={`mobile-nav-item flex w-full flex-col ${
-              communityOpen ? "gap-10" : "gap-0"
-            }`}
-          >
-            <button
-              type="button"
-              aria-expanded={communityOpen}
-              aria-controls={communityId}
-              onClick={() => setCommunityOpen((open) => !open)}
-              className={`flex w-full items-center justify-between pr-1 text-left text-sm leading-[14px] transition hover:text-foreground ${
-                communityOpen
-                  ? "font-medium text-foreground"
-                  : "font-normal text-muted-foreground"
-              }`}
-            >
-              Community
-              <span
-                className={`inline-flex text-current transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${
-                  communityOpen ? "rotate-180" : ""
-                }`}
-              >
-                <ChevronDownIcon />
-              </span>
-            </button>
-            <div
-              id={communityId}
-              className="mobile-nav-community"
-              data-open={communityOpen}
-              aria-hidden={!communityOpen}
-            >
-              <div className="mobile-nav-community-inner">
-                <ul className="flex w-full flex-col gap-7 py-0 pl-3 pr-2">
-                  {communitySocials.map((social) => (
-                    <li
-                      key={social.label}
-                      className="flex w-full items-center justify-between"
-                    >
-                      <span className="flex items-center gap-3">
-                        <img
-                          src={social.icon}
-                          alt=""
-                          aria-hidden
-                          className="size-6 shrink-0"
-                          width={24}
-                          height={24}
-                        />
-                        <span className="text-xs leading-3 text-muted-foreground">
-                          {social.label}
-                        </span>
-                      </span>
-                      <ChevronRightIcon />
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-          </div>
         </nav>
       </div>
     </>

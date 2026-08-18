@@ -44,6 +44,7 @@ describe("SiteHeader", () => {
     expect(launch[1].className).toContain("py-[11px]")
     expect(container.querySelector('a[href="#"]')).toBeNull()
     expect(screen.queryByRole("link", { name: "Community" })).toBeNull()
+    expect(screen.queryByRole("button", { name: "Community" })).toBeNull()
   })
 
   it("slides the mobile drawer in from the left", () => {
@@ -65,18 +66,9 @@ describe("SiteHeader", () => {
       drawer?.querySelector(".flex.w-full.items-center.justify-between"),
     ).not.toBeNull()
 
-    const community = screen.getByRole("button", { name: "Community" })
-    expect(community.getAttribute("aria-expanded")).toBe("false")
-    fireEvent.click(community)
-    expect(community.getAttribute("aria-expanded")).toBe("true")
-    expect(
-      container.querySelector('.mobile-nav-community[data-open="true"]'),
-    ).not.toBeNull()
-    expect(container.querySelector('img[src="/assets/social-x.svg"]')).not.toBeNull()
-    expect(screen.getByText("X / Twitter")).not.toBeNull()
-    expect(screen.getByText("Discord")).not.toBeNull()
-    expect(screen.getByText("Telegram")).not.toBeNull()
-    expect(screen.queryByText("Instagram")).toBeNull()
+    expect(screen.queryByRole("button", { name: "Community" })).toBeNull()
+    expect(screen.queryByText("X / Twitter")).toBeNull()
+    expect(container.querySelector(".mobile-nav-community")).toBeNull()
     expect(container.querySelector('a[href="#"]')).toBeNull()
 
     fireEvent.click(screen.getAllByRole("button", { name: "Close menu" })[0])
