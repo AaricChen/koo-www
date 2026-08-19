@@ -388,41 +388,28 @@ function MobilePhaseCard({
         </div>
 
         {phase.goals ? (
-          <div>
-            <div
-              className="milestone-features milestone-m-extra"
-              data-open={selected ? "false" : "true"}
-            >
-              <div className="milestone-features-inner">
-                <div className="flex flex-wrap content-start gap-3">
-                  {phase.tags.map((tag) => (
-                    <span key={tag} className="milestone-m-tag">
-                      {tag}
-                    </span>
-                  ))}
+          selected ? (
+            <div className="flex flex-col gap-4">
+              {phase.goals.map((goal) => (
+                <div key={goal.title} className="flex flex-col gap-1.5">
+                  <p className="font-display text-sm font-semibold leading-[14px] text-foreground">
+                    {goal.title}
+                  </p>
+                  <p className="text-xs leading-4 text-muted-foreground">
+                    {goal.body}
+                  </p>
                 </div>
-              </div>
+              ))}
             </div>
-            <div
-              className="milestone-features milestone-m-extra"
-              data-open={selected ? "true" : "false"}
-            >
-              <div className="milestone-features-inner">
-                <div className="flex flex-col gap-4">
-                  {phase.goals.map((goal) => (
-                    <div key={goal.title} className="flex flex-col gap-1.5">
-                      <p className="font-display text-sm font-semibold leading-[14px] text-foreground">
-                        {goal.title}
-                      </p>
-                      <p className="text-xs leading-4 text-muted-foreground">
-                        {goal.body}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-              </div>
+          ) : (
+            <div className="flex w-full shrink-0 flex-wrap content-start gap-3">
+              {phase.tags.map((tag) => (
+                <span key={tag} className="milestone-m-tag">
+                  {tag}
+                </span>
+              ))}
             </div>
-          </div>
+          )
         ) : (
           <div>
             <div className="flex flex-col gap-3">
@@ -435,7 +422,7 @@ function MobilePhaseCard({
                   {phase.description}
                 </p>
               ) : null}
-              <div className="flex flex-wrap content-start gap-3">
+              <div className="flex w-full shrink-0 flex-wrap content-start gap-3">
                 {phase.tags.map((tag) => (
                   <span key={tag} className="milestone-m-tag">
                     {tag}

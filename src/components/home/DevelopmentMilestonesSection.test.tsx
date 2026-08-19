@@ -27,6 +27,9 @@ describe("DevelopmentMilestonesSection", () => {
     expect(container.innerHTML).toContain("center-glow-mobile.svg")
     expect(container.innerHTML).toContain("inset-[-62.68%_-32.26%]")
     expect(container.innerHTML).not.toContain("max-w-[343px]")
+    for (const tag of container.querySelectorAll(".milestone-m-tag")) {
+      expect(tag.closest(".milestone-features-inner")).toBeNull()
+    }
   })
 
   it("does not mount the desktop path canvas below lg", () => {
