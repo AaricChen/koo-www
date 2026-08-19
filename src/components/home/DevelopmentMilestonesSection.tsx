@@ -6,6 +6,7 @@ import {
   type MouseEvent,
 } from "react"
 import {
+  MILESTONE_CENTER_GLOW,
   MILESTONE_DESIGN_HEIGHT,
   MILESTONE_DESIGN_WIDTH,
   MILESTONE_LINES,
@@ -514,6 +515,33 @@ function MobileComposition({
   )
 }
 
+function MilestoneCenterGlow({ phaseId }: { phaseId: PhaseId }) {
+  return (
+    <div
+      className="pointer-events-none absolute left-[461px] top-[512px] z-[1] h-[285px] w-[518px]"
+      data-floor-glow={phaseId}
+    >
+      {phases.map((phase) => (
+        <div
+          key={phase.id}
+          className={`milestone-ease absolute inset-[-35.09%_-19.31%] duration-500 ${
+            phase.id === phaseId ? "opacity-100" : "opacity-0"
+          }`}
+        >
+          <img
+            src={MILESTONE_CENTER_GLOW[phase.id]}
+            alt=""
+            aria-hidden
+            width={718}
+            height={485}
+            className="block size-full max-w-none"
+          />
+        </div>
+      ))}
+    </div>
+  )
+}
+
 function DesktopComposition({
   selectedId,
   onSelect,
@@ -559,14 +587,7 @@ function DesktopComposition({
         </div>
 
         <MilestoneLines activeId={selectedId} />
-        <div className="pointer-events-none absolute left-[461px] top-[512px] z-[1] h-[285px] w-[518px]">
-          <img
-            src="/assets/milestones/center-glow.png"
-            alt=""
-            aria-hidden
-            className="absolute inset-[-35.09%_-19.31%] size-full max-w-none"
-          />
-        </div>
+        <MilestoneCenterGlow phaseId={selectedId} />
         <div
           data-milestone-logo
           className="pointer-events-none absolute left-[558px] top-[472px] z-[1] h-[280px] w-[325px] overflow-hidden"

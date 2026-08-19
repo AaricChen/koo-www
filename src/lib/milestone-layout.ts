@@ -61,6 +61,14 @@ export function milestonePhaseFromPoint(
 /** Center of the 325×280 logo frame at (558, 472). */
 export const MILESTONE_LOGO_HUB = { x: 720, y: 612 } as const
 
+/** Figma Ellipse 2 under the logo — one PNG per hover variant. */
+export const MILESTONE_CENTER_GLOW: Record<PhaseId, string> = {
+  "phase-1": "/assets/milestones/center-glow-phase-1.png",
+  "phase-2": "/assets/milestones/center-glow-phase-2.png",
+  "phase-3": "/assets/milestones/center-glow-phase-3.png",
+  "phase-4": "/assets/milestones/center-glow-phase-4.png",
+}
+
 export type MilestoneLineSpec = {
   /** Hub (logo center) → title. On/off share geometry; only stroke style changes. */
   d: string

@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest"
 import {
+  MILESTONE_CENTER_GLOW,
   MILESTONE_DESIGN_HEIGHT,
   MILESTONE_LINES,
   MILESTONE_LOGO_HUB,
@@ -64,6 +65,15 @@ describe("milestone phase frames", () => {
     expect(MILESTONE_PHASE_FRAMES["phase-2"]?.top).toBe(820)
     expect(MILESTONE_PHASE_FRAMES["phase-3"]?.left).toBe(976)
     expect(MILESTONE_PHASE_FRAMES["phase-4"]?.top).toBe(816)
+  })
+})
+
+describe("milestone center glow", () => {
+  it("maps each hover variant to its Figma ellipse asset", () => {
+    expect(MILESTONE_CENTER_GLOW["phase-1"]).toContain("center-glow-phase-1.png")
+    expect(MILESTONE_CENTER_GLOW["phase-2"]).toContain("center-glow-phase-2.png")
+    expect(MILESTONE_CENTER_GLOW["phase-3"]).toContain("center-glow-phase-3.png")
+    expect(MILESTONE_CENTER_GLOW["phase-4"]).toContain("center-glow-phase-4.png")
   })
 })
 

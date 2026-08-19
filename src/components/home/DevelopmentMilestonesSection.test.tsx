@@ -45,7 +45,17 @@ describe("DevelopmentMilestonesSection", () => {
     expect(container.querySelectorAll(".milestone-line")).toHaveLength(4)
     expect(container.querySelector(".milestone-line.is-active")).not.toBeNull()
     expect(container.querySelectorAll(".milestone-m-card")).toHaveLength(0)
-    expect(container.querySelector("[data-floor-glow]")).toBeNull()
+    expect(
+      container.querySelector("[data-floor-glow]")?.getAttribute("data-floor-glow"),
+    ).toBe("phase-1")
+    expect(container.innerHTML).toContain("center-glow-phase-1.png")
+    expect(container.innerHTML).toContain("center-glow-phase-4.png")
+    expect(
+      container.querySelector("[data-floor-glow] .absolute")?.className,
+    ).toContain("inset-[-35.09%_-19.31%]")
+    expect(
+      container.querySelector("[data-floor-glow] img")?.getAttribute("width"),
+    ).toBe("718")
     expect(container.querySelector('[data-line-state="off"]')).not.toBeNull()
     expect(container.querySelector(".milestone-line-glow")).toBeNull()
     expect(container.querySelectorAll(".milestone-line-end-glow").length).toBe(8)
@@ -75,6 +85,9 @@ describe("DevelopmentMilestonesSection", () => {
     expect(
       container.querySelector('[data-phase="phase-1"][data-line-state="off"]'),
     ).not.toBeNull()
+    expect(
+      container.querySelector("[data-floor-glow]")?.getAttribute("data-floor-glow"),
+    ).toBe("phase-2")
   })
 
   it("keeps the desktop canvas height fixed when switching phases", () => {
