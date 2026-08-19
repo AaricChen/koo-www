@@ -11,6 +11,12 @@ describe("milestone phases", () => {
     ])
     expect(phases[1]?.tags).toContain("Multi-Yield Sources")
     expect(phases[2]?.tags).toContain("Custom Blockchain")
+    expect(phases[2]?.upgrades).toEqual([
+      "Custom chain for settlement & execution",
+      "Pro-grade trading tools & order types",
+      "Multi-asset markets: spot, predictions, etc.",
+      "Full DAO control of protocol parameters",
+    ])
     expect(JSON.stringify(phases)).not.toContain("Yeld")
     expect(JSON.stringify(phases)).not.toContain("Block Chain")
   })

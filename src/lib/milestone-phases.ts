@@ -71,8 +71,8 @@ export const phases: readonly Phase[] = [
     tags: ["Custom Blockchain", "Pro trading tools", "DAO Governance"],
     detailsTitle: "Upgrades",
     upgrades: [
-      "Custom Blockchain for settlement & execution",
-      "Professional-grade trading tools & order types",
+      "Custom chain for settlement & execution",
+      "Pro-grade trading tools & order types",
       "Multi-asset markets: spot, predictions, etc.",
       "Full DAO control of protocol parameters",
     ],
