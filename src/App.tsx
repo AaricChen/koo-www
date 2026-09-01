@@ -1,3 +1,4 @@
+import { Analytics } from "@vercel/analytics/react"
 import { DevelopmentMilestonesSection } from "./components/home/DevelopmentMilestonesSection"
 import { EnterKooSection } from "./components/home/EnterKooSection"
 import { ExclusiveExperienceSection } from "./components/home/ExclusiveExperienceSection"
@@ -18,6 +19,7 @@ function App() {
         <EnterKooSection />
       </main>
       <SiteFooter />
+      <Analytics />
     </div>
   )
 }
