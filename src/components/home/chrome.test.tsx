@@ -1,6 +1,6 @@
 import { cleanup, fireEvent, render, screen } from "@testing-library/react"
 import { afterEach, describe, expect, it } from "vitest"
-import { APP_URL, DOCS_URL } from "../../lib/links"
+import { APP_URL, DOCS_URL, SUPPORT_URL } from "../../lib/links"
 import { EnterKooSection } from "./EnterKooSection"
 import { HeroSection } from "./HeroSection"
 import { SiteFooter } from "./SiteFooter"
@@ -12,7 +12,7 @@ afterEach(() => {
 })
 
 describe("SiteHeader", () => {
-  it("exposes Home, Docs, and Launch App without placeholder hashes", () => {
+  it("exposes Home, Docs, Support, and Launch App without placeholder hashes", () => {
     const { container } = render(<SiteHeader />)
     const marks = screen.getAllByRole("link", { name: "Koo.xyz" })
     expect(marks.length).toBeGreaterThanOrEqual(1)
@@ -29,6 +29,12 @@ describe("SiteHeader", () => {
     for (const link of docs) {
       expect(link).toHaveProperty("href", DOCS_URL)
     }
+    const headerSupport = screen.getByRole("navigation", {
+      name: "Primary",
+    })
+    expect(
+      headerSupport.querySelector('a[href="' + SUPPORT_URL + '"]'),
+    ).not.toBeNull()
     expect(container.innerHTML).toContain("md:hidden")
     expect(container.innerHTML).toContain("logo-main.svg")
     expect(container.innerHTML).toContain("h-[50px]")
@@ -79,14 +85,25 @@ describe("SiteHeader", () => {
 })
 
 describe("SiteFooter", () => {
-  it("keeps Docs live and omits legal or social hash links", () => {
+  it("keeps Docs and Support live and omits legal or social hash links", () => {
     const { container } = render(<SiteFooter />)
-    expect(screen.getByRole("link", { name: "Docs" })).toHaveProperty(
-      "href",
-      DOCS_URL,
-    )
+    const docsLinks = screen.getAllByRole("link", { name: "Docs" })
+    expect(docsLinks.length).toBe(2)
+    for (const link of docsLinks) {
+      expect(link).toHaveProperty("href", DOCS_URL)
+    }
+    const supportLinks = screen.getAllByRole("link", { name: "Support" })
+    expect(supportLinks.length).toBe(2)
+    for (const link of supportLinks) {
+      expect(link).toHaveProperty("href", SUPPORT_URL)
+    }
+    expect(container.innerHTML).toContain("gap-12 lg:hidden")
+    expect(container.innerHTML).toContain("/assets/footer/social-x.svg")
+    expect(container.innerHTML).toContain("gap-4 text-xs leading-3")
+    expect(screen.getByText("Terms of Use").tagName).toBe("SPAN")
     expect(container.querySelector('a[href="#"]')).toBeNull()
     expect(screen.queryByRole("link", { name: "Terms of Service" })).toBeNull()
+    expect(screen.queryByRole("link", { name: "Terms of Use" })).toBeNull()
     expect(screen.queryByRole("link", { name: "Privacy Policy" })).toBeNull()
   })
 })
