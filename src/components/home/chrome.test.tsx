@@ -12,7 +12,7 @@ afterEach(() => {
 })
 
 describe("SiteHeader", () => {
-  it("exposes Home, Docs, Support, and Launch App without placeholder hashes", () => {
+  it("exposes Home, Docs, and Launch App without placeholder hashes", () => {
     const { container } = render(<SiteHeader />)
     const marks = screen.getAllByRole("link", { name: "Koo.xyz" })
     expect(marks.length).toBeGreaterThanOrEqual(1)
@@ -29,12 +29,7 @@ describe("SiteHeader", () => {
     for (const link of docs) {
       expect(link).toHaveProperty("href", DOCS_URL)
     }
-    const headerSupport = screen.getByRole("navigation", {
-      name: "Primary",
-    })
-    expect(
-      headerSupport.querySelector('a[href="' + SUPPORT_URL + '"]'),
-    ).not.toBeNull()
+    expect(screen.queryByRole("link", { name: "Support" })).toBeNull()
     expect(container.innerHTML).toContain("md:hidden")
     expect(container.innerHTML).toContain("logo-main.svg")
     expect(container.innerHTML).toContain("h-[50px]")

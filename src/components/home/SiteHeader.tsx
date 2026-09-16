@@ -7,14 +7,13 @@ import {
   type ReactNode,
   type Ref,
 } from "react"
-import { APP_URL, DOCS_URL, SUPPORT_URL } from "../../lib/links"
+import { APP_URL, DOCS_URL } from "../../lib/links"
 import { useMatchMedia } from "../../lib/use-match-media"
 import { OutlineButton } from "../ui/Button"
 
 const navItems = [
   { label: "Home", href: "/", active: true },
   { label: "Docs", href: DOCS_URL, active: false },
-  { label: "Support", href: SUPPORT_URL, active: false },
 ] as const
 
 const MD_MIN_WIDTH_QUERY = "(min-width: 768px)"
