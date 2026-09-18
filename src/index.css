@@ -117,8 +117,15 @@
     .mobile-nav-drawer,
     .mobile-nav-community,
     .header-community-dropdown,
-    .header-community-dropdown-panel {
+    .header-community-dropdown-panel,
+    .community-card-qr,
+    .community-card-face {
       transition: none;
+    }
+
+    .community-card-qr {
+      opacity: 1;
+      transform: none;
     }
 
     .mobile-nav-community[data-open="true"] {
@@ -590,6 +597,61 @@
 
   .mobile-nav-community-inner {
     overflow: hidden;
+  }
+
+  .community-card-qr {
+    --community-card-ease: cubic-bezier(0.22, 1, 0.36, 1);
+    /* Align popup right edge with in-card QR icon left (right-4 + size-7). */
+    position: absolute;
+    right: calc(1rem + 1.75rem);
+    top: -144px;
+    z-index: 2;
+    width: 160px;
+    height: 160px;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(12px) scale(0.94);
+    transition:
+      opacity 280ms ease,
+      transform 320ms var(--community-card-ease);
+    filter: drop-shadow(0 8px 4px rgba(9, 9, 9, 0.1));
+  }
+
+  .group\/card:hover .community-card-qr,
+  .group\/card:focus-within .community-card-qr {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+
+  .community-card-qr-frame {
+    box-sizing: border-box;
+    height: 100%;
+    width: 100%;
+    border-radius: 16px;
+    border: 2px solid rgba(61, 122, 255, 0.6);
+    background: #fafafa;
+    padding: 5%;
+  }
+
+  .community-card-qr-image {
+    display: block;
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+  }
+
+  .community-card-face {
+    --community-card-ease: cubic-bezier(0.22, 1, 0.36, 1);
+    transition:
+      background 320ms var(--community-card-ease),
+      transform 320ms var(--community-card-ease),
+      box-shadow 320ms var(--community-card-ease);
+  }
+
+  .group\/card:hover .community-card-face,
+  .group\/card:focus-within .community-card-face {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 32px rgba(9, 9, 9, 0.24);
   }
 }
 

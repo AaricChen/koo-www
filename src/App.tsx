@@ -1,5 +1,5 @@
 import { Analytics } from "@vercel/analytics/react"
-import { DevelopmentMilestonesSection } from "./components/home/DevelopmentMilestonesSection"
+import { CommunitySection } from "./components/home/CommunitySection"
 import { EnterKooSection } from "./components/home/EnterKooSection"
 import { ExclusiveExperienceSection } from "./components/home/ExclusiveExperienceSection"
 import { HeroSection } from "./components/home/HeroSection"
@@ -15,7 +15,7 @@ function App() {
         <HeroSection />
         <WhyKooSection />
         <ExclusiveExperienceSection />
-        <DevelopmentMilestonesSection />
+        <CommunitySection />
         <EnterKooSection />
       </main>
       <SiteFooter />
