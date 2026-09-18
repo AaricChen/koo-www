@@ -36,7 +36,7 @@ function FooterLogo({ className }: { className?: string }) {
 }
 
 const footerLinkClass =
-  "transition hover:text-foreground text-muted-foreground"
+  "text-muted-foreground transition-colors duration-300 ease-out hover:text-foreground"
 
 const footerSocialLinks = [
   { href: TELEGRAM_URL, icon: "/assets/footer/social-tg.svg", label: "Telegram" },
@@ -44,9 +44,9 @@ const footerSocialLinks = [
   { href: X_URL, icon: "/assets/footer/social-x.svg", label: "X" },
 ] as const
 
-function FooterSocialLinks() {
+function FooterSocialLinks({ className }: { className?: string }) {
   return (
-    <div className="flex items-center gap-4">
+    <div className={className ?? "flex items-center gap-4"}>
       {footerSocialLinks.map(({ href, icon, label }) => (
         <a
           key={label}
@@ -54,7 +54,7 @@ function FooterSocialLinks() {
           target="_blank"
           rel="noreferrer"
           aria-label={label}
-          className="shrink-0 transition opacity-80 hover:opacity-100"
+          className="shrink-0 opacity-80 transition-opacity duration-300 ease-out hover:opacity-100"
         >
           <img
             src={icon}
@@ -77,28 +77,47 @@ export function SiteFooter() {
         <div className="flex w-full flex-col items-center gap-6">
           <FooterLogo />
           <div className="flex w-full flex-col items-center gap-6">
-            <div className="flex w-full flex-wrap items-center justify-center gap-3">
-              <div
-                className={`flex items-center gap-4 text-xs leading-3 ${footerLinkClass}`}
+            <div className="flex w-full items-center justify-center gap-3 whitespace-nowrap">
+              <nav
+                aria-label="Footer"
+                className="flex items-center gap-4 text-xs leading-3"
               >
-                <a href={DOCS_URL} target="_blank" rel="noreferrer">
+                <a
+                  href={DOCS_URL}
+                  target="_blank"
+                  rel="noreferrer"
+                  className={footerLinkClass}
+                >
                   Docs
                 </a>
-                <a href={SUPPORT_URL} target="_blank" rel="noreferrer">
+                <a
+                  href={SUPPORT_URL}
+                  target="_blank"
+                  rel="noreferrer"
+                  className={footerLinkClass}
+                >
                   Support
                 </a>
-              </div>
+                <a
+                  href={ROADMAP_URL}
+                  target="_blank"
+                  rel="noreferrer"
+                  className={footerLinkClass}
+                >
+                  Roadmap
+                </a>
+              </nav>
               <span
                 className="text-sm leading-[14px] text-muted-foreground"
                 aria-hidden
               >
                 ｜
               </span>
-              <span className="whitespace-nowrap text-xs leading-3 text-muted-foreground">
+              <span className="text-xs leading-3 text-muted-foreground">
                 Terms of Use
               </span>
             </div>
-            <FooterSocialLinks />
+            <FooterSocialLinks className="flex items-center justify-center gap-4" />
           </div>
         </div>
         <p className="whitespace-nowrap text-xs leading-3 text-faint">
@@ -117,15 +136,30 @@ export function SiteFooter() {
         <div className="flex flex-col items-end gap-6">
           <nav
             aria-label="Footer"
-            className={`flex flex-wrap items-center justify-end gap-5 text-sm leading-[14px] ${footerLinkClass}`}
+            className="flex flex-wrap items-center justify-end gap-5 text-sm leading-[14px]"
           >
-            <a href={DOCS_URL} target="_blank" rel="noreferrer">
+            <a
+              href={DOCS_URL}
+              target="_blank"
+              rel="noreferrer"
+              className={footerLinkClass}
+            >
               Docs
             </a>
-            <a href={SUPPORT_URL} target="_blank" rel="noreferrer">
+            <a
+              href={SUPPORT_URL}
+              target="_blank"
+              rel="noreferrer"
+              className={footerLinkClass}
+            >
               Support
             </a>
-            <a href={ROADMAP_URL} target="_blank" rel="noreferrer">
+            <a
+              href={ROADMAP_URL}
+              target="_blank"
+              rel="noreferrer"
+              className={footerLinkClass}
+            >
               Roadmap
             </a>
             <span className="text-muted-foreground" aria-hidden>

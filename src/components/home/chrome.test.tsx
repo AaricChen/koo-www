@@ -101,8 +101,10 @@ describe("SiteFooter", () => {
       expect(link).toHaveProperty("href", SUPPORT_URL)
     }
     const roadmapLinks = screen.getAllByRole("link", { name: "Roadmap" })
-    expect(roadmapLinks.length).toBe(1)
-    expect(roadmapLinks[0]).toHaveProperty("href", ROADMAP_URL)
+    expect(roadmapLinks.length).toBe(2)
+    for (const link of roadmapLinks) {
+      expect(link).toHaveProperty("href", ROADMAP_URL)
+    }
     for (const label of ["Telegram", "Discord", "X"] as const) {
       const social = screen.getAllByRole("link", { name: label })
       expect(social.length).toBe(2)
@@ -121,7 +123,8 @@ describe("SiteFooter", () => {
     )
     expect(container.innerHTML).toContain("gap-12 lg:hidden")
     expect(container.innerHTML).toContain("/assets/footer/social-x.svg")
-    expect(container.innerHTML).toContain("gap-4 text-xs leading-3")
+    expect(container.innerHTML).toContain("justify-center gap-3 whitespace-nowrap")
+    expect(container.innerHTML).toContain("flex items-center gap-4 text-xs leading-3")
     expect(container.innerHTML).toContain("hidden items-end justify-between lg:flex")
     expect(container.innerHTML).toContain("flex flex-col items-end gap-6")
     for (const terms of screen.getAllByText("Terms of Use")) {
