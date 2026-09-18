@@ -141,6 +141,14 @@ function CommunityChannelCard({
             width={28}
             height={28}
           />
+          <img
+            src="/assets/community/qr-icon-hover.svg"
+            alt=""
+            aria-hidden
+            className="community-card-qr-icon-hover size-full"
+            width={28}
+            height={28}
+          />
         </span>
         <div className="flex items-start gap-5">
           <img

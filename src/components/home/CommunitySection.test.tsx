@@ -32,6 +32,7 @@ describe("CommunitySection", () => {
     expect(document.body.innerHTML).toContain("arrow-mobile.svg")
     expect(document.body.innerHTML).toContain("/assets/community/qr-tg.png")
     expect(document.body.innerHTML).toContain("qr-icon-inactive.svg")
+    expect(document.body.innerHTML).toContain("qr-icon-hover.svg")
     expect(document.body.innerHTML).toContain("community-card-qr")
   })
 })
