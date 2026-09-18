@@ -1,4 +1,4 @@
-import { cleanup, fireEvent, render, screen } from "@testing-library/react"
+import { cleanup, fireEvent, render, screen, within } from "@testing-library/react"
 import { afterEach, describe, expect, it } from "vitest"
 import {
   APP_URL,
@@ -52,8 +52,31 @@ describe("SiteHeader", () => {
     expect(launch[1].className).toContain("px-4")
     expect(launch[1].className).toContain("py-[11px]")
     expect(container.querySelector('a[href="#"]')).toBeNull()
-    expect(screen.queryByRole("link", { name: "Community" })).toBeNull()
-    expect(screen.queryByRole("button", { name: "Community" })).toBeNull()
+    const roadmap = screen.getAllByRole("link", { name: "Roadmap" })
+    expect(roadmap.length).toBeGreaterThanOrEqual(1)
+    for (const link of roadmap) {
+      expect(link).toHaveProperty("href", ROADMAP_URL)
+    }
+    const community = screen.getByRole("navigation", { name: "Primary" })
+    const communityButton = within(community).getByRole("button", {
+      name: "Community",
+    })
+    expect(communityButton.getAttribute("aria-expanded")).toBe("false")
+    fireEvent.click(communityButton)
+    expect(communityButton.getAttribute("aria-expanded")).toBe("true")
+    expect(screen.getByRole("menu", { name: "Community" })).not.toBeNull()
+    expect(screen.getByRole("menuitem", { name: "X / Twitter" })).toHaveProperty(
+      "href",
+      X_URL,
+    )
+    expect(screen.getByRole("menuitem", { name: "Discord" })).toHaveProperty(
+      "href",
+      DISCORD_URL,
+    )
+    expect(screen.getByRole("menuitem", { name: "Telegram" })).toHaveProperty(
+      "href",
+      TELEGRAM_URL,
+    )
   })
 
   it("slides the mobile drawer in from the left", () => {
@@ -75,9 +98,26 @@ describe("SiteHeader", () => {
       drawer?.querySelector(".flex.w-full.items-center.justify-between"),
     ).not.toBeNull()
 
-    expect(screen.queryByRole("button", { name: "Community" })).toBeNull()
-    expect(screen.queryByText("X / Twitter")).toBeNull()
-    expect(container.querySelector(".mobile-nav-community")).toBeNull()
+    const mobileNav = within(drawer as HTMLElement).getByRole("navigation", {
+      name: "Mobile",
+    })
+    expect(
+      within(mobileNav).queryByRole("link", { name: "X / Twitter" }),
+    ).toBeNull()
+    expect(container.querySelector(".mobile-nav-community")).not.toBeNull()
+    expect(
+      within(mobileNav).getByRole("link", { name: "Roadmap" }),
+    ).toHaveProperty("href", ROADMAP_URL)
+
+    const mobileCommunity = within(mobileNav).getByRole("button", {
+      name: "Community",
+    })
+    fireEvent.click(mobileCommunity)
+    expect(mobileCommunity.getAttribute("aria-expanded")).toBe("true")
+    expect(
+      within(mobileNav).getByRole("link", { name: "X / Twitter" }),
+    ).toHaveProperty("href", X_URL)
+
     expect(container.querySelector('a[href="#"]')).toBeNull()
 
     fireEvent.click(screen.getAllByRole("button", { name: "Close menu" })[0])
