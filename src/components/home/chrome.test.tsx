@@ -165,6 +165,8 @@ describe("SiteFooter", () => {
     expect(container.innerHTML).toContain("/assets/footer/social-x.svg")
     expect(container.innerHTML).toContain("justify-center gap-3 whitespace-nowrap")
     expect(container.innerHTML).toContain("flex items-center gap-4 text-xs leading-3")
+    expect(container.innerHTML).toContain("justify-center gap-5")
+    expect(container.innerHTML).toContain('width="28"')
     expect(container.innerHTML).toContain("hidden items-end justify-between lg:flex")
     expect(container.innerHTML).toContain("flex flex-col items-end gap-6")
     for (const terms of screen.getAllByText("Terms of Use")) {

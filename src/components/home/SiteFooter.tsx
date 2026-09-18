@@ -44,7 +44,15 @@ const footerSocialLinks = [
   { href: X_URL, icon: "/assets/footer/social-x.svg", label: "X" },
 ] as const
 
-function FooterSocialLinks({ className }: { className?: string }) {
+function FooterSocialLinks({
+  className,
+  iconClassName = "size-6",
+  iconSize = 24,
+}: {
+  className?: string
+  iconClassName?: string
+  iconSize?: number
+}) {
   return (
     <div className={className ?? "flex items-center gap-4"}>
       {footerSocialLinks.map(({ href, icon, label }) => (
@@ -60,9 +68,9 @@ function FooterSocialLinks({ className }: { className?: string }) {
             src={icon}
             alt=""
             aria-hidden
-            className="size-6"
-            width={24}
-            height={24}
+            className={iconClassName}
+            width={iconSize}
+            height={iconSize}
           />
         </a>
       ))}
@@ -76,7 +84,7 @@ export function SiteFooter() {
       <div className="flex flex-col items-center gap-12 lg:hidden">
         <div className="flex w-full flex-col items-center gap-6">
           <FooterLogo />
-          <div className="flex w-full flex-col items-center gap-6">
+          <div className="flex w-full flex-col items-center gap-7">
             <div className="flex w-full items-center justify-center gap-3 whitespace-nowrap">
               <nav
                 aria-label="Footer"
@@ -117,7 +125,11 @@ export function SiteFooter() {
                 Terms of Use
               </span>
             </div>
-            <FooterSocialLinks className="flex items-center justify-center gap-4" />
+            <FooterSocialLinks
+              className="flex items-center justify-center gap-5"
+              iconClassName="size-7"
+              iconSize={28}
+            />
           </div>
         </div>
         <p className="whitespace-nowrap text-xs leading-3 text-faint">
