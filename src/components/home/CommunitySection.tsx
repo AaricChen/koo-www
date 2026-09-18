@@ -126,7 +126,7 @@ function CommunityChannelCard({
         target="_blank"
         rel="noreferrer"
         aria-label={`${title}: ${description}`}
-        className="community-card-face group/face relative flex h-full min-h-[168px] w-full cursor-pointer items-end justify-between bg-[rgba(43,48,72,0.2)] px-5 py-10 hover:bg-gradient-to-r hover:from-[rgba(61,122,255,0.6)] hover:via-[rgba(61,155,243,0.6)] hover:via-[56.25%] hover:to-[rgba(47,203,238,0.6)] focus-visible:bg-gradient-to-r focus-visible:from-[rgba(61,122,255,0.6)] focus-visible:via-[rgba(61,155,243,0.6)] focus-visible:via-[56.25%] focus-visible:to-[rgba(47,203,238,0.6)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+        className="community-card-face group/face relative flex h-full min-h-[168px] w-full cursor-pointer items-end justify-between bg-[rgba(43,48,72,0.2)] px-5 py-10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
       >
         <span className="community-card-qr-icon absolute right-4 top-4 inline-flex size-7">
           <img
@@ -151,12 +151,12 @@ function CommunityChannelCard({
             <p className="text-xl font-semibold leading-5 text-foreground">
               {title}
             </p>
-            <p className="text-base leading-[22px] text-muted-foreground transition-colors duration-300 group-hover/face:text-foreground/80">
+            <p className="text-base leading-[22px] text-muted-foreground transition-colors duration-300 group-hover/face:text-foreground">
               {description}
             </p>
           </div>
         </div>
-        <span className="inline-flex size-7 shrink-0 -rotate-90 opacity-80 transition-opacity duration-300 group-hover/face:opacity-100">
+        <span className="inline-flex size-7 shrink-0 -rotate-90 opacity-70 transition-[opacity,transform] duration-300 group-hover/face:scale-110 group-hover/face:opacity-100">
           <img
             src="/assets/community/arrow.svg"
             alt=""
@@ -183,7 +183,7 @@ function CommunityMobileChannelCard({
       target="_blank"
       rel="noreferrer"
       aria-label={`${title}: ${description}`}
-      className="community-card-face-m flex w-full cursor-pointer items-center justify-between bg-[rgba(43,48,72,0.2)] px-4 py-6 transition-[background,box-shadow,transform] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] hover:bg-gradient-to-r hover:from-[rgba(61,122,255,0.6)] hover:via-[rgba(61,155,243,0.6)] hover:via-[56.25%] hover:to-[rgba(47,203,238,0.6)] focus-visible:bg-gradient-to-r focus-visible:from-[rgba(61,122,255,0.6)] focus-visible:via-[rgba(61,155,243,0.6)] focus-visible:via-[56.25%] focus-visible:to-[rgba(47,203,238,0.6)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary active:scale-[0.99]"
+      className="community-card-face-m group/face-m flex w-full cursor-pointer items-center justify-between bg-[rgba(43,48,72,0.2)] px-4 py-6 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary active:scale-[0.99]"
     >
       <div className="flex items-start gap-4">
         <img
@@ -198,7 +198,9 @@ function CommunityMobileChannelCard({
           <p className="text-sm font-semibold leading-[14px] text-foreground">
             {title}
           </p>
-          <p className="text-xs leading-4 text-muted-foreground">{description}</p>
+          <p className="text-xs leading-4 text-muted-foreground transition-colors duration-300 group-hover/face-m:text-foreground">
+            {description}
+          </p>
         </div>
       </div>
       <span className="inline-flex size-4 shrink-0 -rotate-90 opacity-80">
