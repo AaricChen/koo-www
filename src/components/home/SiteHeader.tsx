@@ -327,7 +327,7 @@ export function SiteHeader() {
                     role="menu"
                     aria-label="Community"
                     inert={!desktopCommunityOpen}
-                    className="header-community-dropdown-panel flex w-[199px] flex-col gap-4 rounded-[4px] border border-[rgba(61,122,255,0.6)] bg-[rgba(20,21,21,0.8)] px-2.5 py-4 backdrop-blur-[12px]"
+                    className="header-community-dropdown-panel flex w-[199px] flex-col gap-4 rounded-[4px] border border-[rgba(61,122,255,0.6)] px-2.5 py-4"
                   >
                       {communityLinks.map((item) => (
                         <a
