@@ -31,13 +31,6 @@ const communityChannels = [
   },
 ] as const
 
-/** Figma `Community-m` card order: Telegram, X, Discord. */
-const mobileCommunityChannels = [
-  communityChannels[0],
-  communityChannels[2],
-  communityChannels[1],
-] as const
-
 function CommunityHeroVisual() {
   return (
     <div className="relative inline-grid h-[287px] w-[480px] shrink-0 grid-cols-[max-content] grid-rows-[max-content] place-items-start leading-none">
@@ -270,7 +263,7 @@ export function CommunitySection() {
 
         <div className="relative z-10 mt-3 flex w-full flex-col gap-4 lg:-mt-[128px] lg:max-w-[1280px] lg:grid lg:grid-cols-3 lg:gap-6 lg:overflow-visible lg:pt-[128px]">
           <div className="contents lg:hidden">
-            {mobileCommunityChannels.map((channel) => (
+            {communityChannels.map((channel) => (
               <CommunityMobileChannelCard key={channel.title} {...channel} />
             ))}
           </div>

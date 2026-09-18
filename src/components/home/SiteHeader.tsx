@@ -25,9 +25,9 @@ const navItems = [
 ] as const
 
 const communityLinks = [
-  { label: "X / Twitter", href: X_URL, icon: "/assets/social-x.svg" },
-  { label: "Discord", href: DISCORD_URL, icon: "/assets/social-discord.svg" },
   { label: "Telegram", href: TELEGRAM_URL, icon: "/assets/social-tg.svg" },
+  { label: "Discord", href: DISCORD_URL, icon: "/assets/social-discord.svg" },
+  { label: "X / Twitter", href: X_URL, icon: "/assets/social-x.svg" },
 ] as const
 
 const navLinkClass =
