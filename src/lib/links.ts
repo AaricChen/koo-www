@@ -1,3 +1,7 @@
 export const APP_URL = "https://app.koo.xyz/"
 export const DOCS_URL = "https://docs.koo.xyz/"
 export const SUPPORT_URL = "https://docs.koo.xyz/feedback-and-support"
+export const ROADMAP_URL = "https://docs.koo.xyz/about-koo.xyz/roadmap"
+export const DISCORD_URL = "https://discord.gg/VVA2neHGuD"
+export const TELEGRAM_URL = "https://t.me/KooCommunity"
+export const X_URL = "https://x.com/koomarkets?s=11"

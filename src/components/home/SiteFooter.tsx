@@ -1,4 +1,11 @@
-import { DOCS_URL, SUPPORT_URL } from "../../lib/links"
+import {
+  DISCORD_URL,
+  DOCS_URL,
+  ROADMAP_URL,
+  SUPPORT_URL,
+  TELEGRAM_URL,
+  X_URL,
+} from "../../lib/links"
 
 function FooterLogo({ className }: { className?: string }) {
   return (
@@ -31,6 +38,38 @@ function FooterLogo({ className }: { className?: string }) {
 const footerLinkClass =
   "transition hover:text-foreground text-muted-foreground"
 
+const footerSocialLinks = [
+  { href: TELEGRAM_URL, icon: "/assets/footer/social-tg.svg", label: "Telegram" },
+  { href: DISCORD_URL, icon: "/assets/footer/social-discord.svg", label: "Discord" },
+  { href: X_URL, icon: "/assets/footer/social-x.svg", label: "X" },
+] as const
+
+function FooterSocialLinks() {
+  return (
+    <div className="flex items-center gap-4">
+      {footerSocialLinks.map(({ href, icon, label }) => (
+        <a
+          key={label}
+          href={href}
+          target="_blank"
+          rel="noreferrer"
+          aria-label={label}
+          className="shrink-0 transition opacity-80 hover:opacity-100"
+        >
+          <img
+            src={icon}
+            alt=""
+            aria-hidden
+            className="size-6"
+            width={24}
+            height={24}
+          />
+        </a>
+      ))}
+    </div>
+  )
+}
+
 export function SiteFooter() {
   return (
     <footer className="bg-footer-bar px-4 py-6 lg:px-20 lg:pb-[60px] lg:pt-10">
@@ -59,32 +98,7 @@ export function SiteFooter() {
                 Terms of Use
               </span>
             </div>
-            <div className="flex items-center gap-4" aria-hidden>
-              <img
-                src="/assets/footer/social-x.svg"
-                alt=""
-                aria-hidden
-                className="size-6 shrink-0"
-                width={24}
-                height={24}
-              />
-              <img
-                src="/assets/footer/social-discord.svg"
-                alt=""
-                aria-hidden
-                className="size-6 shrink-0"
-                width={24}
-                height={24}
-              />
-              <img
-                src="/assets/footer/social-tg.svg"
-                alt=""
-                aria-hidden
-                className="size-6 shrink-0"
-                width={24}
-                height={24}
-              />
-            </div>
+            <FooterSocialLinks />
           </div>
         </div>
         <p className="whitespace-nowrap text-xs leading-3 text-faint">
@@ -100,17 +114,27 @@ export function SiteFooter() {
           </p>
         </div>
 
-        <nav
-          aria-label="Footer"
-          className={`flex flex-wrap items-center justify-end gap-5 text-sm leading-[14px] ${footerLinkClass}`}
-        >
-          <a href={DOCS_URL} target="_blank" rel="noreferrer">
-            Docs
-          </a>
-          <a href={SUPPORT_URL} target="_blank" rel="noreferrer">
-            Support
-          </a>
-        </nav>
+        <div className="flex flex-col items-end gap-6">
+          <nav
+            aria-label="Footer"
+            className={`flex flex-wrap items-center justify-end gap-5 text-sm leading-[14px] ${footerLinkClass}`}
+          >
+            <a href={DOCS_URL} target="_blank" rel="noreferrer">
+              Docs
+            </a>
+            <a href={SUPPORT_URL} target="_blank" rel="noreferrer">
+              Support
+            </a>
+            <a href={ROADMAP_URL} target="_blank" rel="noreferrer">
+              Roadmap
+            </a>
+            <span className="text-muted-foreground" aria-hidden>
+              ｜
+            </span>
+            <span className="text-muted-foreground">Terms of Use</span>
+          </nav>
+          <FooterSocialLinks />
+        </div>
       </div>
     </footer>
   )

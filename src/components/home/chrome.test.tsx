@@ -1,6 +1,14 @@
 import { cleanup, fireEvent, render, screen } from "@testing-library/react"
 import { afterEach, describe, expect, it } from "vitest"
-import { APP_URL, DOCS_URL, SUPPORT_URL } from "../../lib/links"
+import {
+  APP_URL,
+  DISCORD_URL,
+  DOCS_URL,
+  ROADMAP_URL,
+  SUPPORT_URL,
+  TELEGRAM_URL,
+  X_URL,
+} from "../../lib/links"
 import { EnterKooSection } from "./EnterKooSection"
 import { HeroSection } from "./HeroSection"
 import { SiteFooter } from "./SiteFooter"
@@ -92,10 +100,33 @@ describe("SiteFooter", () => {
     for (const link of supportLinks) {
       expect(link).toHaveProperty("href", SUPPORT_URL)
     }
+    const roadmapLinks = screen.getAllByRole("link", { name: "Roadmap" })
+    expect(roadmapLinks.length).toBe(1)
+    expect(roadmapLinks[0]).toHaveProperty("href", ROADMAP_URL)
+    for (const label of ["Telegram", "Discord", "X"] as const) {
+      const social = screen.getAllByRole("link", { name: label })
+      expect(social.length).toBe(2)
+    }
+    expect(screen.getAllByRole("link", { name: "Telegram" })[0]).toHaveProperty(
+      "href",
+      TELEGRAM_URL,
+    )
+    expect(screen.getAllByRole("link", { name: "Discord" })[0]).toHaveProperty(
+      "href",
+      DISCORD_URL,
+    )
+    expect(screen.getAllByRole("link", { name: "X" })[0]).toHaveProperty(
+      "href",
+      X_URL,
+    )
     expect(container.innerHTML).toContain("gap-12 lg:hidden")
     expect(container.innerHTML).toContain("/assets/footer/social-x.svg")
     expect(container.innerHTML).toContain("gap-4 text-xs leading-3")
-    expect(screen.getByText("Terms of Use").tagName).toBe("SPAN")
+    expect(container.innerHTML).toContain("hidden items-end justify-between lg:flex")
+    expect(container.innerHTML).toContain("flex flex-col items-end gap-6")
+    for (const terms of screen.getAllByText("Terms of Use")) {
+      expect(terms.tagName).toBe("SPAN")
+    }
     expect(container.querySelector('a[href="#"]')).toBeNull()
     expect(screen.queryByRole("link", { name: "Terms of Service" })).toBeNull()
     expect(screen.queryByRole("link", { name: "Terms of Use" })).toBeNull()
