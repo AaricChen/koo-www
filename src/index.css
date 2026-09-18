@@ -685,21 +685,39 @@
 
   .community-card-qr-icon {
     --community-card-ease: cubic-bezier(0.22, 1, 0.36, 1);
-    opacity: 0.4;
+    /* Figma Community-card: absolute right 16px, top 16px, 28×28 */
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 28px;
+    height: 28px;
+  }
+
+  .community-card-qr-icon-inactive,
+  .community-card-qr-icon-active {
+    position: absolute;
+    inset: 0;
     transition:
       opacity 320ms var(--community-card-ease),
       transform 320ms var(--community-card-ease),
       filter 320ms var(--community-card-ease);
   }
 
-  .community-card-face:hover .community-card-qr-icon {
-    opacity: 0.85;
+  .community-card-qr-icon-active {
+    opacity: 0;
   }
 
-  .community-card-face:hover .community-card-qr-icon:hover {
+  .community-card-face:hover .community-card-qr-icon-inactive {
+    opacity: 0;
+  }
+
+  .community-card-face:hover .community-card-qr-icon-active {
     opacity: 1;
+  }
+
+  .community-card-face:hover .community-card-qr-icon:hover .community-card-qr-icon-active {
     transform: scale(1.12);
-    filter: drop-shadow(0 0 6px rgba(61, 122, 255, 0.55));
+    filter: drop-shadow(0 0 6px rgba(61, 122, 255, 0.55)) brightness(2.5);
   }
 
   .community-card-face {

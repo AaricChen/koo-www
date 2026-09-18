@@ -10,7 +10,6 @@ const communityChannels = [
     description: "Group Chat & Announcements",
     href: TELEGRAM_URL,
     icon: "/assets/community/icon-tg.svg",
-    qrIcon: "/assets/community/qr-tg.svg",
     qrImage: "/assets/community/qr-tg.png",
   },
   {
@@ -18,7 +17,6 @@ const communityChannels = [
     description: "Chat & Community Discussions",
     href: DISCORD_URL,
     icon: "/assets/community/icon-discord.svg",
-    qrIcon: "/assets/community/qr-discord.svg",
     qrImage: "/assets/community/qr-discord.png",
   },
   {
@@ -26,7 +24,6 @@ const communityChannels = [
     description: "News & Real‑time Updates",
     href: X_URL,
     icon: "/assets/community/icon-x.svg",
-    qrIcon: "/assets/community/qr-x.svg",
     qrImage: "/assets/community/qr-x.png",
   },
 ] as const
@@ -115,7 +112,6 @@ function CommunityChannelCard({
   description,
   href,
   icon,
-  qrIcon,
   qrImage,
 }: (typeof communityChannels)[number]) {
   return (
@@ -128,12 +124,20 @@ function CommunityChannelCard({
         aria-label={`${title}: ${description}`}
         className="community-card-face group/face relative flex h-full min-h-[168px] w-full cursor-pointer items-end justify-between bg-[rgba(43,48,72,0.2)] px-5 py-10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
       >
-        <span className="community-card-qr-icon absolute right-4 top-4 inline-flex size-7">
+        <span className="community-card-qr-icon">
           <img
-            src={qrIcon}
+            src="/assets/community/qr-icon-inactive.svg"
             alt=""
             aria-hidden
-            className="size-full"
+            className="community-card-qr-icon-inactive size-full"
+            width={28}
+            height={28}
+          />
+          <img
+            src="/assets/community/qr-icon-active.svg"
+            alt=""
+            aria-hidden
+            className="community-card-qr-icon-active size-full"
             width={28}
             height={28}
           />
