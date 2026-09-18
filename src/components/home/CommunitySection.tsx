@@ -64,10 +64,12 @@ function CommunityHeroVisual() {
   )
 }
 
+/** Figma `qrcode` (5435:55638): 160×160 shell, bordered fill + inset QR layer. */
 function CommunityCardQr({ src, label }: { src: string; label: string }) {
   return (
     <div className="community-card-qr" aria-hidden>
-      <div className="community-card-qr-frame">
+      <div className="community-card-qr-frame" />
+      <div className="community-card-qr-image-wrap">
         <img src={src} alt="" className="community-card-qr-image" />
       </div>
       <span className="sr-only">{label} QR code</span>
@@ -91,16 +93,18 @@ function CommunityChannelCard({
         target="_blank"
         rel="noreferrer"
         aria-label={`${title}: ${description}`}
-        className="community-card-face relative flex h-full min-h-[168px] w-full cursor-pointer items-end justify-between bg-[rgba(43,48,72,0.2)] px-5 py-10 group-hover/card:bg-gradient-to-r group-hover/card:from-[rgba(61,122,255,0.6)] group-hover/card:via-[rgba(61,155,243,0.6)] group-hover/card:via-[56.25%] group-hover/card:to-[rgba(47,203,238,0.6)] focus-visible:bg-gradient-to-r focus-visible:from-[rgba(61,122,255,0.6)] focus-visible:via-[rgba(61,155,243,0.6)] focus-visible:via-[56.25%] focus-visible:to-[rgba(47,203,238,0.6)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+        className="community-card-face group/face relative flex h-full min-h-[168px] w-full cursor-pointer items-end justify-between bg-[rgba(43,48,72,0.2)] px-5 py-10 hover:bg-gradient-to-r hover:from-[rgba(61,122,255,0.6)] hover:via-[rgba(61,155,243,0.6)] hover:via-[56.25%] hover:to-[rgba(47,203,238,0.6)] focus-visible:bg-gradient-to-r focus-visible:from-[rgba(61,122,255,0.6)] focus-visible:via-[rgba(61,155,243,0.6)] focus-visible:via-[56.25%] focus-visible:to-[rgba(47,203,238,0.6)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
       >
-        <img
-          src={qrIcon}
-          alt=""
-          aria-hidden
-          className="pointer-events-none absolute right-4 top-4 size-7"
-          width={28}
-          height={28}
-        />
+        <span className="community-card-qr-icon absolute right-4 top-4 inline-flex size-7">
+          <img
+            src={qrIcon}
+            alt=""
+            aria-hidden
+            className="size-full"
+            width={28}
+            height={28}
+          />
+        </span>
         <div className="flex items-start gap-5">
           <img
             src={icon}
@@ -114,12 +118,12 @@ function CommunityChannelCard({
             <p className="text-xl font-semibold leading-5 text-foreground">
               {title}
             </p>
-            <p className="text-base leading-[22px] text-muted-foreground transition-colors duration-300 group-hover/card:text-foreground/80">
+            <p className="text-base leading-[22px] text-muted-foreground transition-colors duration-300 group-hover/face:text-foreground/80">
               {description}
             </p>
           </div>
         </div>
-        <span className="inline-flex size-7 shrink-0 -rotate-90 opacity-80 transition-opacity duration-300 group-hover/card:opacity-100">
+        <span className="inline-flex size-7 shrink-0 -rotate-90 opacity-80 transition-opacity duration-300 group-hover/face:opacity-100">
           <img
             src="/assets/community/arrow.svg"
             alt=""

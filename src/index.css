@@ -119,12 +119,12 @@
     .header-community-dropdown,
     .header-community-dropdown-panel,
     .community-card-qr,
-    .community-card-face {
+    .community-card-face,
+    .community-card-qr-icon {
       transition: none;
     }
 
     .community-card-qr {
-      opacity: 1;
       transform: none;
     }
 
@@ -601,7 +601,7 @@
 
   .community-card-qr {
     --community-card-ease: cubic-bezier(0.22, 1, 0.36, 1);
-    /* Align popup right edge with in-card QR icon left (right-4 + size-7). */
+    /* Figma `qrcode` (5435:55638); hover placement top -144px, right vs in-card icon. */
     position: absolute;
     right: calc(1rem + 1.75rem);
     top: -144px;
@@ -617,20 +617,38 @@
     filter: drop-shadow(0 8px 4px rgba(9, 9, 9, 0.1));
   }
 
-  .group\/card:hover .community-card-qr,
-  .group\/card:focus-within .community-card-qr {
+  .group\/card:has(.community-card-qr-icon:hover) .community-card-qr,
+  .group\/card:has(.community-card-qr:hover) .community-card-qr {
     opacity: 1;
     transform: translateY(0) scale(1);
+    pointer-events: auto;
   }
 
   .community-card-qr-frame {
-    box-sizing: border-box;
-    height: 100%;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
     width: 100%;
+    max-width: 160px;
+    box-sizing: border-box;
+    transform: translateX(-50%);
     border-radius: 16px;
     border: 2px solid rgba(61, 122, 255, 0.6);
-    background: #fafafa;
-    padding: 5%;
+    background-color: #fafafa;
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+  }
+
+  .community-card-qr-image-wrap {
+    position: absolute;
+    top: 5%;
+    bottom: 5%;
+    left: 50%;
+    aspect-ratio: 152.39370727539062 / 152.39370727539062;
+    transform: translateX(-50%);
+    overflow: hidden;
+    pointer-events: none;
   }
 
   .community-card-qr-image {
@@ -638,6 +656,20 @@
     height: 100%;
     width: 100%;
     object-fit: contain;
+  }
+
+  .community-card-qr-icon {
+    --community-card-ease: cubic-bezier(0.22, 1, 0.36, 1);
+    opacity: 0.2;
+    transition: opacity 320ms var(--community-card-ease);
+  }
+
+  .community-card-face:hover .community-card-qr-icon {
+    opacity: 0.4;
+  }
+
+  .community-card-face:hover .community-card-qr-icon:hover {
+    opacity: 1;
   }
 
   .community-card-face {
@@ -648,8 +680,8 @@
       box-shadow 320ms var(--community-card-ease);
   }
 
-  .group\/card:hover .community-card-face,
-  .group\/card:focus-within .community-card-face {
+  .community-card-face:hover,
+  .community-card-face:focus-visible {
     transform: translateY(-2px);
     box-shadow: 0 12px 32px rgba(9, 9, 9, 0.24);
   }
