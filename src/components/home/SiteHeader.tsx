@@ -237,7 +237,7 @@ export function SiteHeader() {
 
   return (
     <>
-      <header className="sticky top-0 z-50 w-full overflow-visible bg-transparent backdrop-blur-[12px]">
+      <header className="site-header sticky top-0 z-50 w-full overflow-visible bg-[rgba(9,9,9,0.82)]">
         <div className="flex h-[50px] items-center justify-between px-1.5 md:hidden">
           <div className="flex items-center gap-1.5">
             <IconButton
@@ -322,13 +322,14 @@ export function SiteHeader() {
                   }`}
                   aria-hidden={!desktopCommunityOpen}
                 >
-                  <div
-                    id={communityMenuId}
-                    role="menu"
-                    aria-label="Community"
-                    inert={!desktopCommunityOpen}
-                    className="header-community-dropdown-panel flex w-[199px] flex-col gap-4 rounded-[4px] border border-[rgba(61,122,255,0.6)] px-2.5 py-4"
-                  >
+                  <div className="header-community-dropdown-panel w-[199px]">
+                    <div
+                      id={communityMenuId}
+                      role="menu"
+                      aria-label="Community"
+                      inert={!desktopCommunityOpen}
+                      className="header-community-dropdown-panel-inner flex flex-col gap-4 px-2.5 py-4"
+                    >
                       {communityLinks.map((item) => (
                         <a
                           key={item.label}
@@ -354,6 +355,7 @@ export function SiteHeader() {
                           <ChevronRightIcon />
                         </a>
                       ))}
+                    </div>
                   </div>
                 </div>
               </div>
