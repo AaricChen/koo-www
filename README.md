@@ -2,6 +2,10 @@
 
 Koo product marketing website (PC + mobile homepage).
 
+## Documentation
+
+- [SEO / GEO 前端实施方案](./docs/SEO-GEO-frontend-implementation-plan.md) — 12 页、G01–G14、架构与分阶段上线（基于 Growth 规格 V3）。
+
 ## Stack
 
 - Vite
