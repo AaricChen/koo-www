@@ -1,5 +1,5 @@
 import { Navigate, useParams } from "react-router-dom"
-import { FaqMobileIndexPage } from "../components/faq/mobile/FaqMobileIndexPage"
+import { FaqIndexPage } from "../components/faq/FaqIndexPage"
 import { SiteFooter } from "../components/home/SiteFooter"
 import { SiteHeader } from "../components/home/SiteHeader"
 import {
@@ -17,13 +17,7 @@ export function FaqTopicPage() {
     <>
       <SiteHeader />
       <main>
-        <FaqMobileIndexPage topicSlug={topicSlug} />
-        <div className="hidden min-h-[40vh] items-center justify-center px-7 py-20 lg:flex">
-          <p className="max-w-lg text-center text-sm leading-5 text-muted-foreground">
-            Desktop FAQ layout is in progress. Resize to mobile width or check
-            back soon for the full sidebar experience.
-          </p>
-        </div>
+        <FaqIndexPage topicSlug={topicSlug} />
       </main>
       <SiteFooter />
     </>

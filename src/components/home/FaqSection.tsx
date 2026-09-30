@@ -91,25 +91,27 @@ export function FaqSection() {
                     id={panelId}
                     role="region"
                     aria-labelledby={buttonId}
-                    className={`home-faq-panel ${expanded ? "is-open" : ""}`}
                     aria-hidden={!expanded}
+                    className={expanded ? "flex w-full flex-col gap-6 lg:items-start" : undefined}
                   >
-                    <div className="home-faq-panel-inner">
-                      <div className="flex w-full flex-col gap-6 lg:items-start">
+                    <div
+                      className={`home-faq-panel ${expanded ? "is-open" : ""}`}
+                    >
+                      <div className="home-faq-panel-inner">
                         <p className="home-faq-answer w-full text-xs leading-5 text-muted-foreground lg:pr-10 lg:text-[18px] lg:leading-7">
                           {item.answer}
                         </p>
-                        <Link
-                          to={homeFaqDetailHref(item.topicSlug)}
-                          className="home-faq-detail-link inline-flex w-full shrink-0 items-center justify-center gap-2 rounded-[4px] border border-border-strong px-3 py-[9px] text-xs leading-3 font-normal text-primary transition-colors duration-300 hover:bg-[rgba(61,122,255,0.12)] lg:w-auto lg:gap-2 lg:py-1.5 lg:pl-2.5 lg:pr-2 lg:text-sm lg:leading-[14px]"
-                          tabIndex={expanded ? undefined : -1}
-                          aria-hidden={!expanded}
-                        >
-                          View the details
-                          <FaqChevronRightIcon className="size-3 -rotate-90 text-primary lg:size-4" />
-                        </Link>
                       </div>
                     </div>
+                    {expanded ? (
+                      <Link
+                        to={homeFaqDetailHref(item.topicSlug)}
+                        className="home-faq-detail-link inline-flex w-full shrink-0 items-center justify-center gap-2 rounded-[4px] border border-border-strong px-3 py-[9px] text-xs leading-3 font-normal text-primary transition-colors duration-300 hover:bg-[rgba(61,122,255,0.12)] lg:w-auto lg:gap-2 lg:py-1.5 lg:pl-2.5 lg:pr-2 lg:text-sm lg:leading-[14px]"
+                      >
+                        View the details
+                        <FaqChevronRightIcon className="size-3 -rotate-90 text-primary lg:size-4" />
+                      </Link>
+                    ) : null}
                   </div>
                 </article>
               </div>
