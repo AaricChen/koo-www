@@ -122,7 +122,7 @@ function CommunityChannelCard({
         target="_blank"
         rel="noreferrer"
         aria-label={`${title}: ${description}`}
-        className="community-card-face group/face relative flex h-full min-h-[168px] w-full cursor-pointer items-end justify-between bg-[rgba(43,48,72,0.2)] px-5 py-10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+        className="community-card-face group/face relative flex h-full min-h-[168px] w-full cursor-pointer items-end justify-between bg-surface-soft px-5 py-10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
       >
         <span className="community-card-qr-icon">
           <img
@@ -195,7 +195,7 @@ function CommunityMobileChannelCard({
       target="_blank"
       rel="noreferrer"
       aria-label={`${title}: ${description}`}
-      className="community-card-face-m group/face-m flex w-full cursor-pointer items-center justify-between bg-[rgba(43,48,72,0.2)] px-4 py-6 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary active:scale-[0.99]"
+      className="community-card-face-m group/face-m flex w-full cursor-pointer items-center justify-between bg-surface-soft px-4 py-6 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary active:scale-[0.99]"
     >
       <div className="flex items-start gap-4">
         <img
