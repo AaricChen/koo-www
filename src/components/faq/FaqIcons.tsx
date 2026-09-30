@@ -75,6 +75,26 @@ export function FaqCloseIcon({ className }: { className?: string }) {
   )
 }
 
+/** Figma `btn-FAQ-menu` active caret (5554:58209), 20px, points right. */
+export function FaqSidebarCaretIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 20 20"
+      className={className ?? "size-5 shrink-0 text-foreground"}
+      fill="none"
+      aria-hidden
+    >
+      <path
+        d="M7.5 5.2 12.3 10l-4.8 4.8"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  )
+}
+
 export function FaqCategoryIcon({ className }: { className?: string }) {
   return (
     <svg

@@ -1,29 +1,33 @@
 import { NavLink } from "react-router-dom"
+import { FaqSidebarCaretIcon } from "../FaqIcons"
 import { FAQ_TOPICS, faqTopicPath, type FaqTopicSlug } from "../../../lib/faq/topics"
 
-function sidebarLinkClass(isActive: boolean) {
-  return `flex h-12 w-full items-center rounded-[4px] px-3 text-left text-xs leading-3 transition-colors duration-300 ${
-    isActive
-      ? "border border-secondary bg-surface-soft font-bold text-foreground"
-      : "bg-[rgba(43,48,72,0.2)] font-normal text-muted-foreground hover:text-foreground"
-  }`
-}
-
-/** Desktop category nav — sheet item styles from Figma category list (5591:66837 context). */
+/** Figma `FAQ-menu` / `btn-FAQ-menu` — regular, hover, onclick (5534:42888). */
 export function FaqDesktopSidebar({ activeSlug: _activeSlug }: { activeSlug: FaqTopicSlug }) {
   return (
     <nav
       aria-label="FAQ categories"
-      className="sticky top-24 flex w-full max-w-[320px] shrink-0 flex-col gap-3 self-start"
+      className="faq-sidebar-nav sticky top-24 w-[240px] shrink-0 self-start"
     >
-      {FAQ_TOPICS.map((topic) => (
-        <NavLink
-          key={topic.slug}
-          to={faqTopicPath(topic.slug)}
-          className={({ isActive }) => sidebarLinkClass(isActive)}
-        >
-          {topic.menuLabel}
-        </NavLink>
+      {FAQ_TOPICS.map((topic, index) => (
+        <div key={topic.slug} className="faq-sidebar-nav-entry">
+          {index > 0 ? <div className="faq-sidebar-divider" aria-hidden /> : null}
+          <NavLink
+            to={faqTopicPath(topic.slug)}
+            className={({ isActive }) =>
+              isActive ? "faq-sidebar-item is-active" : "faq-sidebar-item"
+            }
+          >
+            {({ isActive }) => (
+              <>
+                {isActive ? (
+                  <FaqSidebarCaretIcon className="size-5 shrink-0 text-foreground" />
+                ) : null}
+                <span className="min-w-0">{topic.menuLabel}</span>
+              </>
+            )}
+          </NavLink>
+        </div>
       ))}
     </nav>
   )
