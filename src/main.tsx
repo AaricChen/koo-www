@@ -1,9 +1,10 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import { AppErrorBoundary } from './components/AppErrorBoundary.tsx'
-import { installDiagnosticListeners } from './lib/report.ts'
-import './index.css'
-import App from './App.tsx'
+import { StrictMode } from "react"
+import { createRoot } from "react-dom/client"
+import { BrowserRouter } from "react-router-dom"
+import { AppErrorBoundary } from "./components/AppErrorBoundary.tsx"
+import { installDiagnosticListeners } from "./lib/report.ts"
+import "./index.css"
+import App from "./App.tsx"
 
 installDiagnosticListeners()
 
@@ -15,7 +16,9 @@ if (!root) {
 createRoot(root).render(
   <StrictMode>
     <AppErrorBoundary>
-      <App />
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
     </AppErrorBoundary>
   </StrictMode>,
 )

@@ -7,10 +7,12 @@ import {
   type ReactNode,
   type Ref,
 } from "react"
+import { useLocation } from "react-router-dom"
 import {
   APP_URL,
   DISCORD_URL,
   DOCS_URL,
+  FAQ_URL,
   ROADMAP_URL,
   TELEGRAM_URL,
   X_URL,
@@ -18,8 +20,17 @@ import {
 import { useMatchMedia } from "../../lib/use-match-media"
 import { OutlineButton } from "../ui/Button"
 
+export type SiteHeaderActiveNav = "home" | "faq"
+
+export function resolveSiteHeaderActiveNav(pathname: string): SiteHeaderActiveNav {
+  if (pathname === FAQ_URL || pathname.startsWith(`${FAQ_URL}/`)) {
+    return "faq"
+  }
+  return "home"
+}
+
 const navItems = [
-  { label: "Home", href: "/" },
+  { label: "Home", href: "/", activeKey: "home" as const },
   { label: "Docs", href: DOCS_URL },
   { label: "Roadmap", href: ROADMAP_URL },
 ] as const
@@ -168,7 +179,19 @@ function MobileMark({ onClick }: { onClick?: () => void }) {
   )
 }
 
+function navLinkClassForActive(isActive: boolean) {
+  return isActive ? navLinkActiveClass : navLinkClass
+}
+
+function mobileNavLinkClassForActive(isActive: boolean) {
+  return isActive
+    ? `${mobileNavLinkClass} font-medium text-foreground`
+    : mobileNavLinkClass
+}
+
 export function SiteHeader() {
+  const { pathname } = useLocation()
+  const activeNav = resolveSiteHeaderActiveNav(pathname)
   const [menuOpen, setMenuOpen] = useState(false)
   const [desktopCommunityOpen, setDesktopCommunityOpen] = useState(false)
   const [mobileCommunityOpen, setMobileCommunityOpen] = useState(false)
@@ -285,7 +308,9 @@ export function SiteHeader() {
                   {index > 0 ? <NavDivider /> : null}
                   <a
                     href={item.href}
-                    className={navLinkClass}
+                    className={navLinkClassForActive(
+                      "activeKey" in item && item.activeKey === activeNav,
+                    )}
                     target={item.href.startsWith("http") ? "_blank" : undefined}
                     rel={
                       item.href.startsWith("http") ? "noreferrer" : undefined
@@ -359,6 +384,13 @@ export function SiteHeader() {
                   </div>
                 </div>
               </div>
+              <NavDivider />
+              <a
+                href={FAQ_URL}
+                className={navLinkClassForActive(activeNav === "faq")}
+              >
+                FAQ
+              </a>
             </nav>
 
             <OutlineButton
@@ -409,7 +441,11 @@ export function SiteHeader() {
           aria-label="Mobile"
           className="flex w-full flex-col items-start gap-6 px-1"
         >
-          <a href="/" className={`${mobileNavLinkClass} pr-1`} onClick={closeMenu}>
+          <a
+            href="/"
+            className={`${mobileNavLinkClassForActive(activeNav === "home")} pr-1`}
+            onClick={closeMenu}
+          >
             Home
           </a>
           <div className="mobile-nav-rule" aria-hidden />
@@ -494,6 +530,14 @@ export function SiteHeader() {
               </div>
             </div>
           </div>
+          <div className="mobile-nav-rule" aria-hidden />
+          <a
+            href={FAQ_URL}
+            className={`${mobileNavLinkClassForActive(activeNav === "faq")} w-full`}
+            onClick={closeMenu}
+          >
+            FAQ
+          </a>
         </nav>
       </div>
     </>

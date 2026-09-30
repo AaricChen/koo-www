@@ -1,24 +1,16 @@
 import { Analytics } from "@vercel/analytics/react"
-import { CommunitySection } from "./components/home/CommunitySection"
-import { EnterKooSection } from "./components/home/EnterKooSection"
-import { ExclusiveExperienceSection } from "./components/home/ExclusiveExperienceSection"
-import { HeroSection } from "./components/home/HeroSection"
-import { SiteFooter } from "./components/home/SiteFooter"
-import { SiteHeader } from "./components/home/SiteHeader"
-import { WhyKooSection } from "./components/home/WhyKooSection"
+import { Navigate, Route, Routes } from "react-router-dom"
+import { FaqTopicPage } from "./pages/FaqTopicPage"
+import { HomePage } from "./pages/HomePage"
 
 function App() {
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <SiteHeader />
-      <main>
-        <HeroSection />
-        <WhyKooSection />
-        <ExclusiveExperienceSection />
-        <CommunitySection />
-        <EnterKooSection />
-      </main>
-      <SiteFooter />
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/faq" element={<Navigate to="/faq/what-is-koo" replace />} />
+        <Route path="/faq/:topicSlug" element={<FaqTopicPage />} />
+      </Routes>
       <Analytics />
     </div>
   )

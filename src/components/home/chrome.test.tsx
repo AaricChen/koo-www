@@ -1,9 +1,11 @@
 import { cleanup, fireEvent, render, screen, within } from "@testing-library/react"
+import { MemoryRouter } from "react-router-dom"
 import { afterEach, describe, expect, it } from "vitest"
 import {
   APP_URL,
   DISCORD_URL,
   DOCS_URL,
+  FAQ_URL,
   ROADMAP_URL,
   SUPPORT_URL,
   TELEGRAM_URL,
@@ -12,16 +14,24 @@ import {
 import { EnterKooSection } from "./EnterKooSection"
 import { HeroSection } from "./HeroSection"
 import { SiteFooter } from "./SiteFooter"
-import { SiteHeader } from "./SiteHeader"
+import { SiteHeader, resolveSiteHeaderActiveNav } from "./SiteHeader"
 import { WhyKooSection } from "./WhyKooSection"
 
 afterEach(() => {
   cleanup()
 })
 
+function renderSiteHeader(initialPath = "/") {
+  return render(
+    <MemoryRouter initialEntries={[initialPath]}>
+      <SiteHeader />
+    </MemoryRouter>,
+  )
+}
+
 describe("SiteHeader", () => {
-  it("exposes Home, Docs, and Launch App without placeholder hashes", () => {
-    const { container } = render(<SiteHeader />)
+  it("exposes Home, Docs, FAQ, and Launch App without placeholder hashes", () => {
+    const { container } = renderSiteHeader("/")
     const marks = screen.getAllByRole("link", { name: "Koo.xyz" })
     expect(marks.length).toBeGreaterThanOrEqual(1)
     for (const mark of marks) {
@@ -32,6 +42,16 @@ describe("SiteHeader", () => {
     for (const home of homes) {
       expect(home.getAttribute("href")).toBe("/")
     }
+    const faqLinks = screen.getAllByRole("link", { name: "FAQ" })
+    expect(faqLinks.length).toBeGreaterThanOrEqual(1)
+    for (const link of faqLinks) {
+      expect(link.getAttribute("href")).toBe(FAQ_URL)
+    }
+    const primaryHome = within(
+      screen.getByRole("navigation", { name: "Primary" }),
+    ).getByRole("link", { name: "Home" })
+    expect(primaryHome.className).toContain("font-medium")
+    expect(primaryHome.className).toContain("text-foreground")
     const docs = screen.getAllByRole("link", { name: "Docs" })
     expect(docs.length).toBeGreaterThanOrEqual(1)
     for (const link of docs) {
@@ -79,8 +99,25 @@ describe("SiteHeader", () => {
     )
   })
 
+  it("highlights FAQ in the primary nav on FAQ secondary routes", () => {
+    renderSiteHeader("/faq/what-is-koo")
+    const primary = screen.getByRole("navigation", { name: "Primary" })
+    const faq = within(primary).getByRole("link", { name: "FAQ" })
+    const home = within(primary).getByRole("link", { name: "Home" })
+    expect(faq.className).toContain("font-medium")
+    expect(faq.className).toContain("text-foreground")
+    expect(home.className).toContain("text-muted-foreground")
+    expect(home.className).toContain("font-normal")
+  })
+
+  it("resolves FAQ routes for header active state", () => {
+    expect(resolveSiteHeaderActiveNav("/")).toBe("home")
+    expect(resolveSiteHeaderActiveNav("/faq")).toBe("faq")
+    expect(resolveSiteHeaderActiveNav("/faq/what-is-koo")).toBe("faq")
+  })
+
   it("slides the mobile drawer in from the left", () => {
-    const { container } = render(<SiteHeader />)
+    const { container } = renderSiteHeader("/")
     const overlay = container.querySelector(".mobile-nav-overlay")
     const drawer = container.querySelector(".mobile-nav-drawer")
     expect(overlay).not.toBeNull()
@@ -108,6 +145,9 @@ describe("SiteHeader", () => {
     expect(
       within(mobileNav).getByRole("link", { name: "Roadmap" }),
     ).toHaveProperty("href", ROADMAP_URL)
+    expect(
+      within(mobileNav).getByRole("link", { name: "FAQ" }).getAttribute("href"),
+    ).toBe(FAQ_URL)
 
     const mobileCommunity = within(mobileNav).getByRole("button", {
       name: "Community",

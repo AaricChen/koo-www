@@ -1,4 +1,5 @@
 export const APP_URL = "https://app.koo.xyz/"
+export const FAQ_URL = "/faq"
 export const DOCS_URL = "https://docs.koo.xyz/"
 export const SUPPORT_URL = "https://docs.koo.xyz/feedback-and-support"
 export const ROADMAP_URL = "https://docs.koo.xyz/about-koo.xyz/roadmap"

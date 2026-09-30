@@ -1,0 +1,80 @@
+import { cleanup, fireEvent, render, screen, within } from "@testing-library/react"
+import { MemoryRouter, Route, Routes, useParams } from "react-router-dom"
+import { isFaqTopicSlug } from "../../../lib/faq/topics"
+import { afterEach, describe, expect, it } from "vitest"
+import { DOCS_URL } from "../../../lib/links"
+import { FaqMobileAccordion } from "./FaqMobileAccordion"
+import { FaqMobileIndexPage } from "./FaqMobileIndexPage"
+
+afterEach(() => {
+  cleanup()
+})
+
+function FaqMobileRoute() {
+  const { topicSlug } = useParams()
+  if (!topicSlug || !isFaqTopicSlug(topicSlug)) return null
+  return <FaqMobileIndexPage topicSlug={topicSlug} />
+}
+
+describe("FaqMobileIndexPage", () => {
+  it("renders the mobile hero and category trigger for What is Koo", () => {
+    render(
+      <MemoryRouter initialEntries={["/faq/what-is-koo"]}>
+        <FaqMobileIndexPage topicSlug="what-is-koo" />
+      </MemoryRouter>,
+    )
+    expect(
+      screen.getByRole("heading", { name: "Frequently Asked Questions" }),
+    ).not.toBeNull()
+    expect(screen.getByRole("link", { name: "Full Docs" })).toHaveProperty(
+      "href",
+      DOCS_URL,
+    )
+    expect(
+      screen.getByRole("button", { name: "Select FAQ category: What is Koo?" }),
+    ).not.toBeNull()
+    expect(screen.getByText("Derivatives built around your NFT account")).not.toBeNull()
+    expect(screen.getByRole("link", { name: "Explore Markets" })).not.toBeNull()
+  })
+
+  it("opens the category sheet and navigates to another topic", () => {
+    render(
+      <MemoryRouter initialEntries={["/faq/what-is-koo"]}>
+        <Routes>
+          <Route path="/faq/:topicSlug" element={<FaqMobileRoute />} />
+        </Routes>
+      </MemoryRouter>,
+    )
+
+    fireEvent.click(
+      screen.getByRole("button", { name: "Select FAQ category: What is Koo?" }),
+    )
+    const dialog = screen.getByRole("dialog", { name: "Select a Category" })
+    fireEvent.click(within(dialog).getByRole("button", { name: "How to Trade?" }))
+    expect(
+      screen.getByRole("button", { name: "Select FAQ category: How to Trade?" }),
+    ).not.toBeNull()
+    expect(screen.getByRole("heading", { name: "How to Trade?" })).not.toBeNull()
+  })
+})
+
+describe("FaqMobileAccordion", () => {
+  it("expands an answered item and ignores items without answers", () => {
+    render(
+      <FaqMobileAccordion
+        items={[
+          {
+            id: "a",
+            question: "Answered",
+            answer: "Yes",
+            defaultOpen: true,
+          },
+          { id: "b", question: "Pending" },
+        ]}
+      />,
+    )
+    expect(screen.getByText("Yes")).not.toBeNull()
+    fireEvent.click(screen.getByRole("button", { name: "Pending" }))
+    expect(screen.queryByText("Pending answer")).toBeNull()
+  })
+})
