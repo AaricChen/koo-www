@@ -1,6 +1,7 @@
 import {
   DISCORD_URL,
   DOCS_URL,
+  FAQ_URL,
   ROADMAP_URL,
   SUPPORT_URL,
   TELEGRAM_URL,
@@ -114,6 +115,9 @@ export function SiteFooter() {
                 >
                   Roadmap
                 </a>
+                <a href={FAQ_URL} className={footerLinkClass}>
+                  FAQ
+                </a>
               </nav>
               <span
                 className="text-sm leading-[14px] text-muted-foreground"
@@ -173,6 +177,9 @@ export function SiteFooter() {
               className={footerLinkClass}
             >
               Roadmap
+            </a>
+            <a href={FAQ_URL} className={footerLinkClass}>
+              FAQ
             </a>
             <span className="text-muted-foreground" aria-hidden>
               ｜

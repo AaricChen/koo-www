@@ -185,6 +185,11 @@ describe("SiteFooter", () => {
     for (const link of roadmapLinks) {
       expect(link).toHaveProperty("href", ROADMAP_URL)
     }
+    const faqLinks = screen.getAllByRole("link", { name: "FAQ" })
+    expect(faqLinks.length).toBe(2)
+    for (const link of faqLinks) {
+      expect(link.getAttribute("href")).toBe(FAQ_URL)
+    }
     for (const label of ["Telegram", "Discord", "X"] as const) {
       const social = screen.getAllByRole("link", { name: label })
       expect(social.length).toBe(2)
