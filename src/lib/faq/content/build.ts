@@ -43,8 +43,19 @@ export function keyInfoLabeled(
   }
 }
 
-export function keyInfoItems(items: FaqTopicListItem[]): FaqTopicSection {
-  return { kind: "list", title: "Key information", items }
+export function keyInfoItems(
+  items: FaqTopicListItem[],
+  title = "Key information",
+): FaqTopicSection {
+  return { kind: "list", title, items }
+}
+
+export function topicListSection(
+  title: string,
+  items: FaqTopicListItem[],
+  layout?: FaqTopicSectionLayout,
+): FaqTopicSection {
+  return { kind: "list", title, items, ...layout }
 }
 
 export function listSection(title: string, lines: string[]): FaqTopicSection {

@@ -3,12 +3,11 @@ import type { FaqTopicContent } from "../types"
 import {
   faqItems,
   faqTopic,
-  highlightListSection,
   highlightsSection,
   keyInfo,
   keyInfoItems,
   keyInfoLabeled,
-  listSection,
+  topicListSection,
   paraSection,
   plainListSection,
 } from "./build"
@@ -425,17 +424,38 @@ export const FAQ_TOPIC_PAGES: Record<FaqTopicSlug, FaqTopicContent> = {
     "Trade selected TradFi perpetuals on Koo",
     "Koo offers selected USDC-margined perpetuals linked to stocks, ETFs, precious metals and oil. Examples include AAPL, NVDA, TSLA, QQQ, XAU, XAG, CL and BZ. Check the trading app for current availability.",
     [
-      keyInfo([
-        "Categories: selected stocks, ETFs, precious metals and oil",
-        "Collateral: USDC",
-        "Market status and parameters can change",
+      keyInfoItems(
+        [
+          {
+            kind: "labeled",
+            label: "Categories:",
+            value: "selected stocks, ETFs, precious metals and oil",
+          },
+          { kind: "labeled", label: "Collateral:", value: "USDC" },
+          { kind: "plain", text: "Market status and parameters can change." },
+        ],
+        "Key Information",
+      ),
+      paraSection("Markets", [
+        "Check the trading app for currently available crypto perpetual markets and their trading status.",
       ]),
-      listSection("Markets", [
-        "Stocks: examples include AAPL, NVDA and TSLA.",
-        "ETFs: examples include QQQ.",
-        "Precious metals: examples include XAU and XAG.",
-        "Oil: examples include CL and BZ.",
-        "Availability and trading status vary by market. Check the trading app before placing an order.",
+      topicListSection("Execution", [
+        {
+          kind: "highlight",
+          highlight: "Stocks",
+          rest: " - Examples include AAPL, NVDA and TSLA.",
+        },
+        { kind: "highlight", highlight: "ETFs", rest: " - Examples include QQQ." },
+        {
+          kind: "highlight",
+          highlight: "Precious metals",
+          rest: " - Examples include XAU and XAG.",
+        },
+        { kind: "highlight", highlight: "Oil", rest: " - Examples include CL and BZ." },
+        {
+          kind: "plain",
+          text: "Availability and trading status vary by market. Check the trading app before placing an order.",
+        },
       ]),
       paraSection("Trading hours and pricing", [
         "The underlying reference market has its own trading session.",
@@ -443,14 +463,18 @@ export const FAQ_TOPIC_PAGES: Record<FaqTopicSlug, FaqTopicContent> = {
         "Check the current market stage. The index calculation method can differ during closed-market periods.",
       ]),
       paraSection("Leverage, fees and funding", [
-        "Check each market's current maximum leverage and risk limits in the trading app.",
+        "Check each market’s current maximum leverage and risk limits in the trading app.",
         "Taker 0.02%; Maker -0.005% when the fill qualifies as maker.",
         "Funding currently settles every eight hours; actual rates and caps vary.",
       ]),
-      paraSection("Risks", [
-        "TradFi reference markets can close while a Koo contract remains tradeable, creating basis and liquidity risk.",
-        "Derivatives can cause a partial or total loss of margin. Yield-bearing Margin and Vault participation also involve protocol, liquidity and principal-loss risks. Yield is variable and principal remains at risk.",
-      ]),
+      paraSection(
+        "Risks",
+        [
+          "TradFi reference markets can close while a Koo contract remains tradeable, creating basis and liquidity risk.",
+          "Derivatives can cause a partial or total loss of margin. Yield-bearing Margin and Vault participation also involve protocol, liquidity and principal-loss risks. Yield is variable and principal remains at risk.",
+        ],
+        { dividerAfter: true },
+      ),
     ],
     faqItems([
       {
@@ -473,30 +497,55 @@ export const FAQ_TOPIC_PAGES: Record<FaqTopicSlug, FaqTopicContent> = {
           "No. Maximum and effective leverage depend on the market and applicable risk limits. Check the trading app for current values.",
       },
     ]),
+    "Trade selected TradFi perpetuals on Koo",
   ),
 
   "trading-fees": faqTopic(
     "What are Koo's trading fees?",
     "Koo currently charges a 0.02% taker fee and applies a -0.005% maker fee, meaning qualifying maker fills receive a 0.005% rebate. A limit order is not automatically a maker order.",
     [
-      keyInfo([
-        "Taker: 0.02%",
-        "Maker: -0.005% (0.005% rebate)",
-        "Funding is a separate payment between long and short positions",
-      ]),
+      keyInfoItems(
+        [
+          { kind: "labeled", label: "Taker:", value: "0.02%" },
+          { kind: "labeled", label: "Maker:", value: "-0.005% (0.005% rebate)" },
+          {
+            kind: "plain",
+            text: "Funding is a separate payment between long and short positions",
+          },
+        ],
+        "Key Information",
+      ),
       paraSection("Maker and taker", [
         "Taker fills remove liquidity by executing against an existing order.",
         "Maker fills add liquidity by resting on the order book before execution.",
         "A market order is a taker. A limit order that crosses the book is also a taker.",
       ]),
-      paraSection("Formula", [
-        "Trading fee or rebate = filled notional × applicable rate.",
-        "Example: a 10,000 USDC taker fill costs 2 USDC. A qualifying 10,000 USDC maker fill earns a 0.5 USDC rebate.",
+      topicListSection("Formula", [
+        {
+          kind: "labeled",
+          label: "Trading fee or rebate",
+          value: "= Filled notional × Applicable rate.",
+        },
+        {
+          kind: "labeled",
+          label: "Example:",
+          value:
+            "A 10,000 USDC taker fill costs 2 USDC. A qualifying 10,000 USDC maker fill earns a 0.5 USDC rebate.",
+        },
       ]),
-      paraSection("What is not included", [
-        "Funding is not a platform trading fee and can be paid or received.",
-        "Gas may be required for onchain deposit or withdrawal actions, not for every offchain order.",
+      paraSection("Trading hours and pricing", [
+        "The underlying reference market has its own trading session.",
+        "Outside the reference session or when external data is unavailable, Koo can use its documented internal pricing process until the external source resumes.",
+        "Check the current market stage. The index calculation method can differ during closed-market periods.",
       ]),
+      paraSection(
+        "What is not included",
+        [
+          "Funding is not a platform trading fee and can be paid or received.",
+          "Gas may be required for onchain deposit or withdrawal actions, not for every offchain order.",
+        ],
+        { dividerAfter: true },
+      ),
     ],
     faqItems([
       {
@@ -518,17 +567,24 @@ export const FAQ_TOPIC_PAGES: Record<FaqTopicSlug, FaqTopicContent> = {
           "Yes. Koo currently applies the same maker and taker rates across its markets.",
       },
     ]),
+    "What are Koo’s trading fees?",
   ),
 
   funding: faqTopic(
     "How does funding work on Koo?",
-    "Funding is a periodic payment between long and short perpetual positions. Koo's current open perpetual markets settle funding every eight hours at 00:00, 08:00 and 16:00 UTC, while the actual rate and cap vary by instrument and time.",
+    "Funding is a periodic payment between long and short perpetual positions. Koo’s current open perpetual markets settle funding every eight hours at 00:00, 08:00 and 16:00 UTC, while the actual rate and cap vary by instrument and time.",
     [
-      keyInfo([
-        "Positive rate: longs pay shorts",
-        "Negative rate: shorts pay longs",
-        "Goal Difference delivery contracts have no funding",
-      ]),
+      keyInfoItems(
+        [
+          { kind: "labeled", label: "Positive rate:", value: "Longs pay shorts" },
+          { kind: "labeled", label: "Negative rate:", value: "Shorts pay longs" },
+          {
+            kind: "plain",
+            text: "Goal Difference delivery contracts have no funding",
+          },
+        ],
+        "Key Information",
+      ),
       paraSection("Why funding exists", [
         "Funding helps keep a perpetual contract near its index price by transferring value between long and short holders.",
         "Koo does not classify this transfer as a platform trading fee.",
@@ -537,14 +593,27 @@ export const FAQ_TOPIC_PAGES: Record<FaqTopicSlug, FaqTopicContent> = {
         "Ordinary perpetuals and Market Share perpetuals use funding.",
         "Goal Difference delivery contracts do not use funding.",
       ]),
-      paraSection("Formula and example", [
-        "Funding payment = position notional × settlement funding rate.",
-        "Illustrative example: a 10,000 USDC long position at +0.01% pays 1 USDC at settlement. This does not imply a fixed rate.",
+      topicListSection("Formula and example", [
+        {
+          kind: "labeled",
+          label: "Funding payment =",
+          value: "Position notional × Settlement funding rate.",
+        },
+        {
+          kind: "labeled",
+          label: "Illustrative example:",
+          value:
+            "A 10,000 USDC long position at +0.01% pays 1 USDC at settlement. This does not imply a fixed rate.",
+        },
       ]),
-      paraSection("Changing funding rates", [
-        "Rates can be positive, negative or near zero and can change between periods.",
-        "Check your market's current funding rate, next settlement time and rate cap before holding a position through settlement.",
-      ]),
+      paraSection(
+        "Changing funding rates",
+        [
+          "Rates can be positive, negative or near zero and can change between periods.",
+          "Check your market’s current funding rate, next settlement time and rate cap before holding a position through settlement.",
+        ],
+        { dividerAfter: true },
+      ),
     ],
     faqItems([
       {
@@ -566,20 +635,32 @@ export const FAQ_TOPIC_PAGES: Record<FaqTopicSlug, FaqTopicContent> = {
           "Market Share perpetuals do; Goal Difference delivery contracts do not.",
       },
     ]),
+    "How does funding work on Koo?",
   ),
 
   "liquidation-risk": faqTopic(
     "How does liquidation work on Koo?",
     "Koo uses the Risk Ratio of the entire NFT Account as the authoritative liquidation trigger. At 95%, active orders are cancelled; at 100%, forced liquidation is triggered.",
     [
-      keyInfo([
-        "Risk boundary: one NFT Account",
-        "Risk-price basis: Mark Price / Mark Value",
-        "Estimated liquidation price: reference only",
-      ]),
+      keyInfoItems(
+        [
+          { kind: "labeled", label: "Risk boundary:", value: "One NFT Account" },
+          {
+            kind: "labeled",
+            label: "Risk-price basis:",
+            value: "Mark Price / Mark Value",
+          },
+          {
+            kind: "labeled",
+            label: "Estimated liquidation price:",
+            value: "Reference Only",
+          },
+        ],
+        "Key Information",
+      ),
       paraSection("Cross Margin and Risk Ratio", [
         "All positions and active orders within one NFT Account share its USDC margin.",
-        "Risk Ratio includes the account's maintenance-margin and fee requirements relative to available account margin.",
+        "Risk Ratio includes the account’s maintenance-margin and fee requirements relative to available account margin.",
       ]),
       paraSection("Trigger sequence", [
         "At 95%, all active pending orders in the account are automatically cancelled.",
@@ -595,10 +676,14 @@ export const FAQ_TOPIC_PAGES: Record<FaqTopicSlug, FaqTopicContent> = {
         "Large positions may be partially liquidated.",
         "The insurance fund can absorb eligible positions that cannot fill above bankruptcy. ADL is a last resort if the fund is insufficient.",
       ]),
-      paraSection("Risk", [
-        "Derivatives can cause a partial or total loss of margin. Yield-bearing Margin and Vault participation also involve protocol, liquidity and principal-loss risks. Yield is variable and principal remains at risk.",
-        "Users who need separate risk boundaries should use separate NFT Accounts; Isolated Margin is not currently available.",
-      ]),
+      paraSection(
+        "Risk",
+        [
+          "Derivatives can cause a partial or total loss of margin. Yield-bearing Margin and Vault participation also involve protocol, liquidity and principal-loss risks. Yield is variable and principal remains at risk.",
+          "Users who need separate risk boundaries should use separate NFT Accounts; Isolated Margin is not currently available.",
+        ],
+        { dividerAfter: true },
+      ),
     ],
     faqItems([
       {
@@ -620,5 +705,6 @@ export const FAQ_TOPIC_PAGES: Record<FaqTopicSlug, FaqTopicContent> = {
           "No. Mark Price / Mark Value is used for the risk calculation.",
       },
     ]),
+    "How does liquidation work on Koo?",
   ),
 }

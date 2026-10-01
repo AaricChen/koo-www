@@ -166,6 +166,74 @@ describe("getFaqTopicContent", () => {
     expect(content.accordion?.[2]?.answer).toBe("Every eight hours.")
   })
 
+  it("matches Figma TradFi Perpetuals content and FAQ accordion", () => {
+    const content = getFaqTopicContent("tradfi-perpetuals")
+    expect(content.pageHeaderTitle).toBe("Trade selected TradFi perpetuals on Koo")
+    expect(content.sections[0]?.title).toBe("Key Information")
+    expect(content.sections[1]?.title).toBe("Markets")
+    expect(content.sections[2]?.title).toBe("Execution")
+    if (content.sections[2]?.kind === "list") {
+      expect(content.sections[2].items[0]).toMatchObject({ kind: "highlight", highlight: "Stocks" })
+    }
+    expect(content.sections[5]?.dividerAfter).toBe(true)
+    expect(content.accordion?.[0]?.question).toBe(
+      "Which types of TradFi markets does Koo cover?",
+    )
+    expect(content.accordion?.[1]?.question).toBe(
+      "Can I trade when the underlying market is closed?",
+    )
+    expect(content.accordion?.[2]?.answer).toContain("Check the trading app for current values")
+  })
+
+  it("matches Figma Trading Fees content and FAQ accordion", () => {
+    const content = getFaqTopicContent("trading-fees")
+    expect(content.pageHeaderTitle).toBe("What are Koo’s trading fees?")
+    expect(content.sections[0]?.title).toBe("Key Information")
+    expect(content.sections[2]?.title).toBe("Formula")
+    expect(content.sections[3]?.title).toBe("Trading hours and pricing")
+    expect(content.sections[4]?.dividerAfter).toBe(true)
+    expect(content.accordion?.[0]?.question).toBe(
+      "Does a limit order always receive the maker rebate?",
+    )
+    expect(content.accordion?.[1]?.question).toBe("Is funding included in the trading fee?")
+    expect(content.accordion?.[2]?.answer).toContain("same maker and taker rates")
+  })
+
+  it("matches Figma Funding content and FAQ accordion", () => {
+    const content = getFaqTopicContent("funding")
+    expect(content.pageHeaderTitle).toBe("How does funding work on Koo?")
+    expect(content.intro).toContain("Koo’s current open perpetual markets")
+    if (content.sections[0]?.kind === "list") {
+      expect(content.sections[0].items[0]).toMatchObject({
+        kind: "labeled",
+        value: "Longs pay shorts",
+      })
+    }
+    expect(content.sections[3]?.title).toBe("Formula and example")
+    expect(content.sections[4]?.dividerAfter).toBe(true)
+    expect(content.accordion?.[0]?.question).toBe("Is funding a holding fee paid to Koo?")
+    expect(content.accordion?.[1]?.question).toBe("Is the rate always 0.02%?")
+    expect(content.accordion?.[2]?.answer).toContain("Goal Difference delivery contracts do not")
+  })
+
+  it("matches Figma Liquidation content and FAQ accordion", () => {
+    const content = getFaqTopicContent("liquidation-risk")
+    expect(content.pageHeaderTitle).toBe("How does liquidation work on Koo?")
+    if (content.sections[0]?.kind === "list") {
+      expect(content.sections[0].items[2]).toMatchObject({
+        kind: "labeled",
+        value: "Reference Only",
+      })
+    }
+    expect(content.sections[2]?.title).toBe("Trigger sequence")
+    expect(content.sections[5]?.dividerAfter).toBe(true)
+    expect(content.accordion?.[0]?.answer).toBe(
+      "The NFT Account Risk Ratio reaching 100%.",
+    )
+    expect(content.accordion?.[1]?.question).toBe("Why can the estimate change?")
+    expect(content.accordion?.[2]?.question).toBe("Does Koo use Last Price?")
+  })
+
   it("matches P10 trading fees intro rates", () => {
     const content = getFaqTopicContent("trading-fees")
     expect(content.intro).toContain("0.02%")
