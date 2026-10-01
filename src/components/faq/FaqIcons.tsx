@@ -1,3 +1,5 @@
+import type { SVGProps } from "react"
+
 export function FaqChevronIcon({
   className,
   direction = "down",
@@ -24,13 +26,17 @@ export function FaqChevronIcon({
   )
 }
 
-export function FaqChevronRightIcon({ className }: { className?: string }) {
+export function FaqChevronRightIcon({
+  className,
+  ...props
+}: { className?: string } & SVGProps<SVGSVGElement>) {
   return (
     <svg
       viewBox="0 0 16 16"
       className={className ?? "size-3 shrink-0"}
       fill="none"
       aria-hidden
+      {...props}
     >
       <path
         d="M6.2 4.2 10 8l-3.8 3.8"
@@ -43,13 +49,17 @@ export function FaqChevronRightIcon({ className }: { className?: string }) {
   )
 }
 
-export function FaqCheckIcon({ className }: { className?: string }) {
+export function FaqCheckIcon({
+  className,
+  ...props
+}: { className?: string } & SVGProps<SVGSVGElement>) {
   return (
     <svg
       viewBox="0 0 20 20"
       className={className ?? "size-5 shrink-0 text-secondary"}
       fill="none"
       aria-hidden
+      {...props}
     >
       <path
         d="M5 10.2 8.2 13.4 15 6.6"
@@ -95,13 +105,17 @@ export function FaqSidebarCaretIcon({ className }: { className?: string }) {
   )
 }
 
-export function FaqCategoryIcon({ className }: { className?: string }) {
+export function FaqCategoryIcon({
+  className,
+  ...props
+}: { className?: string } & SVGProps<SVGSVGElement>) {
   return (
     <svg
       viewBox="0 0 20 20"
       className={className ?? "size-5 shrink-0 text-secondary"}
       fill="none"
       aria-hidden
+      {...props}
     >
       <path
         d="M5.5 4.5h9M5.5 10h9M5.5 15.5h5.5"

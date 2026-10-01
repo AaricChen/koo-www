@@ -1,5 +1,5 @@
 import { useId, useState } from "react"
-import { Link } from "react-router-dom"
+import { FaqDetailLink } from "../faq/FaqDetailLink"
 import { FaqChevronIcon, FaqChevronRightIcon } from "../faq/FaqIcons"
 import { HOME_FAQ_ITEMS, homeFaqDetailHref } from "../../lib/faq/home-faq"
 import { FAQ_URL } from "../../lib/links"
@@ -104,13 +104,7 @@ export function FaqSection() {
                       </div>
                     </div>
                     {expanded ? (
-                      <Link
-                        to={homeFaqDetailHref(item.topicSlug)}
-                        className="home-faq-detail-link inline-flex w-full shrink-0 items-center justify-center gap-2 rounded-[4px] border border-border-strong px-3 py-[9px] text-xs leading-3 font-normal text-primary transition-colors duration-300 hover:bg-[rgba(61,122,255,0.12)] lg:w-auto lg:gap-2 lg:py-1.5 lg:pl-2.5 lg:pr-2 lg:text-sm lg:leading-[14px]"
-                      >
-                        View the details
-                        <FaqChevronRightIcon className="size-3 -rotate-90 text-primary lg:size-4" />
-                      </Link>
+                      <FaqDetailLink href={homeFaqDetailHref(item.topicSlug)} />
                     ) : null}
                   </div>
                 </article>

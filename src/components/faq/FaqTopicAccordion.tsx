@@ -1,6 +1,7 @@
 import { useId, useState } from "react"
 import type { FaqAccordionItem } from "../../lib/faq/types"
-import { FaqChevronIcon, FaqChevronRightIcon } from "./FaqIcons"
+import { FaqDetailLink } from "./FaqDetailLink"
+import { FaqChevronIcon } from "./FaqIcons"
 
 function FaqTopicAccordionItem({
   item,
@@ -47,7 +48,7 @@ function FaqTopicAccordionItem({
           aria-hidden={!expanded}
           className={
             expanded
-              ? "flex flex-col gap-4 px-3 pb-[18px] lg:gap-4 lg:px-4 lg:pb-6"
+              ? "faq-topic-accordion-body flex flex-col gap-4 px-3 pb-[18px] lg:gap-4 lg:px-4 lg:pb-6"
               : undefined
           }
         >
@@ -59,15 +60,10 @@ function FaqTopicAccordionItem({
             </div>
           </div>
           {expanded && item.detailLink ? (
-            <a
+            <FaqDetailLink
               href={item.detailLink.href}
-              target="_blank"
-              rel="noreferrer"
-              className="flex w-full items-center justify-center gap-2 rounded-[4px] border border-border-strong px-3 py-[9px] text-xs leading-3 text-primary transition-colors duration-300 hover:bg-[rgba(61,122,255,0.12)] lg:w-auto lg:px-3 lg:py-2 lg:text-sm lg:leading-[14px]"
-            >
-              {item.detailLink.label}
-              <FaqChevronRightIcon className="size-3 -rotate-90 text-primary" />
-            </a>
+              label={item.detailLink.label}
+            />
           ) : null}
         </div>
       ) : null}

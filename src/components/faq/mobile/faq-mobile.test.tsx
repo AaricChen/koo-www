@@ -33,7 +33,13 @@ describe("FaqMobileIndexPage", () => {
     expect(
       screen.getByRole("button", { name: "Select FAQ category: What is Koo?" }),
     ).not.toBeNull()
-    expect(screen.getByText("Derivatives built around your NFT account")).not.toBeNull()
+    expect(
+      screen.getByRole("heading", {
+        name: "Derivatives built around your NFT account",
+      }),
+    ).not.toBeNull()
+    expect(screen.getByText("Core products")).not.toBeNull()
+    expect(screen.getByText("View the details")).not.toBeNull()
     expect(screen.getByRole("link", { name: "Explore Markets" })).not.toBeNull()
     expect(screen.getByText("Key information")).not.toBeNull()
   })

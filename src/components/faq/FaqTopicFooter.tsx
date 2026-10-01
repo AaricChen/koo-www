@@ -1,4 +1,5 @@
 import { APP_URL, DOCS_URL } from "../../lib/links"
+import { FAQ_FIGMA_SECONDARY } from "../../lib/faq/figma-tokens"
 import { GradientButton } from "../ui/Button"
 
 const ARCHITECTURE_URL =
@@ -8,23 +9,28 @@ const ARCHITECTURE_URL =
 export function FaqTopicFooter() {
   return (
     <div className="flex w-full max-w-[311px] flex-col items-center gap-6 lg:max-w-none lg:items-start lg:gap-8">
-      <div className="flex flex-wrap items-center justify-center gap-[13px] text-xs leading-3 text-secondary lg:justify-start lg:text-sm lg:leading-[14px]">
+      <div
+        className="flex flex-wrap items-center justify-center gap-[13px] text-xs leading-3 lg:justify-start lg:text-sm lg:leading-[14px]"
+        style={{ color: FAQ_FIGMA_SECONDARY }}
+      >
         <a
           href={DOCS_URL}
           target="_blank"
           rel="noreferrer"
-          className="transition-colors duration-300 hover:text-foreground"
+          className="transition-opacity duration-300 hover:opacity-90"
+          style={{ color: "inherit" }}
         >
           About Koo
         </a>
-        <span className="text-muted-foreground" aria-hidden>
+        <span className="font-normal" style={{ color: "inherit" }} aria-hidden>
           ｜
         </span>
         <a
           href={ARCHITECTURE_URL}
           target="_blank"
           rel="noreferrer"
-          className="transition-colors duration-300 hover:text-foreground"
+          className="transition-opacity duration-300 hover:opacity-90"
+          style={{ color: "inherit" }}
         >
           Core Technical Architecture
         </a>

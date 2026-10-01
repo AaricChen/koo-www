@@ -21,6 +21,10 @@ describe("FaqDesktopIndexPage", () => {
     expect(active).not.toBeNull()
     expect(active?.textContent).toContain("What is Koo?")
     expect(screen.getAllByRole("link", { name: /What is Koo\?/i }).length).toBeGreaterThan(0)
-    expect(screen.getByText("Derivatives built around your NFT account")).not.toBeNull()
+    expect(
+      screen.getByRole("heading", {
+        name: "Derivatives built around your NFT account",
+      }),
+    ).not.toBeNull()
   })
 })

@@ -1,4 +1,36 @@
 import type { FaqTopicListItem, FaqTopicSection } from "../../lib/faq/types"
+import { FAQ_FIGMA_SECONDARY } from "../../lib/faq/figma-tokens"
+
+function renderListItem(item: FaqTopicListItem, index: number) {
+  if ("kind" in item && item.kind === "labeled") {
+    return (
+      <li key={index} className="mb-1.5 last:mb-0 leading-4">
+        <span className="text-muted-foreground">{item.label}</span>{" "}
+        <span style={{ color: FAQ_FIGMA_SECONDARY }}>{item.value}</span>
+      </li>
+    )
+  }
+  if ("kind" in item && item.kind === "highlight") {
+    return (
+      <li key={index} className="mb-1.5 last:mb-0">
+        <span className="text-foreground">{item.highlight}</span>
+        {item.rest}
+      </li>
+    )
+  }
+  if ("kind" in item && item.kind === "plain") {
+    return (
+      <li key={index} className="mb-1.5 last:mb-0">
+        {item.text}
+      </li>
+    )
+  }
+  return (
+    <li key={index} className="mb-1.5 last:mb-0">
+      {item.text}
+    </li>
+  )
+}
 
 function FaqTopicListSection({
   title,
@@ -12,10 +44,8 @@ function FaqTopicListSection({
       <h3 className="text-xs font-semibold leading-3 text-foreground lg:text-sm lg:leading-[14px]">
         {title}
       </h3>
-      <ul className="list-disc space-y-1.5 pl-[18px] text-xs leading-4 text-muted-foreground lg:text-sm lg:leading-5">
-        {items.map((item, index) => (
-          <li key={index}>{item.text}</li>
-        ))}
+      <ul className="list-disc pl-[18px] text-xs leading-4 text-muted-foreground lg:text-sm lg:leading-5">
+        {items.map((item, index) => renderListItem(item, index))}
       </ul>
     </div>
   )
@@ -30,7 +60,7 @@ export function FaqTopicSections({
 }) {
   return (
     <div className="flex w-full flex-col gap-4 text-xs leading-4 text-muted-foreground lg:gap-5 lg:text-base lg:leading-7">
-      <p>{intro}</p>
+      <p className="leading-4 lg:leading-7">{intro}</p>
       {sections.map((section, index) => {
         if (section.kind === "list") {
           return (
@@ -42,7 +72,10 @@ export function FaqTopicSections({
           )
         }
         return (
-          <div key={`${section.title ?? "p"}-${index}`} className="flex w-full flex-col gap-3 lg:gap-4">
+          <div
+            key={`${section.title ?? "p"}-${index}`}
+            className="flex w-full flex-col gap-3 lg:gap-4"
+          >
             {section.title ? (
               <h3 className="text-xs font-semibold leading-3 text-foreground lg:text-sm lg:leading-[14px]">
                 {section.title}
@@ -50,7 +83,9 @@ export function FaqTopicSections({
             ) : null}
             <div className="space-y-1.5 lg:space-y-2">
               {section.paragraphs.map((paragraph) => (
-                <p key={paragraph}>{paragraph}</p>
+                <p key={paragraph} className="leading-4 lg:leading-7">
+                  {paragraph}
+                </p>
               ))}
             </div>
           </div>

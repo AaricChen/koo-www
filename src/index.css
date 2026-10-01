@@ -664,6 +664,14 @@
     background-color: rgba(43, 48, 72, 0.6);
   }
 
+  .faq-topic-card.is-open .faq-topic-card-trigger {
+    padding-bottom: 0;
+  }
+
+  .faq-topic-card.is-open .faq-topic-panel.is-open .faq-topic-panel-inner {
+    padding-top: 12px;
+  }
+
   .faq-topic-card-trigger {
     padding: 18px 12px;
   }
@@ -689,6 +697,87 @@
   .faq-topic-panel-inner {
     min-height: 0;
     overflow: hidden;
+  }
+
+  /* Figma FAQ blues: `#3D9BF3` text links, `#3D7AFF` outline actions */
+  .faq-docs-link {
+    color: var(--color-secondary);
+    font-weight: 600;
+    text-decoration: underline;
+    text-decoration-color: var(--color-secondary);
+    text-underline-offset: 2px;
+    transition: opacity 280ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .faq-docs-link:hover {
+    opacity: 0.88;
+  }
+
+  .faq-detail-link {
+    display: inline-flex;
+    width: 100%;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    border-radius: 4px;
+    border: 1px solid var(--color-primary);
+    padding: 9px 12px;
+    font-size: 12px;
+    line-height: 12px;
+    font-weight: 400;
+    color: var(--color-primary);
+    transition: background-color 300ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .faq-detail-link:hover {
+    background-color: rgba(61, 122, 255, 0.12);
+  }
+
+  .faq-detail-link__icon {
+    color: var(--color-primary);
+  }
+
+  @media (min-width: 1024px) {
+    .faq-detail-link {
+      width: auto;
+      padding: 8px 12px;
+      font-size: 14px;
+      line-height: 14px;
+    }
+  }
+
+  .faq-footer-links {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 13px;
+    font-size: 12px;
+    line-height: 12px;
+    color: var(--color-secondary);
+  }
+
+  .faq-footer-links a {
+    color: inherit;
+    transition: opacity 280ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .faq-footer-links a:hover {
+    opacity: 0.88;
+  }
+
+  .faq-footer-links__sep {
+    font-weight: 400;
+    color: inherit;
+  }
+
+  @media (min-width: 1024px) {
+    .faq-footer-links {
+      justify-content: flex-start;
+      font-size: 14px;
+      line-height: 14px;
+    }
   }
 
   .faq-sidebar-nav {

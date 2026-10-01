@@ -11,9 +11,12 @@ export type FaqAccordionItem = {
   }
 }
 
-export type FaqTopicListItem = {
-  text: ReactNode
-}
+export type FaqTopicListItem =
+  | { kind: "plain"; text: string }
+  | { kind: "labeled"; label: string; value: string }
+  | { kind: "highlight"; highlight: string; rest: string }
+  /** @deprecated Prefer structured kinds; still rendered for other topics. */
+  | { text: ReactNode }
 
 export type FaqTopicSection =
   | { kind: "paragraphs"; title?: string; paragraphs: string[] }
