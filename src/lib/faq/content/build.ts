@@ -56,14 +56,12 @@ export function faqItems(
     question: string
     answer?: string
     defaultOpen?: boolean
-    detailLink?: FaqAccordionItem["detailLink"]
   }>,
 ): FaqAccordionItem[] {
-  return items.map(({ id, question, answer, defaultOpen, detailLink }) => ({
+  return items.map(({ id, question, answer, defaultOpen }) => ({
     id,
     question,
     answer,
     defaultOpen,
-    detailLink,
   }))
 }

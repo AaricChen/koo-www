@@ -1,9 +1,8 @@
 import { useId, useState } from "react"
 import type { FaqAccordionItem } from "../../lib/faq/types"
-import { FaqDetailLink } from "./FaqDetailLink"
 import { FaqChevronIcon } from "./FaqIcons"
 
-function FaqTopicAccordionItem({
+function FaqTopicFaqItem({
   item,
   open,
   onToggle,
@@ -19,7 +18,7 @@ function FaqTopicAccordionItem({
   const expanded = open && Boolean(item.answer)
 
   return (
-    <article className={`faq-topic-card ${expanded ? "is-open" : ""}`}>
+    <article className={`faq-topic-card w-full ${expanded ? "is-open" : ""}`}>
       <button
         id={buttonId}
         type="button"
@@ -35,10 +34,13 @@ function FaqTopicAccordionItem({
         >
           {item.question}
         </span>
-        <FaqChevronIcon
-          direction={expanded ? "up" : "down"}
-          className="size-[14px] shrink-0 text-foreground"
-        />
+        <span
+          className={`faq-topic-faq__chevron inline-flex shrink-0 ${
+            expanded ? "is-open" : ""
+          }`}
+        >
+          <FaqChevronIcon className="size-[14px] text-foreground" />
+        </span>
       </button>
       {item.answer ? (
         <div
@@ -46,53 +48,45 @@ function FaqTopicAccordionItem({
           role="region"
           aria-labelledby={buttonId}
           aria-hidden={!expanded}
-          className={
-            expanded
-              ? "faq-topic-accordion-body flex flex-col gap-4 px-3 pb-[18px]"
-              : undefined
-          }
+          className="faq-topic-faq__panel"
         >
           <div className={`faq-topic-panel ${expanded ? "is-open" : ""}`}>
             <div className="faq-topic-panel-inner">
-              <p className="text-[12px] leading-5 text-muted-foreground">
-                {item.answer}
-              </p>
+              <div className="faq-topic-faq__body">
+                <p className="faq-topic-faq__answer">{item.answer}</p>
+              </div>
             </div>
           </div>
-          {expanded && item.detailLink ? (
-            <FaqDetailLink
-              href={item.detailLink.href}
-              label={item.detailLink.label}
-            />
-          ) : null}
         </div>
       ) : null}
     </article>
   )
 }
 
-/** Figma `faq-card-m` list inside topic overview (5589:64611). */
-export function FaqTopicAccordion({
-  title = "FAQ",
-  items,
-  showTitle = true,
-}: {
+export type FaqTopicFaqProps = {
   title?: string
   items: FaqAccordionItem[]
-  showTitle?: boolean
-}) {
+}
+
+/** Figma FAQ block on topic subpages (`5589:64609` → `5589:64611`). */
+export function FaqTopicFaq({ title = "FAQ", items }: FaqTopicFaqProps) {
+  if (items.length === 0) return null
+
   const baseId = useId()
-  const defaultOpenId = items.find((item) => item.defaultOpen && item.answer)?.id ?? null
+  const defaultOpenId =
+    items.find((item) => item.defaultOpen && item.answer)?.id ?? null
   const [openId, setOpenId] = useState<string | null>(defaultOpenId)
 
   return (
-    <section className="flex w-full flex-col gap-4">
-      {showTitle ? (
-        <h2 className="text-base font-semibold leading-4 text-foreground lg:text-xl lg:leading-5">
-          {title}
-        </h2>
-      ) : null}
-      <div className="flex w-full flex-col">
+    <section
+      data-figma-node="5589:64609"
+      className="faq-topic-faq"
+      aria-labelledby="faq-topic-faq-heading"
+    >
+      <h2 id="faq-topic-faq-heading" data-figma-node="5589:64610" className="faq-topic-faq__heading">
+        {title}
+      </h2>
+      <div data-figma-node="5589:64611" className="faq-topic-faq__list">
         {items.map((item, index) => {
           const panelId = `${baseId}-${item.id}-panel`
           const buttonId = `${baseId}-${item.id}-button`
@@ -102,7 +96,7 @@ export function FaqTopicAccordion({
               {index > 0 ? (
                 <div className="faq-topic-divider h-px w-full" aria-hidden />
               ) : null}
-              <FaqTopicAccordionItem
+              <FaqTopicFaqItem
                 item={item}
                 open={open}
                 onToggle={() => {

@@ -1,13 +1,15 @@
 import { getFaqTopicContent } from "../../lib/faq/content"
-import type { FaqTopicSlug } from "../../lib/faq/topics"
+import { getFaqTopicMeta, type FaqTopicSlug } from "../../lib/faq/topics"
 import { FaqMainPanel } from "./FaqMainPanel"
 import { FaqTopicSections } from "./FaqTopicSections"
 
 export function FaqTopicMainPanel({ topicSlug }: { topicSlug: FaqTopicSlug }) {
+  const topic = getFaqTopicMeta(topicSlug)
   const content = getFaqTopicContent(topicSlug)
 
   return (
     <FaqMainPanel
+      headerTitle={topic.menuLabel}
       title={content.overviewTitle}
       intro={content.intro}
       accordionTitle={content.accordionTitle ?? "FAQ"}

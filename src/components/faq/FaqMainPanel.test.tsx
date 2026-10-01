@@ -6,6 +6,7 @@ describe("FaqMainPanel", () => {
   it("matches Figma 5589:64587 three-part layout", () => {
     const { container } = render(
       <FaqMainPanel
+        headerTitle="What is Koo?"
         title="Topic title"
         intro="Topic intro"
         accordionItems={[
@@ -22,7 +23,13 @@ describe("FaqMainPanel", () => {
     expect(inner!.className).toContain("faq-main-panel-inner")
     expect(container.querySelector('[data-figma-node="5589:64588"]')).not.toBeNull()
     expect(container.querySelector('[data-figma-node="5589:64609"]')).not.toBeNull()
-    expect(container.querySelector('[data-figma-node="5591:66959"]')).not.toBeNull()
+    const footer = container.querySelector('[data-figma-node="5570:60149"]')
+    expect(footer).not.toBeNull()
+    expect(footer!.className).toContain("faq-main-panel-footer")
+    expect(container.querySelector(".faq-main-panel-footer__button")).not.toBeNull()
+    const aboutLink = screen.getByRole("link", { name: "About Koo" })
+    expect(aboutLink.className).toContain("faq-secondary-underline-link")
+    expect(aboutLink.className).toContain("faq-secondary-text-14")
     expect(container.querySelectorAll(".faq-main-panel-divider").length).toBe(0)
 
     const title = screen.getByRole("heading", { name: "Topic title" })
@@ -34,8 +41,8 @@ describe("FaqMainPanel", () => {
     expect(intro.className).toContain("leading-4")
 
     const faqHeading = screen.getByRole("heading", { name: "FAQ" })
-    expect(faqHeading.className).toContain("text-[16px]")
-    expect(faqHeading.className).toContain("leading-4")
+    expect(faqHeading.className).toContain("faq-topic-faq__heading")
+    expect(screen.queryByRole("link", { name: /View the details/i })).toBeNull()
 
     expect(screen.getByText("Custom body")).not.toBeNull()
     expect(screen.getByRole("link", { name: "About Koo" })).not.toBeNull()

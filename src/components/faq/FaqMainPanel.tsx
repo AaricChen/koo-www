@@ -1,8 +1,8 @@
 import { Fragment, type ReactNode } from "react"
 import type { FaqAccordionItem } from "../../lib/faq/types"
 import { APP_URL, DOCS_URL } from "../../lib/links"
-import { GradientButton } from "../ui/Button"
-import { FaqTopicAccordion } from "./FaqTopicAccordion"
+import { FaqTopicContentArea } from "./FaqTopicContentArea"
+import { FaqTopicFaq } from "./FaqTopicFaq"
 
 const DEFAULT_ARCHITECTURE_URL =
   "https://docs.koo.xyz/about-koo.xyz/core-technical-architecture"
@@ -37,7 +37,7 @@ export function FaqMainPanelTop({
     >
       <h2
         data-figma-node="5591:67739"
-        className="w-full break-words text-[14px] font-semibold leading-[18px] text-foreground"
+        className="w-full break-words text-[14px] font-semibold leading-[18px] text-foreground lg:hidden"
       >
         {title}
       </h2>
@@ -59,37 +59,7 @@ export function FaqMainPanelTop({
   )
 }
 
-/** Figma `Frame 249` (5589:64609). */
-export function FaqMainPanelFaq({
-  title = "FAQ",
-  items,
-}: {
-  title?: string
-  items: FaqAccordionItem[]
-}) {
-  if (items.length === 0) return null
-
-  return (
-    <section
-      data-figma-node="5589:64609"
-      className="flex w-full flex-col items-start gap-4"
-      aria-labelledby="faq-main-panel-faq-heading"
-    >
-      <h2
-        id="faq-main-panel-faq-heading"
-        data-figma-node="5589:64610"
-        className="w-full break-words text-[16px] font-semibold leading-4 text-foreground"
-      >
-        {title}
-      </h2>
-      <div data-figma-node="5589:64611" className="flex w-full flex-col items-start">
-        <FaqTopicAccordion items={items} showTitle={false} />
-      </div>
-    </section>
-  )
-}
-
-/** Figma `faq-main-m/faq-main-footer-m` (5591:66959). */
+/** Figma mobile `5591:66959`, desktop row `5570:60149` (faq-main-footer). */
 export function FaqMainPanelFooter({
   links = DEFAULT_FOOTER_LINKS,
   exploreHref = APP_URL,
@@ -101,17 +71,18 @@ export function FaqMainPanelFooter({
 }) {
   return (
     <footer
-      data-figma-node="5591:66959"
-      className="flex w-full flex-col items-center gap-6"
+      data-figma-node="5570:60149"
+      data-figma-node-mobile="5591:66959"
+      className="faq-main-panel-footer"
     >
-      <div
-        data-figma-node="5591:66952"
-        className="faq-main-panel-footer-links flex shrink-0 flex-wrap items-center justify-center gap-[13px] whitespace-nowrap text-[12px] leading-3"
-      >
+      <div data-figma-node="5591:66952" className="faq-main-panel-footer__links">
         {links.map((link, index) => (
           <Fragment key={link.href}>
             {index > 0 ? (
-              <span className="font-normal" aria-hidden>
+              <span
+                className="faq-main-panel-footer__sep faq-secondary-text-14"
+                aria-hidden
+              >
                 ｜
               </span>
             ) : null}
@@ -119,27 +90,30 @@ export function FaqMainPanelFooter({
               href={link.href}
               target="_blank"
               rel="noreferrer"
-              className="font-normal transition-opacity duration-300 hover:opacity-90"
+              className="faq-secondary-text-14 faq-secondary-underline-link"
             >
               {link.label}
             </a>
           </Fragment>
         ))}
       </div>
-      <GradientButton
+      <a
         href={exploreHref}
         target="_blank"
         rel="noreferrer"
         data-figma-node="5591:66985"
-        className="w-full rounded-[4px] px-[34px] py-[14px] text-[14px] leading-[14px] font-medium"
+        className="faq-main-panel-footer__button bg-cta-gradient"
       >
         {exploreLabel}
-      </GradientButton>
+      </a>
     </footer>
   )
 }
 
 export type FaqMainPanelProps = {
+  /** Figma desktop page title with accent bar (`5632:70287`). */
+  headerTitle: string
+  /** Mobile overview heading (`5591:67739`); hidden on `lg+`. */
   title: string
   /** Figma intro copy (`5589:64593`). */
   intro?: string
@@ -157,6 +131,7 @@ export type FaqMainPanelProps = {
  * Three blocks: Top → FAQ → Footer; inner stack uses `.faq-main-panel-inner`.
  */
 export function FaqMainPanel({
+  headerTitle,
   title,
   intro,
   children,
@@ -180,13 +155,15 @@ export function FaqMainPanel({
         className="faq-main-panel-inner"
       >
         {hasTopBody || title ? (
-          <FaqMainPanelTop title={title} intro={intro}>
-            {children}
-          </FaqMainPanelTop>
+          <FaqTopicContentArea headerTitle={headerTitle}>
+            <FaqMainPanelTop title={title} intro={intro}>
+              {children}
+            </FaqMainPanelTop>
+          </FaqTopicContentArea>
         ) : null}
 
         {hasAccordion ? (
-          <FaqMainPanelFaq title={accordionTitle} items={accordionItems!} />
+          <FaqTopicFaq title={accordionTitle} items={accordionItems!} />
         ) : null}
 
         <FaqMainPanelFooter

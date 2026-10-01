@@ -24,9 +24,10 @@ describe("getFaqTopicContent", () => {
         value: "NFT Accounts with Cross Margin",
       })
     }
-    expect(content.accordion?.[0]?.question).toBe("What is Koo?")
-    expect(content.accordion?.[1]?.question).toBe("What collateral does Koo support?")
-    expect(content.accordion?.[1]?.answer).toBeUndefined()
+    expect(content.accordion?.[0]?.question).toBe("Is Koo a centralized exchange?")
+    expect(content.accordion?.[1]?.question).toBe("Is everything on Koo onchain?")
+    expect(content.accordion?.[2]?.question).toBe("Is Koo available everywhere?")
+    expect(content.accordion?.every((item) => Boolean(item.answer))).toBe(true)
   })
 
   it("matches P10 trading fees intro rates", () => {

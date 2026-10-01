@@ -5,10 +5,6 @@ export type FaqAccordionItem = {
   question: string
   answer?: string
   defaultOpen?: boolean
-  detailLink?: {
-    label: string
-    href: string
-  }
 }
 
 export type FaqTopicListItem =

@@ -1,6 +1,5 @@
 import type { FaqTopicSlug } from "../topics"
 import type { FaqTopicContent } from "../types"
-import { DOCS_URL } from "../../links"
 import {
   faqItems,
   faqTopic,
@@ -60,20 +59,23 @@ export const FAQ_TOPIC_PAGES: Record<FaqTopicSlug, FaqTopicContent> = {
     ],
     faqItems([
       {
-        id: "what-is-koo",
-        question: "What is Koo?",
+        id: "centralized-exchange",
+        question: "Is Koo a centralized exchange?",
         answer:
-          "Koo is an Arbitrum-based hybrid derivatives platform built around NFT accounts. Assets and final settlement are handled onchain, while order matching, real-time pricing and risk calculations are handled by offchain systems.",
+          "No. It uses a hybrid architecture with onchain custody and final settlement plus offchain matching and real-time risk.",
         defaultOpen: true,
-        detailLink: { label: "View the details", href: DOCS_URL },
       },
       {
-        id: "collateral",
-        question: "What collateral does Koo support?",
+        id: "onchain",
+        question: "Is everything on Koo onchain?",
+        answer:
+          "No. Matching, real-time pricing and risk calculations are offchain.",
       },
       {
-        id: "isolated-margin",
-        question: "Does Koo support Isolated Margin?",
+        id: "availability",
+        question: "Is Koo available everywhere?",
+        answer:
+          "Product availability is subject to applicable laws and Koo’s Terms of Service. Access may be restricted in certain jurisdictions.",
       },
     ]),
   ),

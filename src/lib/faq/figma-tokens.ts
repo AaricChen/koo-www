@@ -6,7 +6,10 @@ export const FAQ_COLOR_TOKENS = {
   foreground: "foreground",
   mutedForeground: "muted-foreground",
   primary: "primary",
+  /** Figma `secondary-color` — `#009EFA` / display-p3 */
   secondary: "secondary",
+  secondaryHover: "secondary-hover",
+  secondaryActive: "secondary-active",
   faqMainSurface: "faq-main-surface",
   faqTopicSurface: "faq-topic-surface",
   faqTopicSurfaceOpen: "faq-topic-surface-open",
@@ -14,4 +17,5 @@ export const FAQ_COLOR_TOKENS = {
   faqChromeLine: "faq-chrome-line",
   faqMenuSurface: "faq-menu-surface",
   faqMenuBorder: "faq-menu-border",
+  faqTopicAccent: "faq-topic-accent",
 } as const

@@ -3,7 +3,6 @@ import { MemoryRouter, Route, Routes, useParams } from "react-router-dom"
 import { isFaqTopicSlug } from "../../../lib/faq/topics"
 import { afterEach, describe, expect, it } from "vitest"
 import { DOCS_URL } from "../../../lib/links"
-import { FaqTopicAccordion } from "../FaqTopicAccordion"
 import { FaqMobileIndexPage } from "./FaqMobileIndexPage"
 
 afterEach(() => {
@@ -39,7 +38,7 @@ describe("FaqMobileIndexPage", () => {
       }),
     ).not.toBeNull()
     expect(screen.getByText("Core products")).not.toBeNull()
-    expect(screen.getByText("View the details")).not.toBeNull()
+    expect(screen.queryByRole("link", { name: /View the details/i })).toBeNull()
     expect(screen.getByRole("link", { name: "Explore Markets" })).not.toBeNull()
     expect(screen.getByText("Key information")).not.toBeNull()
   })
@@ -62,26 +61,5 @@ describe("FaqMobileIndexPage", () => {
       screen.getByRole("button", { name: "Select FAQ category: How to Trade?" }),
     ).not.toBeNull()
     expect(screen.getByRole("heading", { name: "How to trade on Koo" })).not.toBeNull()
-  })
-})
-
-describe("FaqTopicAccordion", () => {
-  it("expands an answered item and ignores items without answers", () => {
-    render(
-      <FaqTopicAccordion
-        items={[
-          {
-            id: "a",
-            question: "Answered",
-            answer: "Yes",
-            defaultOpen: true,
-          },
-          { id: "b", question: "Pending" },
-        ]}
-      />,
-    )
-    expect(screen.getByText("Yes")).not.toBeNull()
-    fireEvent.click(screen.getByRole("button", { name: "Pending" }))
-    expect(screen.queryByText("Pending answer")).toBeNull()
   })
 })

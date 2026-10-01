@@ -9,7 +9,7 @@ afterEach(() => {
 
 describe("FaqDesktopIndexPage", () => {
   it("renders sidebar navigation and topic content", () => {
-    render(
+    const { container } = render(
       <MemoryRouter initialEntries={["/faq/what-is-koo"]}>
         <FaqDesktopIndexPage topicSlug="what-is-koo" />
       </MemoryRouter>,
@@ -26,5 +26,7 @@ describe("FaqDesktopIndexPage", () => {
         name: "Derivatives built around your NFT account",
       }),
     ).not.toBeNull()
+    expect(container.querySelector(".faq-topic-content")).not.toBeNull()
+    expect(container.querySelector(".faq-topic-content__accent")).not.toBeNull()
   })
 })

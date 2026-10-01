@@ -92,20 +92,20 @@ export function FaqSection() {
                     role="region"
                     aria-labelledby={buttonId}
                     aria-hidden={!expanded}
-                    className={expanded ? "flex w-full flex-col gap-6 lg:items-start" : undefined}
+                    className="home-faq-panel-region"
                   >
                     <div
                       className={`home-faq-panel ${expanded ? "is-open" : ""}`}
                     >
                       <div className="home-faq-panel-inner">
-                        <p className="home-faq-answer w-full text-xs leading-5 text-muted-foreground lg:pr-10 lg:text-[18px] lg:leading-7">
-                          {item.answer}
-                        </p>
+                        <div className="home-faq-panel-body">
+                          <p className="home-faq-answer w-full text-xs leading-5 text-muted-foreground lg:pr-10 lg:text-[18px] lg:leading-7">
+                            {item.answer}
+                          </p>
+                          <FaqDetailLink href={homeFaqDetailHref(item.topicSlug)} />
+                        </div>
                       </div>
                     </div>
-                    {expanded ? (
-                      <FaqDetailLink href={homeFaqDetailHref(item.topicSlug)} />
-                    ) : null}
                   </div>
                 </article>
               </div>
