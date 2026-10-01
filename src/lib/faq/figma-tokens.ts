@@ -1,5 +1,17 @@
-/** Figma FAQ palette (5589:66227, 5591:66952, 5524:41351, 5591:67476). */
-export const FAQ_FIGMA_SECONDARY = "#3d9bf3"
-export const FAQ_FIGMA_PRIMARY = "#3d7aff"
-export const FAQ_MENU_TINT_BG = "rgba(61,122,255,0.16)"
-export const FAQ_MENU_TINT_BORDER = "rgba(61,122,255,0.2)"
+/**
+ * FAQ colors map to `@theme` tokens in `src/index.css`.
+ * Prefer Tailwind utilities (`text-secondary`, `bg-faq-main-surface`, …) in components.
+ */
+export const FAQ_COLOR_TOKENS = {
+  foreground: "foreground",
+  mutedForeground: "muted-foreground",
+  primary: "primary",
+  secondary: "secondary",
+  faqMainSurface: "faq-main-surface",
+  faqTopicSurface: "faq-topic-surface",
+  faqTopicSurfaceOpen: "faq-topic-surface-open",
+  faqLine: "faq-line",
+  faqChromeLine: "faq-chrome-line",
+  faqMenuSurface: "faq-menu-surface",
+  faqMenuBorder: "faq-menu-border",
+} as const

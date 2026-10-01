@@ -6,7 +6,7 @@ import { FAQ_URL } from "../../lib/links"
 
 function FaqSectionDivider() {
   return (
-    <div className="h-px w-full bg-[rgba(250,250,250,0.08)]" aria-hidden />
+    <div className="faq-topic-divider h-px w-full" aria-hidden />
   )
 }
 

@@ -1,6 +1,5 @@
 import { useEffect, useId } from "react"
 import { FAQ_TOPICS, type FaqTopicSlug } from "../../../lib/faq/topics"
-import { FAQ_FIGMA_PRIMARY, FAQ_FIGMA_SECONDARY } from "../../../lib/faq/figma-tokens"
 import { FaqCheckIcon, FaqCloseIcon } from "../FaqIcons"
 
 export function FaqMobileCategorySheet({
@@ -49,8 +48,7 @@ export function FaqMobileCategorySheet({
         <div className="flex w-full items-center justify-between px-1">
           <p
             id={titleId}
-            className="text-sm font-bold leading-[14px]"
-            style={{ color: FAQ_FIGMA_SECONDARY }}
+            className="text-sm font-bold leading-[14px] text-secondary"
           >
             Select a Category
           </p>
@@ -74,18 +72,15 @@ export function FaqMobileCategorySheet({
                     onSelect(topic.slug)
                     onClose()
                   }}
-                  className={`flex h-12 w-full items-center justify-between rounded-[4px] px-3 text-left text-xs leading-3 transition-colors duration-300 ${
+                  className={`faq-category-sheet-item flex h-12 w-full items-center justify-between rounded-[4px] px-3 text-left text-xs leading-3 transition-colors duration-300 ${
                     selected
-                      ? "border bg-surface-soft font-bold text-foreground"
-                      : "bg-[rgba(43,48,72,0.2)] font-normal text-muted-foreground"
+                      ? "is-selected border font-bold text-foreground"
+                      : "font-normal text-muted-foreground"
                   }`}
-                  style={
-                    selected ? { borderColor: FAQ_FIGMA_PRIMARY } : undefined
-                  }
                 >
                   <span>{topic.menuLabel}</span>
                   {selected ? (
-                    <FaqCheckIcon style={{ color: FAQ_FIGMA_SECONDARY }} />
+                    <FaqCheckIcon className="faq-category-sheet-item__check" />
                   ) : null}
                 </button>
               </li>

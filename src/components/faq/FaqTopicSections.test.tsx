@@ -19,7 +19,7 @@ describe("FaqTopicSections", () => {
       />,
     )
     const value = screen.getByText("Arbitrum One")
-    expect(value.style.color).toBe("rgb(61, 155, 243)")
+    expect(value.className).toContain("text-secondary")
     const label = screen.getByText("Network:")
     expect(label.className).toContain("text-muted-foreground")
   })

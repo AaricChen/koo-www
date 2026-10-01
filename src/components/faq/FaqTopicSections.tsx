@@ -1,12 +1,11 @@
 import type { FaqTopicListItem, FaqTopicSection } from "../../lib/faq/types"
-import { FAQ_FIGMA_SECONDARY } from "../../lib/faq/figma-tokens"
 
 function renderListItem(item: FaqTopicListItem, index: number) {
   if ("kind" in item && item.kind === "labeled") {
     return (
       <li key={index} className="mb-1.5 last:mb-0 leading-4">
         <span className="text-muted-foreground">{item.label}</span>{" "}
-        <span style={{ color: FAQ_FIGMA_SECONDARY }}>{item.value}</span>
+        <span className="text-secondary">{item.value}</span>
       </li>
     )
   }
@@ -40,11 +39,9 @@ function FaqTopicListSection({
   items: FaqTopicListItem[]
 }) {
   return (
-    <div className="flex w-full flex-col gap-3 lg:gap-4">
-      <h3 className="text-xs font-semibold leading-3 text-foreground lg:text-sm lg:leading-[14px]">
-        {title}
-      </h3>
-      <ul className="list-disc pl-[18px] text-xs leading-4 text-muted-foreground lg:text-sm lg:leading-5">
+    <div className="flex w-full flex-col gap-3">
+      <h3 className="text-xs font-semibold leading-3 text-foreground">{title}</h3>
+      <ul className="list-disc pl-[18px] text-xs leading-4 text-muted-foreground">
         {items.map((item, index) => renderListItem(item, index))}
       </ul>
     </div>
@@ -55,12 +52,12 @@ export function FaqTopicSections({
   intro,
   sections,
 }: {
-  intro: string
+  intro?: string
   sections: FaqTopicSection[]
 }) {
   return (
-    <div className="flex w-full flex-col gap-4 text-xs leading-4 text-muted-foreground lg:gap-5 lg:text-base lg:leading-7">
-      <p className="leading-4 lg:leading-7">{intro}</p>
+    <div className="flex w-full flex-col gap-4 text-xs leading-4 text-muted-foreground">
+      {intro ? <p className="leading-4">{intro}</p> : null}
       {sections.map((section, index) => {
         if (section.kind === "list") {
           return (
@@ -74,16 +71,16 @@ export function FaqTopicSections({
         return (
           <div
             key={`${section.title ?? "p"}-${index}`}
-            className="flex w-full flex-col gap-3 lg:gap-4"
+            className="flex w-full flex-col gap-3"
           >
             {section.title ? (
-              <h3 className="text-xs font-semibold leading-3 text-foreground lg:text-sm lg:leading-[14px]">
+              <h3 className="text-xs font-semibold leading-3 text-foreground">
                 {section.title}
               </h3>
             ) : null}
-            <div className="space-y-1.5 lg:space-y-2">
+            <div className="space-y-1.5">
               {section.paragraphs.map((paragraph) => (
-                <p key={paragraph} className="leading-4 lg:leading-7">
+                <p key={paragraph} className="leading-4">
                   {paragraph}
                 </p>
               ))}

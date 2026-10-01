@@ -1,0 +1,44 @@
+import { render, screen } from "@testing-library/react"
+import { describe, expect, it } from "vitest"
+import { FaqMainPanel } from "./FaqMainPanel"
+
+describe("FaqMainPanel", () => {
+  it("matches Figma 5589:64587 three-part layout", () => {
+    const { container } = render(
+      <FaqMainPanel
+        title="Topic title"
+        intro="Topic intro"
+        accordionItems={[
+          { id: "a", question: "Q1", answer: "A1", defaultOpen: true },
+        ]}
+      >
+        <p>Custom body</p>
+      </FaqMainPanel>,
+    )
+
+    expect(container.querySelector(".faq-main-panel")).not.toBeNull()
+    const inner = container.querySelector('[data-figma-node="5589:64587"]')
+    expect(inner).not.toBeNull()
+    expect(inner!.className).toContain("faq-main-panel-inner")
+    expect(container.querySelector('[data-figma-node="5589:64588"]')).not.toBeNull()
+    expect(container.querySelector('[data-figma-node="5589:64609"]')).not.toBeNull()
+    expect(container.querySelector('[data-figma-node="5591:66959"]')).not.toBeNull()
+    expect(container.querySelectorAll(".faq-main-panel-divider").length).toBe(0)
+
+    const title = screen.getByRole("heading", { name: "Topic title" })
+    expect(title.className).toContain("text-[14px]")
+    expect(title.className).toContain("leading-[18px]")
+
+    const intro = screen.getByText("Topic intro")
+    expect(intro.className).toContain("text-[12px]")
+    expect(intro.className).toContain("leading-4")
+
+    const faqHeading = screen.getByRole("heading", { name: "FAQ" })
+    expect(faqHeading.className).toContain("text-[16px]")
+    expect(faqHeading.className).toContain("leading-4")
+
+    expect(screen.getByText("Custom body")).not.toBeNull()
+    expect(screen.getByRole("link", { name: "About Koo" })).not.toBeNull()
+    expect(screen.getByRole("link", { name: "Explore Markets" })).not.toBeNull()
+  })
+})

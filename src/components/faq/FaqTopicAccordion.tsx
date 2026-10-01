@@ -29,8 +29,8 @@ function FaqTopicAccordionItem({
         className="faq-topic-card-trigger flex w-full cursor-pointer items-center justify-between gap-3 text-left"
       >
         <span
-          className={`max-w-[268px] text-sm leading-[22px] lg:max-w-none lg:text-base lg:leading-[22px] ${
-            expanded ? "font-semibold text-foreground" : "font-normal text-foreground"
+          className={`min-w-0 flex-1 text-[14px] leading-[22px] text-foreground ${
+            expanded ? "font-semibold" : "font-normal"
           }`}
         >
           {item.question}
@@ -48,13 +48,13 @@ function FaqTopicAccordionItem({
           aria-hidden={!expanded}
           className={
             expanded
-              ? "faq-topic-accordion-body flex flex-col gap-4 px-3 pb-[18px] lg:gap-4 lg:px-4 lg:pb-6"
+              ? "faq-topic-accordion-body flex flex-col gap-4 px-3 pb-[18px]"
               : undefined
           }
         >
           <div className={`faq-topic-panel ${expanded ? "is-open" : ""}`}>
             <div className="faq-topic-panel-inner">
-              <p className="text-xs leading-5 text-muted-foreground lg:text-sm lg:leading-5">
+              <p className="text-[12px] leading-5 text-muted-foreground">
                 {item.answer}
               </p>
             </div>
@@ -75,19 +75,23 @@ function FaqTopicAccordionItem({
 export function FaqTopicAccordion({
   title = "FAQ",
   items,
+  showTitle = true,
 }: {
   title?: string
   items: FaqAccordionItem[]
+  showTitle?: boolean
 }) {
   const baseId = useId()
   const defaultOpenId = items.find((item) => item.defaultOpen && item.answer)?.id ?? null
   const [openId, setOpenId] = useState<string | null>(defaultOpenId)
 
   return (
-    <section className="flex w-full flex-col gap-4 lg:gap-4">
-      <h2 className="text-base font-semibold leading-4 text-foreground lg:text-xl lg:leading-5">
-        {title}
-      </h2>
+    <section className="flex w-full flex-col gap-4">
+      {showTitle ? (
+        <h2 className="text-base font-semibold leading-4 text-foreground lg:text-xl lg:leading-5">
+          {title}
+        </h2>
+      ) : null}
       <div className="flex w-full flex-col">
         {items.map((item, index) => {
           const panelId = `${baseId}-${item.id}-panel`
@@ -96,7 +100,7 @@ export function FaqTopicAccordion({
           return (
             <div key={item.id} className="contents">
               {index > 0 ? (
-                <div className="h-px w-full bg-[rgba(250,250,250,0.08)]" aria-hidden />
+                <div className="faq-topic-divider h-px w-full" aria-hidden />
               ) : null}
               <FaqTopicAccordionItem
                 item={item}

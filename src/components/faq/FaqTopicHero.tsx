@@ -1,5 +1,4 @@
 import { DOCS_URL } from "../../lib/links"
-import { FAQ_FIGMA_SECONDARY } from "../../lib/faq/figma-tokens"
 
 /** Figma `FAQ-index-m` header (5589:66227). Desktop scales typography in place. */
 export function FaqTopicHero() {
@@ -17,11 +16,7 @@ export function FaqTopicHero() {
           href={DOCS_URL}
           target="_blank"
           rel="noreferrer"
-          className="font-semibold leading-[18px] underline decoration-solid underline-offset-2 lg:leading-6"
-          style={{
-            color: FAQ_FIGMA_SECONDARY,
-            textDecorationColor: FAQ_FIGMA_SECONDARY,
-          }}
+          className="faq-docs-link decoration-solid leading-[18px] lg:leading-6"
         >
           Full Docs
         </a>

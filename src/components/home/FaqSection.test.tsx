@@ -45,7 +45,7 @@ describe("FaqSection", () => {
     expect(container.innerHTML).toContain("size-[14px]")
     expect(container.innerHTML).toContain("lg:text-[18px]")
     expect(container.innerHTML).toContain("lg:leading-7")
-    expect(container.innerHTML).toContain("border-color: rgb(61, 122, 255)")
+    expect(container.innerHTML).toContain("faq-detail-link")
     expect(container.innerHTML).toContain("View the details")
     expect(container.querySelector('a[href="#"]')).toBeNull()
     expect(screen.getByText(/Goal Difference delivery contracts/)).not.toBeNull()
