@@ -113,6 +113,59 @@ describe("getFaqTopicContent", () => {
     expect(content.accordion?.[2]?.question).toBe("Can credited yield support margin?")
   })
 
+  it("matches Figma Event Contracts content and FAQ accordion", () => {
+    const content = getFaqTopicContent("event-contracts")
+    expect(content.pageHeaderTitle).toBe("What are Koo event contracts?")
+    if (content.sections[0]?.kind === "list") {
+      expect(content.sections[0].items[0]).toMatchObject({
+        kind: "labeled",
+        value: "Delivery contract, no funding",
+      })
+    }
+    expect(content.sections[1]?.title).toBe("Goal difference delivery contracts")
+    expect(content.sections[2]?.title).toBe("Exchange market share perpetuals")
+    expect(content.sections[4]?.dividerAfter).toBe(true)
+    expect(content.accordion?.[0]?.question).toBe("Do all Event Contracts charge funding?")
+    expect(content.accordion?.[1]?.answer).toContain("regular time plus stoppage time")
+    expect(content.accordion?.[2]?.question).toBe(
+      "What if live data conflicts with the official result?",
+    )
+  })
+
+  it("matches Figma Vault content and FAQ accordion", () => {
+    const content = getFaqTopicContent("vault")
+    expect(content.pageHeaderTitle).toBe("What is the Koo vault?")
+    expect(content.intro).toContain("Koo’s insurance-fund function")
+    if (content.sections[0]?.kind === "list") {
+      expect(content.sections[0].items[2]).toMatchObject({
+        kind: "labeled",
+        value: "5 minutes, subject to available liquidity",
+      })
+    }
+    expect(content.sections[2]?.title).toBe("Understanding vault performance")
+    expect(content.sections[4]?.dividerAfter).toBe(true)
+    expect(content.accordion?.[0]?.question).toBe("Is Vault principal guaranteed?")
+    expect(content.accordion?.[1]?.answer).toBe("No. Any APR is historical and can change.")
+    expect(content.accordion?.[2]?.question).toBe("Can I withdraw immediately?")
+  })
+
+  it("matches Figma Crypto Perpetuals content and FAQ accordion", () => {
+    const content = getFaqTopicContent("crypto-perpetuals")
+    expect(content.pageHeaderTitle).toBe("Trade crypto perpetuals on Koo")
+    expect(content.sections[0]).toMatchObject({
+      kind: "list",
+      title: "Key Information",
+    })
+    expect(content.sections[3]?.title).toBe("Leverage, fees and funding")
+    if (content.sections[3]?.kind === "paragraphs") {
+      expect(content.sections[3].paragraphs).toHaveLength(3)
+    }
+    expect(content.sections[4]?.dividerAfter).toBe(true)
+    expect(content.accordion?.[0]?.question).toBe("Are all crypto markets 100×?")
+    expect(content.accordion?.[1]?.answer).toContain("taker")
+    expect(content.accordion?.[2]?.answer).toBe("Every eight hours.")
+  })
+
   it("matches P10 trading fees intro rates", () => {
     const content = getFaqTopicContent("trading-fees")
     expect(content.intro).toContain("0.02%")

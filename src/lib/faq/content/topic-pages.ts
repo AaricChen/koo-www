@@ -255,29 +255,44 @@ export const FAQ_TOPIC_PAGES: Record<FaqTopicSlug, FaqTopicContent> = {
     "What are Koo Event Contracts?",
     "Koo Event Contracts are derivatives whose value follows a defined event metric. Koo currently supports Goal Difference delivery contracts and exchange Market Share perpetual contracts; the two product types use different funding and settlement rules.",
     [
-      keyInfo([
-        "Goal Difference: delivery contract, no funding",
-        "Market Share: perpetual contract, funding applies",
-        "Both use USDC margin and account-level Cross Margin risk",
+      keyInfoItems([
+        {
+          kind: "labeled",
+          label: "Goal Difference:",
+          value: "Delivery contract, no funding",
+        },
+        {
+          kind: "labeled",
+          label: "Market Share:",
+          value: "Perpetual contract, funding applies",
+        },
+        {
+          kind: "plain",
+          text: "Both use USDC margin and account-level Cross Margin risk.",
+        },
       ]),
-      paraSection("Goal Difference delivery contracts", [
+      paraSection("Goal difference delivery contracts", [
         "Settlement price = 10 + home-team goals − away-team goals.",
         "Settlement uses the official score after regular time plus stoppage time, excluding extra time and penalties.",
         "At 90:00, new orders and order modifications stop. Order cancellations remain available, and NFT Account transfers are locked until settlement.",
         "If the match has no valid official result, the contract is voided, orders are cancelled and positions are closed with no trading PnL. Treatment of prior trading fees follows the contract rules.",
       ]),
-      paraSection("Exchange Market Share perpetuals", [
-        "The price represents the target exchange's share within the published included venues, time window and weighting method.",
+      paraSection("Exchange market share perpetuals", [
+        "The price represents the target exchange’s share within the published included venues, time window and weighting method.",
         "The contract is a linear USDC perpetual with no expiry and dynamic funding.",
         "Trading it does not represent ownership of the exchange, its equity or a token.",
       ]),
       paraSection("Before you trade", [
         "Review the contract type, index meaning, data source, trading stage, maximum leverage, funding rules and lock or settlement time. Read the full contract rules before placing an order.",
       ]),
-      paraSection("Risks", [
-        "Price reflects trading and defined inputs; it is not an objective probability or a guaranteed outcome.",
-        "Event Contracts involve liquidity, leverage, data-source and settlement-rule risks.",
-      ]),
+      paraSection(
+        "Risks",
+        [
+          "Price reflects trading and defined inputs; it is not an objective probability or a guaranteed outcome.",
+          "Event Contracts involve liquidity, leverage, data-source and settlement-rule risks.",
+        ],
+        { dividerAfter: true },
+      ),
     ],
     faqItems([
       {
@@ -299,30 +314,39 @@ export const FAQ_TOPIC_PAGES: Record<FaqTopicSlug, FaqTopicContent> = {
         answer: "Settlement is paused until the official result is confirmed.",
       },
     ]),
+    "What are Koo event contracts?",
   ),
 
   vault: faqTopic(
     "What is the Koo Vault?",
-    "The Koo Vault is a USDC pool supporting Koo's insurance-fund function. It can absorb eligible positions when liquidation execution cannot complete above bankruptcy price, while Auto-Deleveraging remains a last resort if the pool is insufficient.",
+    "The Koo Vault is a USDC pool supporting Koo’s insurance-fund function. It can absorb eligible positions when liquidation execution cannot complete above bankruptcy price, while Auto-Deleveraging remains a last resort if the pool is insufficient.",
     [
-      keyInfo([
-        "Asset: USDC",
-        "Minimum deposit: 5 USDC",
-        "Withdrawal cooldown: 5 minutes, subject to available liquidity",
+      keyInfoItems([
+        { kind: "labeled", label: "Asset:", value: "USDC" },
+        { kind: "labeled", label: "Minimum deposit:", value: "5 USDC" },
+        {
+          kind: "labeled",
+          label: "Withdrawal cooldown:",
+          value: "5 minutes, subject to available liquidity",
+        },
       ]),
       paraSection("How it is funded and used", [
         "The pool is primarily funded by liquidation surpluses and platform allocations.",
         "It may absorb positions that cannot be filled above bankruptcy price.",
         "If the fund is insufficient, Auto-Deleveraging (ADL) can be used as a last resort.",
       ]),
-      paraSection("Understanding Vault performance", [
+      paraSection("Understanding vault performance", [
         "Historical annualized performance does not guarantee future returns. Total P&L can reflect gains or losses.",
       ]),
       paraSection("Withdrawals", [
         "A five-minute cooldown applies after deposit.",
         "Withdrawals are subject to available liquidity and the applicable withdrawal rules. Immediate redemption is not guaranteed.",
       ]),
-      paraSection("Risks", ["Vault depositors can lose money and principal is not guaranteed."]),
+      paraSection(
+        "Risks",
+        ["Vault depositors can lose money and principal is not guaranteed."],
+        { dividerAfter: true },
+      ),
     ],
     faqItems([
       {
@@ -342,13 +366,14 @@ export const FAQ_TOPIC_PAGES: Record<FaqTopicSlug, FaqTopicContent> = {
         answer: "A five-minute cooldown and available-liquidity conditions apply.",
       },
     ]),
+    "What is the Koo vault?",
   ),
 
   "crypto-perpetuals": faqTopic(
     "Trade crypto perpetuals on Koo",
     "Koo offers USDC-margined crypto perpetuals through an order book. Check the trading app for available markets, maximum leverage, order limits and risk parameters.",
     [
-      keyInfo([
+      plainListSection("Key Information", [
         "Linear USDC-margined perpetuals",
         "Order book with price-time priority",
         "Funding currently settles every 8 hours",
@@ -365,10 +390,14 @@ export const FAQ_TOPIC_PAGES: Record<FaqTopicSlug, FaqTopicContent> = {
         "Taker fee: 0.02%. Maker fee: -0.005%, meaning a 0.005% rebate when the fill qualifies as maker.",
         "Funding settles every eight hours; the rate and cap vary by instrument and time.",
       ]),
-      paraSection("Risks", [
-        "Cross Margin applies within each NFT Account. Mark Price feeds the risk calculation, and Risk Ratio is the authoritative trigger.",
-        "Derivatives can cause a partial or total loss of margin. Yield-bearing Margin and Vault participation also involve protocol, liquidity and principal-loss risks. Yield is variable and principal remains at risk.",
-      ]),
+      paraSection(
+        "Risks",
+        [
+          "Cross Margin applies within each NFT Account. Mark Price feeds the risk calculation, and Risk Ratio is the authoritative trigger.",
+          "Derivatives can cause a partial or total loss of margin. Yield-bearing Margin and Vault participation also involve protocol, liquidity and principal-loss risks. Yield is variable and principal remains at risk.",
+        ],
+        { dividerAfter: true },
+      ),
     ],
     faqItems([
       {
@@ -389,6 +418,7 @@ export const FAQ_TOPIC_PAGES: Record<FaqTopicSlug, FaqTopicContent> = {
         answer: "Every eight hours.",
       },
     ]),
+    "Trade crypto perpetuals on Koo",
   ),
 
   "tradfi-perpetuals": faqTopic(
