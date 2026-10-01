@@ -3,10 +3,27 @@ import { describe, expect, it } from "vitest"
 import { FaqTopicSections } from "./FaqTopicSections"
 
 describe("FaqTopicSections", () => {
+  it("renders step titles in Figma secondary blue", () => {
+    render(
+      <FaqTopicSections
+        sections={[
+          {
+            kind: "paragraphs",
+            title: "Step 1 — Connect a wallet",
+            paragraphs: ["Body copy."],
+            titleVariant: "accent",
+          },
+        ]}
+      />,
+    )
+    expect(screen.getByRole("heading", { name: "Step 1 — Connect a wallet" }).className).toContain(
+      "faq-topic-content__section-title--accent",
+    )
+  })
+
   it("renders Key information values in Figma secondary blue", () => {
     render(
       <FaqTopicSections
-        intro="Intro"
         sections={[
           {
             kind: "list",
@@ -19,8 +36,9 @@ describe("FaqTopicSections", () => {
       />,
     )
     const value = screen.getByText("Arbitrum One")
-    expect(value.className).toContain("text-secondary")
-    const label = screen.getByText("Network:")
-    expect(label.className).toContain("text-muted-foreground")
+    expect(value.className).toContain("faq-topic-content__emphasis")
+    expect(screen.getByRole("heading", { name: "Key information" }).className).toContain(
+      "faq-topic-content__section-title",
+    )
   })
 })

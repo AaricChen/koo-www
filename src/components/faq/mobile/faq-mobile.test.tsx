@@ -37,7 +37,8 @@ describe("FaqMobileIndexPage", () => {
         name: "Derivatives built around your NFT account",
       }),
     ).not.toBeNull()
-    expect(screen.getByText("Core products")).not.toBeNull()
+    expect(screen.getByRole("heading", { name: "Key information" })).not.toBeNull()
+    expect(screen.getByText("Who Koo is for")).not.toBeNull()
     expect(screen.queryByRole("link", { name: /View the details/i })).toBeNull()
     expect(screen.getByRole("link", { name: "Explore Markets" })).not.toBeNull()
     expect(screen.getByText("Key information")).not.toBeNull()

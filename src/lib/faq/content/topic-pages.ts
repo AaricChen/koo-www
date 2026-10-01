@@ -4,17 +4,19 @@ import {
   faqItems,
   faqTopic,
   highlightListSection,
+  highlightsSection,
   keyInfo,
   keyInfoLabeled,
   listSection,
   paraSection,
+  plainListSection,
 } from "./build"
 
 /** Copy from Koo_官网页面文案_2026-09-23.pdf (P02–P12). */
 export const FAQ_TOPIC_PAGES: Record<FaqTopicSlug, FaqTopicContent> = {
   "what-is-koo": faqTopic(
     "Derivatives built around your NFT account",
-    "Koo is an Arbitrum-based hybrid derivatives platform built around NFT accounts. Users trade crypto, TradFi and event contracts with USDC margin while each NFT Account maintains its own balances, positions, orders and risk state.",
+    "Koo is an Arbitrum-based hybrid derivatives platform built around NFT accounts. Assets and final settlement are handled onchain, while order matching, real-time pricing and risk calculations are handled by offchain systems.",
     [
       keyInfoLabeled([
         { label: "Network:", value: "Arbitrum One" },
@@ -24,37 +26,24 @@ export const FAQ_TOPIC_PAGES: Record<FaqTopicSlug, FaqTopicContent> = {
           value: "NFT Accounts with Cross Margin",
         },
       ]),
-      highlightListSection("Core products", [
+      paraSection("Who Koo is for", [
+        "People who already understand wallets and crypto but are new to derivatives, event contracts or NFT Accounts. Experienced traders can move directly to fees, contract specifications, market rules and APIs.",
+      ]),
+      highlightsSection("How Koo differs", [
         {
-          highlight: "NFT Accounts",
-          rest: " - One transferable account object containing its own trading state. ",
+          highlight: "Compared with a CEX",
+          rest: " - Account ownership and final settlement use smart contracts, while Koo uses an offchain matching and risk system.",
         },
         {
-          highlight: "Yield-bearing Margin",
-          rest: " - Eligible USDC margin may earn variable yield while supporting trading. ",
-        },
-        {
-          highlight: "Event Contracts",
-          rest: " - Delivery and perpetual products tied to defined event metrics. ",
-        },
-        {
-          highlight: "Vault",
-          rest: " - Koo’s USDC insurance-fund vault, with liquidity and loss risk. ",
+          highlight: "Compared with a conventional perp DEX",
+          rest: " - Koo organizes trading state inside NFT Accounts and supports crypto, TradFi and event-linked contracts.",
         },
       ]),
-      listSection("Markets", [
-        "Crypto Perpetuals.",
-        "TradFi Perpetuals covering selected stocks, ETFs, precious metals and oil.",
-        "Event Contracts tied to defined event metrics. ",
-      ]),
-      paraSection("How Koo works", [
-        "A wallet controls one or more NFT Accounts. ",
-        "Assets and final settlement are on Arbitrum; matching and real-time risk calculations run offchain. ",
-        "Users should verify the exact market rules, fees, funding status and risk parameters before trading. ",
-      ]),
-      paraSection("Trust and risk", [
-        "Derivatives can cause a partial or total loss of margin. Yield-bearing Margin and Vault participation also involve protocol, liquidity and principal-loss risks. Yield is variable and principal remains at risk. ",
-        "Product availability is subject to applicable laws and Koo’s Terms of Service. Access may be restricted in certain jurisdictions. ",
+      plainListSection("Four core capabilities", [
+        "NFT Accounts",
+        "Yield-bearing Margin",
+        "Event Contracts",
+        "Vault / Insurance-fund Participation",
       ]),
     ],
     faqItems([
@@ -85,31 +74,59 @@ export const FAQ_TOPIC_PAGES: Record<FaqTopicSlug, FaqTopicContent> = {
     "To trade on Koo, connect a compatible wallet, prepare native USDC on Arbitrum One, create or select an NFT Account, choose a live market, place an order and monitor the account-level Risk Ratio.",
     [
       keyInfo([
-        "Use native USDC on Arbitrum One",
-        "Keep a small amount of ETH for onchain gas",
-        "Trading risk is calculated per NFT Account",
+        "Use native USDC on Arbitrum One.",
+        "Keep a small amount of ETH for on-chain gas.",
+        "Trading risk is calculated per NFT Account.",
       ]),
-      paraSection("Step 1 — Connect a wallet", [
-        "Connect a compatible wallet, then continue to account selection and deposit when ready.",
-      ]),
-      paraSection("Step 2 — Prepare funds", [
-        "Move native USDC to Arbitrum One and keep enough ETH for deposit or withdrawal gas.",
-      ]),
-      paraSection("Step 3 — Deposit and use an NFT Account", [
-        "The account records its own margin, positions, orders and risk. Different NFT Accounts form separate risk boundaries.",
-      ]),
-      paraSection("Step 4 — Choose a market", [
-        "Check the contract type, trading status, settlement asset, maximum leverage, funding status and market-specific rules in the trading app.",
-      ]),
-      paraSection("Step 5 — Place an order", [
-        "Choose an order type, such as Market or Limit, and review Reduce-Only and Take Profit / Stop Loss options. A limit order can execute immediately as a taker.",
-      ]),
-      paraSection("Step 6 — Manage risk", [
-        "Monitor your NFT Account's Risk Ratio. At 95%, active orders are cancelled; at 100%, forced liquidation is triggered.",
-      ]),
-      paraSection("Step 7 — Withdraw", [
-        "Withdrawals use Request Withdraw and Finalize Withdraw, with completion shown through live account status.",
-      ]),
+      paraSection(
+        "Step 1 — Connect a wallet",
+        [
+          "Connect a compatible wallet, then continue to account selection and deposit when ready.",
+        ],
+        { dividerBefore: true, titleVariant: "accent" },
+      ),
+      paraSection(
+        "Step 2 — Prepare funds",
+        [
+          "Move native USDC to Arbitrum One and keep enough ETH for deposit or withdrawal gas.",
+        ],
+        { dividerBefore: false, titleVariant: "accent" },
+      ),
+      paraSection(
+        "Step 3 — Deposit and use an NFT Account",
+        [
+          "The account records its own margin, positions, orders and risk. Different NFT Accounts form separate risk boundaries.",
+        ],
+        { dividerBefore: false, titleVariant: "accent" },
+      ),
+      paraSection(
+        "Step 4 — Choose a market",
+        [
+          "Check the contract type, trading status, settlement asset, maximum leverage, funding status and market-specific rules in the trading app.",
+        ],
+        { dividerBefore: false, titleVariant: "accent" },
+      ),
+      paraSection(
+        "Step 5 — Place an order",
+        [
+          "Choose an order type, such as Market or Limit, and review Reduce-Only and Take Profit / Stop Loss options. A limit order can execute immediately as a taker.",
+        ],
+        { dividerBefore: false, titleVariant: "accent" },
+      ),
+      paraSection(
+        "Step 6 — Manage risk",
+        [
+          "Monitor your NFT Account’s Risk Ratio. At 95%, active orders are cancelled; at 100%, forced liquidation is triggered.",
+        ],
+        { dividerBefore: false, titleVariant: "accent" },
+      ),
+      paraSection(
+        "Step 7 — Withdraw",
+        [
+          "Withdrawals use Request Withdraw and Finalize Withdraw, with completion shown through live account status.",
+        ],
+        { dividerBefore: false, dividerAfter: true, titleVariant: "accent" },
+      ),
     ],
     faqItems([
       {
@@ -131,6 +148,7 @@ export const FAQ_TOPIC_PAGES: Record<FaqTopicSlug, FaqTopicContent> = {
           "Use separate NFT Accounts; each account has its own Cross Margin boundary.",
       },
     ]),
+    "How to trade on Koo?",
   ),
 
   "nft-accounts": faqTopic(

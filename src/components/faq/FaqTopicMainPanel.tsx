@@ -9,14 +9,14 @@ export function FaqTopicMainPanel({ topicSlug }: { topicSlug: FaqTopicSlug }) {
 
   return (
     <FaqMainPanel
-      headerTitle={topic.menuLabel}
+      headerTitle={content.pageHeaderTitle ?? topic.menuLabel}
       title={content.overviewTitle}
       intro={content.intro}
       accordionTitle={content.accordionTitle ?? "FAQ"}
       accordionItems={content.accordion}
     >
       {content.sections.length > 0 ? (
-        <FaqTopicSections sections={content.sections} />
+        <FaqTopicSections sections={content.sections} leadingDivider />
       ) : null}
     </FaqMainPanel>
   )

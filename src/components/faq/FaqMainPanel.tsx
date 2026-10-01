@@ -20,45 +20,6 @@ const DEFAULT_FOOTER_LINKS: FaqMainPanelLink[] = [
   },
 ]
 
-/** Figma `Frame 241` + `Frame 239` (5589:64588). */
-export function FaqMainPanelTop({
-  title,
-  intro,
-  children,
-}: {
-  title: string
-  intro?: string
-  children?: ReactNode
-}) {
-  return (
-    <div
-      data-figma-node="5589:64588"
-      className="flex w-full flex-col items-start gap-[14px] not-italic"
-    >
-      <h2
-        data-figma-node="5591:67739"
-        className="w-full break-words text-[14px] font-semibold leading-[18px] text-foreground lg:hidden"
-      >
-        {title}
-      </h2>
-      <div
-        data-figma-node="5589:64592"
-        className="flex w-full flex-col items-start gap-4"
-      >
-        {intro ? (
-          <p
-            data-figma-node="5589:64593"
-            className="w-full text-[12px] font-normal leading-4 text-muted-foreground"
-          >
-            {intro}
-          </p>
-        ) : null}
-        {children}
-      </div>
-    </div>
-  )
-}
-
 /** Figma mobile `5591:66959`, desktop row `5570:60149` (faq-main-footer). */
 export function FaqMainPanelFooter({
   links = DEFAULT_FOOTER_LINKS,
@@ -142,8 +103,29 @@ export function FaqMainPanel({
   exploreLabel,
   className = "",
 }: FaqMainPanelProps) {
-  const hasTopBody = Boolean(intro || children)
+  const hasTopBody = Boolean(intro || children || title)
   const hasAccordion = Boolean(accordionItems && accordionItems.length > 0)
+  const contentChildren = (
+    <>
+      {title ? (
+        <h2
+          data-figma-node="5591:67739"
+          className="faq-topic-content__mobile-title w-full break-words lg:hidden"
+        >
+          {title}
+        </h2>
+      ) : null}
+      {intro ? (
+        <p
+          data-figma-node="5632:70290"
+          className="faq-topic-content__description"
+        >
+          {intro}
+        </p>
+      ) : null}
+      {children}
+    </>
+  )
 
   return (
     <article
@@ -156,9 +138,7 @@ export function FaqMainPanel({
       >
         {hasTopBody || title ? (
           <FaqTopicContentArea headerTitle={headerTitle}>
-            <FaqMainPanelTop title={title} intro={intro}>
-              {children}
-            </FaqMainPanelTop>
+            {contentChildren}
           </FaqTopicContentArea>
         ) : null}
 

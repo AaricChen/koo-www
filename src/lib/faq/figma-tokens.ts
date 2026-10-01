@@ -18,4 +18,5 @@ export const FAQ_COLOR_TOKENS = {
   faqMenuSurface: "faq-menu-surface",
   faqMenuBorder: "faq-menu-border",
   faqTopicAccent: "faq-topic-accent",
+  faqDescription: "faq-description",
 } as const

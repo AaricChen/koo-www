@@ -21,7 +21,7 @@ describe("FaqMainPanel", () => {
     const inner = container.querySelector('[data-figma-node="5589:64587"]')
     expect(inner).not.toBeNull()
     expect(inner!.className).toContain("faq-main-panel-inner")
-    expect(container.querySelector('[data-figma-node="5589:64588"]')).not.toBeNull()
+    expect(container.querySelector('[data-figma-node="5632:70289"]')).not.toBeNull()
     expect(container.querySelector('[data-figma-node="5589:64609"]')).not.toBeNull()
     const footer = container.querySelector('[data-figma-node="5570:60149"]')
     expect(footer).not.toBeNull()
@@ -33,12 +33,10 @@ describe("FaqMainPanel", () => {
     expect(container.querySelectorAll(".faq-main-panel-divider").length).toBe(0)
 
     const title = screen.getByRole("heading", { name: "Topic title" })
-    expect(title.className).toContain("text-[14px]")
-    expect(title.className).toContain("leading-[18px]")
+    expect(title.className).toContain("faq-topic-content__mobile-title")
 
     const intro = screen.getByText("Topic intro")
-    expect(intro.className).toContain("text-[12px]")
-    expect(intro.className).toContain("leading-4")
+    expect(intro.className).toContain("faq-topic-content__description")
 
     const faqHeading = screen.getByRole("heading", { name: "FAQ" })
     expect(faqHeading.className).toContain("faq-topic-faq__heading")

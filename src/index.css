@@ -23,6 +23,7 @@
   --color-faq-detail-hover: rgba(61, 122, 255, 0.12);
   --color-faq-sheet-item-surface: rgba(43, 48, 72, 0.2);
   --color-faq-topic-accent: var(--color-secondary);
+  --color-faq-description: rgba(250, 250, 250, 0.8);
   --color-muted: #141515;
   --color-muted-foreground: rgba(250, 250, 250, 0.6);
   --color-faint: rgba(250, 250, 250, 0.4);
@@ -100,6 +101,7 @@
       --color-secondary-hover: color(display-p3 0.3922 0.7059 0.9804);
       --color-secondary-active: color(display-p3 0.1569 0.502 0.8667);
       --color-faq-topic-accent: color(display-p3 0.2392 0.6078 0.9529);
+      --color-faq-description: color(display-p3 0.9804 0.9804 0.9804 / 0.8);
     }
   }
 
@@ -753,6 +755,98 @@
     gap: 24px;
     align-self: stretch;
     width: 100%;
+  }
+
+  /* Figma intro under page header (`5632:70290` / `5589:64593`) */
+  .faq-topic-content__description {
+    width: 100%;
+    font-family: var(--font-sans);
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px;
+    color: var(--color-faq-description);
+  }
+
+  .faq-topic-content__mobile-title {
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 18px;
+    color: var(--color-foreground);
+  }
+
+  .faq-topic-content__section {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .faq-topic-content__section-title {
+    width: 100%;
+    font-family: var(--font-sans);
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 16px;
+    color: var(--color-foreground);
+  }
+
+  .faq-topic-content__section-title--accent {
+    color: var(--color-faq-topic-accent);
+  }
+
+  .faq-topic-content__section--step {
+    gap: 12px;
+  }
+
+  .faq-topic-content__section-body {
+    width: 100%;
+    font-family: var(--font-sans);
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px;
+    color: var(--color-faq-description);
+  }
+
+  .faq-topic-content__list {
+    width: 100%;
+    list-style-type: disc;
+    padding-left: 21px;
+    font-family: var(--font-sans);
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px;
+    color: var(--color-faq-description);
+  }
+
+  .faq-topic-content__list-item {
+    margin-bottom: 8px;
+  }
+
+  .faq-topic-content__list-item:last-child {
+    margin-bottom: 0;
+  }
+
+  .faq-topic-content__emphasis {
+    color: var(--color-secondary);
+  }
+
+  .faq-topic-content__highlight-block {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .faq-topic-content__paragraph-block {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    gap: 8px;
   }
 
   /* Figma topic subpage FAQ (`5589:64609`) */

@@ -14,12 +14,28 @@ export type FaqTopicListItem =
   /** @deprecated Prefer structured kinds; still rendered for other topics. */
   | { text: ReactNode }
 
+type FaqTopicSectionLayout = {
+  /** When false, no divider before this block (Figma step groups). */
+  dividerBefore?: boolean
+  /** When true, render a divider after this block. */
+  dividerAfter?: boolean
+  /** Figma step headings (`5570:61047`): secondary blue, 12px title–body gap. */
+  titleVariant?: "default" | "accent"
+}
+
 export type FaqTopicSection =
-  | { kind: "paragraphs"; title?: string; paragraphs: string[] }
-  | { kind: "list"; title: string; items: FaqTopicListItem[] }
+  | ({ kind: "paragraphs"; title?: string; paragraphs: string[] } & FaqTopicSectionLayout)
+  | ({ kind: "list"; title: string; items: FaqTopicListItem[] } & FaqTopicSectionLayout)
+  | ({
+      kind: "highlights"
+      title: string
+      items: Array<{ highlight: string; rest: string }>
+    } & FaqTopicSectionLayout)
 
 export type FaqTopicContent = {
   overviewTitle: string
+  /** Desktop accent header when it differs from sidebar label (`5632:70287`). */
+  pageHeaderTitle?: string
   intro: string
   sections: FaqTopicSection[]
   accordion?: FaqAccordionItem[]
