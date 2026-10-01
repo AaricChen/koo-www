@@ -1,6 +1,7 @@
 import type {
   FaqAccordionItem,
   FaqTopicContent,
+  FaqTopicListItem,
   FaqTopicSection,
 } from "../types"
 
@@ -42,6 +43,10 @@ export function keyInfoLabeled(
   }
 }
 
+export function keyInfoItems(items: FaqTopicListItem[]): FaqTopicSection {
+  return { kind: "list", title: "Key information", items }
+}
+
 export function listSection(title: string, lines: string[]): FaqTopicSection {
   return {
     kind: "list",
@@ -68,11 +73,16 @@ export function highlightsSection(
   return { kind: "highlights", title, items }
 }
 
-export function plainListSection(title: string, lines: string[]): FaqTopicSection {
+export function plainListSection(
+  title: string,
+  lines: string[],
+  layout?: FaqTopicSectionLayout,
+): FaqTopicSection {
   return {
     kind: "list",
     title,
     items: lines.map((text) => ({ kind: "plain", text })),
+    ...layout,
   }
 }
 

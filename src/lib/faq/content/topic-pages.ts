@@ -6,6 +6,7 @@ import {
   highlightListSection,
   highlightsSection,
   keyInfo,
+  keyInfoItems,
   keyInfoLabeled,
   listSection,
   paraSection,
@@ -153,12 +154,12 @@ export const FAQ_TOPIC_PAGES: Record<FaqTopicSlug, FaqTopicContent> = {
 
   "nft-accounts": faqTopic(
     "What is a Koo NFT Account?",
-    "A Koo NFT Account is the onchain ownership object for a trading account. It contains the account's balances, margin, positions, active orders and risk state, while the connected wallet controls it.",
+    "A Koo NFT Account is the onchain ownership object for a trading account. It contains the account’s balances, margin, positions, active orders and risk state, while the connected wallet controls it.",
     [
       keyInfo([
-        "One wallet can control multiple NFT Accounts",
-        "Cross Margin applies inside each account",
-        "Different NFT Accounts isolate risk from one another",
+        "One wallet can control multiple NFT Accounts.",
+        "Cross Margin applies inside each account.",
+        "Different NFT Accounts isolate risk from one another.",
       ]),
       paraSection("How it works", [
         "Choose or create an NFT Account after connecting a wallet.",
@@ -166,16 +167,20 @@ export const FAQ_TOPIC_PAGES: Record<FaqTopicSlug, FaqTopicContent> = {
         "Switching accounts switches the entire trading and risk context.",
       ]),
       paraSection("Ownership and transfer", [
-        "Ownership can move with the NFT, transferring control of the account's assets and positions to the new holder.",
+        "Ownership can move with the NFT, transferring control of the account’s assets and positions to the new holder.",
         "Check the trading app for transfer availability and supported transfer methods.",
       ]),
       paraSection("When transfer can be restricted", [
-        "A pending withdrawal, delivery lock or unsafe risk state can block transfer. Check your account's current transfer status in the trading app.",
+        "A pending withdrawal, delivery lock or unsafe risk state can block transfer. Check your account’s current transfer status in the trading app.",
       ]),
-      paraSection("Risk", [
-        "Transferring the NFT Account transfers more than an image: it transfers control of the account and its trading state.",
-        "Derivatives can cause a partial or total loss of margin. Yield-bearing Margin and Vault participation also involve protocol, liquidity and principal-loss risks. Yield is variable and principal remains at risk.",
-      ]),
+      paraSection(
+        "Risk",
+        [
+          "Transferring the NFT Account transfers more than an image: it transfers control of the account and its trading state.",
+          "Derivatives can cause a partial or total loss of margin. Yield-bearing Margin and Vault participation also involve protocol, liquidity and principal-loss risks. Yield is variable and principal remains at risk.",
+        ],
+        { dividerAfter: true },
+      ),
     ],
     faqItems([
       {
@@ -196,30 +201,34 @@ export const FAQ_TOPIC_PAGES: Record<FaqTopicSlug, FaqTopicContent> = {
         answer: "Control of the NFT Account moves to the new holder.",
       },
     ]),
+    "What is a Koo NFT account?",
   ),
 
   "yield-bearing-margin": faqTopic(
     "What is Yield-bearing Margin on Koo?",
-    "Yield-bearing Margin lets eligible USDC in a Koo NFT Account receive variable yield while remaining part of the account's trading equity. Yield is allocated every eight hours and credited to the account balance.",
+    "Yield-bearing Margin lets eligible USDC in a Koo NFT Account receive variable yield while remaining part of the account’s trading equity. Yield is allocated every eight hours and credited to the account balance.",
     [
-      keyInfo([
-        "Supported asset: USDC",
-        "Allocation cycle: every 8 hours",
-        "Yield is variable and not guaranteed",
+      keyInfoItems([
+        { kind: "labeled", label: "Supported asset:", value: "USDC" },
+        { kind: "labeled", label: "Allocation cycle:", value: "Every 8 hours" },
+        { kind: "plain", text: "Yield is variable and not guaranteed." },
       ]),
       paraSection("How it works", [
-        "Koo calculates each eligible account's share of distributable yield at the scheduled allocation cycle.",
+        "Koo calculates each eligible account’s share of distributable yield at the scheduled allocation cycle.",
         "Credited yield becomes part of the account balance and can support trading margin.",
       ]),
       paraSection("Example", [
-        "If an account qualifies for 2 USDC in an allocation cycle, the 2 USDC is credited to the account balance.",
-        "This is an explanatory example, not a promised return.",
+        "If an account qualifies for 2 USDC in an allocation cycle, the 2 USDC is credited to the account balance. This is an explanatory example, not a promised return.",
       ]),
-      paraSection("Risks and limits", [
-        "Yield can vary and may be zero.",
-        "Strategy, smart-contract, liquidity and principal-loss risks may apply.",
-        "Principal is not guaranteed.",
-      ]),
+      plainListSection(
+        "Risks and limits",
+        [
+          "Yield can vary and may be zero.",
+          "Strategy, smart-contract, liquidity and principal-loss risks may apply.",
+          "Principal is not guaranteed.",
+        ],
+        { dividerAfter: true },
+      ),
     ],
     faqItems([
       {
@@ -239,6 +248,7 @@ export const FAQ_TOPIC_PAGES: Record<FaqTopicSlug, FaqTopicContent> = {
         answer: "Yes. Once credited, it becomes part of the account balance.",
       },
     ]),
+    "What is yield-bearing margin on Koo?",
   ),
 
   "event-contracts": faqTopic(
