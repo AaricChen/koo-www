@@ -29,9 +29,14 @@ describe("FaqMobileIndexPage", () => {
       "href",
       DOCS_URL,
     )
-    expect(
-      screen.getByRole("button", { name: "Select FAQ category: What is Koo?" }),
-    ).not.toBeNull()
+    const categoryTrigger = screen.getByRole("button", {
+      name: "Select FAQ category: What is Koo?",
+    })
+    expect(categoryTrigger).not.toBeNull()
+    expect(categoryTrigger.className).toContain("w-full")
+    expect(categoryTrigger.className).toContain("min-w-0")
+    const mobileRoot = categoryTrigger.closest("[data-figma-node='5589:66293']")
+    expect(mobileRoot?.className).toContain("px-4")
     expect(
       screen.getByRole("heading", {
         name: "Derivatives built around your NFT account",

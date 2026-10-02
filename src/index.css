@@ -785,9 +785,15 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 24px;
+    gap: 16px;
     align-self: stretch;
     width: 100%;
+  }
+
+  @media (min-width: 1024px) {
+    .faq-topic-content__body {
+      gap: 24px;
+    }
   }
 
   /* Figma intro under page header (`5632:70290` / `5589:64593`) */
@@ -813,7 +819,13 @@
     width: 100%;
     flex-direction: column;
     align-items: flex-start;
-    gap: 16px;
+    gap: 12px;
+  }
+
+  @media (min-width: 1024px) {
+    .faq-topic-content__section {
+      gap: 16px;
+    }
   }
 
   .faq-topic-content__section-title {
@@ -972,9 +984,12 @@
   .faq-main-panel {
     display: flex;
     flex: 1 0 0;
-    align-items: center;
+    align-items: stretch;
     justify-content: space-between;
-    padding: 16px;
+    box-sizing: border-box;
+    width: 100%;
+    min-width: 0;
+    padding: 24px 16px 16px;
     background-color: var(--color-faq-main-surface);
   }
 
@@ -997,9 +1012,15 @@
     flex-direction: column;
     align-items: flex-start;
     align-self: stretch;
-    gap: 32px;
+    gap: 24px;
     width: 100%;
     min-width: 0;
+  }
+
+  @media (min-width: 1024px) {
+    .faq-main-panel-inner {
+      gap: 32px;
+    }
   }
 
   /* Figma mobile `5591:66959`, desktop `5570:60149` (faq-main-footer) */
@@ -1098,6 +1119,9 @@
   }
 
   .faq-category-trigger {
+    box-sizing: border-box;
+    width: 100%;
+    min-width: 0;
     border-color: var(--color-faq-menu-border);
     background-color: var(--color-faq-menu-surface);
   }

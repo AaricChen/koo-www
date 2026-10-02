@@ -19,11 +19,14 @@ export function FaqMobileIndexPage({ topicSlug }: { topicSlug: FaqTopicSlug }) {
   return (
     <div
       data-figma-node="5589:66293"
-      className="bg-section-alt flex w-full flex-col items-center overflow-x-clip px-4 pb-5 pt-6 lg:hidden"
+      className="bg-section-alt flex w-full flex-col items-stretch overflow-x-clip px-4 pb-5 pt-6 lg:hidden"
     >
-      <div className="flex w-full flex-col items-center gap-5">
+      <div className="flex w-full min-w-0 flex-col items-stretch gap-5">
         <FaqTopicHero />
-        <div className="flex w-full flex-col gap-3">
+        <div
+          data-figma-node="5591:67743"
+          className="flex w-full min-w-0 flex-col gap-3"
+        >
           <FaqMobileCategoryTrigger
             topic={topic}
             onClick={() => setCategoryOpen(true)}
