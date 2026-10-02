@@ -36,6 +36,7 @@ describe("FaqSection", () => {
     expect(container.innerHTML).toContain("bg-section-alt")
     expect(container.innerHTML).toContain("lg:pt-[100px]")
     expect(container.innerHTML).toContain("lg:text-[40px]")
+    expect(container.innerHTML).toContain("home-faq-list")
     expect(container.innerHTML).toContain("home-faq-panel")
     expect(container.innerHTML).toContain("home-faq-trigger")
     expect(container.innerHTML).toContain("px-5 py-6")

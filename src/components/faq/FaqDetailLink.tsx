@@ -13,7 +13,7 @@ export function FaqDetailLink({
   const icon = (
     <FaqChevronRightIcon
       aria-hidden
-      className="faq-detail-link__icon size-3 -rotate-90 lg:size-4"
+      className="faq-detail-link__icon size-3 lg:size-4"
     />
   )
 

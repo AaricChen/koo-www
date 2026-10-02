@@ -32,7 +32,7 @@ function FaqTopicFaqItem({
         className="faq-topic-card-trigger flex w-full cursor-pointer items-center justify-between gap-3 text-left"
       >
         <span
-          className={`min-w-0 flex-1 text-[14px] leading-[22px] text-foreground ${
+          className={`faq-topic-faq__question min-w-0 flex-1 text-foreground ${
             expanded ? "font-semibold" : "font-normal"
           }`}
         >

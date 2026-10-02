@@ -45,7 +45,7 @@ export function FaqSection() {
           <FaqHomeReadMoreLink />
         </header>
 
-        <div className="flex w-full flex-col">
+        <div className="home-faq-list flex w-full flex-col">
           {HOME_FAQ_ITEMS.map((item, index) => {
             const expanded = openId === item.id
             const panelId = `${baseId}-${item.id}-panel`
