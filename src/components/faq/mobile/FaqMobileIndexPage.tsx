@@ -17,8 +17,11 @@ export function FaqMobileIndexPage({ topicSlug }: { topicSlug: FaqTopicSlug }) {
   const topic = getFaqTopicMeta(topicSlug)
 
   return (
-    <div className="bg-section-alt flex w-full flex-col items-center overflow-x-clip px-4 pb-5 pt-6 lg:hidden">
-      <div className="flex w-full max-w-[375px] flex-col items-center gap-5">
+    <div
+      data-figma-node="5589:66293"
+      className="bg-section-alt flex w-full flex-col items-center overflow-x-clip px-4 pb-5 pt-6 lg:hidden"
+    >
+      <div className="flex w-full flex-col items-center gap-5">
         <FaqTopicHero />
         <div className="flex w-full flex-col gap-3">
           <FaqMobileCategoryTrigger

@@ -50,7 +50,7 @@ const navLinkActiveClass =
 const mobileNavLinkClass =
   "mobile-nav-item cursor-pointer text-sm leading-[14px] text-muted-foreground transition-colors duration-300 ease-out hover:text-foreground active:font-medium active:text-foreground"
 
-const MD_MIN_WIDTH_QUERY = "(min-width: 768px)"
+const LG_MIN_WIDTH_QUERY = "(min-width: 1024px)"
 
 function MenuIcon() {
   return (
@@ -195,7 +195,7 @@ export function SiteHeader() {
   const [menuOpen, setMenuOpen] = useState(false)
   const [desktopCommunityOpen, setDesktopCommunityOpen] = useState(false)
   const [mobileCommunityOpen, setMobileCommunityOpen] = useState(false)
-  const isDesktop = useMatchMedia(MD_MIN_WIDTH_QUERY)
+  const isDesktop = useMatchMedia(LG_MIN_WIDTH_QUERY)
   const menuId = useId()
   const communityMenuId = useId()
   const mobileCommunityId = useId()
@@ -260,8 +260,8 @@ export function SiteHeader() {
 
   return (
     <>
-      <header className="site-header sticky top-0 z-50 w-full overflow-visible bg-[rgba(9,9,9,0.82)]">
-        <div className="flex h-[50px] items-center justify-between px-1.5 md:hidden">
+      <header className="site-header sticky top-0 z-50 w-full overflow-visible">
+        <div className="flex h-[50px] items-center justify-between px-1.5 lg:hidden">
           <div className="flex items-center gap-1.5">
             <IconButton
               label="Open menu"
@@ -284,7 +284,7 @@ export function SiteHeader() {
           </OutlineButton>
         </div>
 
-        <div className="hidden w-full items-center justify-between overflow-visible px-7 py-5 md:flex">
+        <div className="hidden w-full items-center justify-between overflow-visible px-7 py-5 lg:flex">
           <a
             href="/"
             className="relative block h-10 w-[175px] shrink-0 overflow-hidden"
@@ -406,13 +406,13 @@ export function SiteHeader() {
       </header>
 
       <div
-        className={`mobile-nav-overlay md:hidden ${menuOpen ? "is-open" : ""}`}
+        className={`mobile-nav-overlay lg:hidden ${menuOpen ? "is-open" : ""}`}
         aria-hidden={!menuOpen}
         onClick={closeMenu}
       />
       <div
         id={menuId}
-        className={`mobile-nav-drawer md:hidden ${menuOpen ? "is-open" : ""}`}
+        className={`mobile-nav-drawer lg:hidden ${menuOpen ? "is-open" : ""}`}
         role="dialog"
         aria-modal={menuOpen}
         aria-label="Menu"
