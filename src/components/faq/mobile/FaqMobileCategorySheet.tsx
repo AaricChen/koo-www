@@ -43,50 +43,57 @@ export function FaqMobileCategorySheet({
         aria-labelledby={titleId}
         aria-hidden={!open}
         inert={!open}
+        data-figma-node="5591:67996"
         className={`faq-category-sheet lg:hidden ${open ? "is-open" : ""}`}
       >
-        <div className="flex w-full items-center justify-between px-1">
-          <p
-            id={titleId}
-            className="text-sm font-bold leading-[14px] text-secondary"
-          >
-            Select a Category
-          </p>
-          <button
-            type="button"
-            aria-label="Close category menu"
-            onClick={onClose}
-            className="flex size-6 shrink-0 items-center justify-center text-foreground"
-          >
-            <FaqCloseIcon />
-          </button>
+        <div className="faq-category-sheet__inner">
+          <div className="faq-category-sheet__header">
+            <p id={titleId} className="faq-category-sheet__title">
+              Select a Category
+            </p>
+            <button
+              type="button"
+              aria-label="Close category menu"
+              onClick={onClose}
+              className="faq-category-sheet__close"
+            >
+              <FaqCloseIcon className="size-6" />
+            </button>
+          </div>
+
+          <div className="faq-category-sheet__menu">
+            <div className="faq-category-sheet__scroll">
+              <ul className="faq-category-sheet__list">
+                {FAQ_TOPICS.map((topic) => {
+                  const selected = topic.slug === activeSlug
+                  return (
+                    <li key={topic.slug}>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          onSelect(topic.slug)
+                          onClose()
+                        }}
+                        className={
+                          selected
+                            ? "faq-category-sheet-item is-selected"
+                            : "faq-category-sheet-item"
+                        }
+                      >
+                        <span className="faq-category-sheet-item__label">
+                          {topic.menuLabel}
+                        </span>
+                        {selected ? (
+                          <FaqCheckIcon className="faq-category-sheet-item__check size-5 shrink-0" />
+                        ) : null}
+                      </button>
+                    </li>
+                  )
+                })}
+              </ul>
+            </div>
+          </div>
         </div>
-        <ul className="mt-5 flex w-full flex-col gap-3">
-          {FAQ_TOPICS.map((topic) => {
-            const selected = topic.slug === activeSlug
-            return (
-              <li key={topic.slug}>
-                <button
-                  type="button"
-                  onClick={() => {
-                    onSelect(topic.slug)
-                    onClose()
-                  }}
-                  className={`faq-category-sheet-item flex h-12 w-full items-center justify-between rounded-[4px] px-3 text-left text-xs leading-3 transition-colors duration-300 ${
-                    selected
-                      ? "is-selected border font-bold text-foreground"
-                      : "font-normal text-muted-foreground"
-                  }`}
-                >
-                  <span>{topic.menuLabel}</span>
-                  {selected ? (
-                    <FaqCheckIcon className="faq-category-sheet-item__check" />
-                  ) : null}
-                </button>
-              </li>
-            )
-          })}
-        </ul>
       </div>
     </>
   )
