@@ -502,11 +502,15 @@ export const FAQ_TOPIC_PAGES: Record<FaqTopicSlug, FaqTopicContent> = {
 
   "trading-fees": faqTopic(
     "What are Koo's trading fees?",
-    "Koo currently charges a 0.02% taker fee and applies a -0.005% maker fee, meaning qualifying maker fills receive a 0.005% rebate. A limit order is not automatically a maker order.",
+    "Koo applies a 0.02% taker fee rate, with a minimum taker fee of 0.05 USDC per order. Qualifying maker fills receive a 0.005% rebate, equivalent to a -0.005% maker fee. A limit order is not automatically a maker order.",
     [
       keyInfoItems(
         [
-          { kind: "labeled", label: "Taker:", value: "0.02%" },
+          {
+            kind: "labeled",
+            label: "Taker:",
+            value: "0.02%, minimum 0.05 USDC per order",
+          },
           { kind: "labeled", label: "Maker:", value: "-0.005% (0.005% rebate)" },
           {
             kind: "plain",
@@ -522,21 +526,13 @@ export const FAQ_TOPIC_PAGES: Record<FaqTopicSlug, FaqTopicContent> = {
       ]),
       topicListSection("Formula", [
         {
-          kind: "labeled",
-          label: "Trading fee or rebate",
-          value: "= Filled notional × Applicable rate.",
+          kind: "plain",
+          text: "The percentage-based taker fee is 0.02% of filled notional, with a minimum of 0.05 USDC per order. For multiple partial fills of the same order, the minimum applies to the order total, not separately to each fill. Qualifying maker rebate = maker-filled notional × 0.005%.",
         },
         {
-          kind: "labeled",
-          label: "Example:",
-          value:
-            "A 10,000 USDC taker fill costs 2 USDC. A qualifying 10,000 USDC maker fill earns a 0.5 USDC rebate.",
+          kind: "plain",
+          text: "Examples: a taker order with 10,000 USDC of filled notional costs 2 USDC. A taker order with 100 USDC of filled notional costs the 0.05 USDC minimum, rather than 0.02 USDC. A qualifying 10,000 USDC maker fill earns a 0.5 USDC rebate.",
         },
-      ]),
-      paraSection("Trading hours and pricing", [
-        "The underlying reference market has its own trading session.",
-        "Outside the reference session or when external data is unavailable, Koo can use its documented internal pricing process until the external source resumes.",
-        "Check the current market stage. The index calculation method can differ during closed-market periods.",
       ]),
       paraSection(
         "What is not included",

@@ -188,10 +188,16 @@ describe("getFaqTopicContent", () => {
   it("matches Figma Trading Fees content and FAQ accordion", () => {
     const content = getFaqTopicContent("trading-fees")
     expect(content.pageHeaderTitle).toBe("What are Koo’s trading fees?")
+    expect(content.intro).toContain("minimum taker fee of 0.05 USDC")
     expect(content.sections[0]?.title).toBe("Key Information")
+    if (content.sections[0]?.kind === "list") {
+      expect(content.sections[0].items[0]).toMatchObject({
+        value: "0.02%, minimum 0.05 USDC per order",
+      })
+    }
     expect(content.sections[2]?.title).toBe("Formula")
-    expect(content.sections[3]?.title).toBe("Trading hours and pricing")
-    expect(content.sections[4]?.dividerAfter).toBe(true)
+    expect(content.sections[3]?.title).toBe("What is not included")
+    expect(content.sections[3]?.dividerAfter).toBe(true)
     expect(content.accordion?.[0]?.question).toBe(
       "Does a limit order always receive the maker rebate?",
     )
@@ -237,6 +243,7 @@ describe("getFaqTopicContent", () => {
   it("matches P10 trading fees intro rates", () => {
     const content = getFaqTopicContent("trading-fees")
     expect(content.intro).toContain("0.02%")
+    expect(content.intro).toContain("0.05 USDC")
     expect(content.intro).toContain("-0.005%")
   })
 })
