@@ -114,10 +114,10 @@ export function faqItems(
     defaultOpen?: boolean
   }>,
 ): FaqAccordionItem[] {
-  return items.map(({ id, question, answer, defaultOpen }) => ({
+  return items.map(({ id, question, answer }, index) => ({
     id,
     question,
     answer,
-    defaultOpen,
+    ...(index === 0 && answer ? { defaultOpen: true } : {}),
   }))
 }

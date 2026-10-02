@@ -81,6 +81,8 @@ export type FaqMainPanelProps = {
   children?: ReactNode
   accordionTitle?: string
   accordionItems?: FaqAccordionItem[]
+  /** Remount FAQ accordion when switching topic subpages. */
+  accordionItemsKey?: string
   footerLinks?: FaqMainPanelLink[]
   exploreHref?: string
   exploreLabel?: string
@@ -98,6 +100,7 @@ export function FaqMainPanel({
   children,
   accordionTitle,
   accordionItems,
+  accordionItemsKey,
   footerLinks,
   exploreHref,
   exploreLabel,
@@ -143,7 +146,11 @@ export function FaqMainPanel({
         ) : null}
 
         {hasAccordion ? (
-          <FaqTopicFaq title={accordionTitle} items={accordionItems!} />
+          <FaqTopicFaq
+            key={accordionItemsKey}
+            title={accordionTitle}
+            items={accordionItems!}
+          />
         ) : null}
 
         <FaqMainPanelFooter

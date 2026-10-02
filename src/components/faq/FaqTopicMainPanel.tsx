@@ -14,6 +14,7 @@ export function FaqTopicMainPanel({ topicSlug }: { topicSlug: FaqTopicSlug }) {
       intro={content.intro}
       accordionTitle={content.accordionTitle ?? "FAQ"}
       accordionItems={content.accordion}
+      accordionItemsKey={topicSlug}
     >
       {content.sections.length > 0 ? (
         <FaqTopicSections sections={content.sections} leadingDivider />

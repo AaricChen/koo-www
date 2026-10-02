@@ -56,6 +56,43 @@ describe("FaqTopicFaq", () => {
     })
   })
 
+  it("keeps only the first item open by default and resets after topic items change", () => {
+    const firstPage = [
+      { id: "a", question: "First", answer: "Answer one" },
+      { id: "b", question: "Second", answer: "Answer two" },
+      { id: "c", question: "Third", answer: "Answer three" },
+    ]
+    const secondPage = [
+      { id: "x", question: "Other first", answer: "Other answer" },
+      { id: "y", question: "Other second", answer: "More" },
+    ]
+
+    const { rerender } = render(<FaqTopicFaq items={firstPage} />)
+
+    expect(screen.getByRole("button", { name: "First" }).getAttribute("aria-expanded")).toBe(
+      "true",
+    )
+    expect(screen.getByRole("button", { name: "Second" }).getAttribute("aria-expanded")).toBe(
+      "false",
+    )
+    expect(screen.getByRole("button", { name: "Third" }).getAttribute("aria-expanded")).toBe(
+      "false",
+    )
+
+    fireEvent.click(screen.getByRole("button", { name: "Second" }))
+    expect(screen.getByRole("button", { name: "Second" }).getAttribute("aria-expanded")).toBe(
+      "true",
+    )
+
+    rerender(<FaqTopicFaq items={secondPage} />)
+    expect(
+      screen.getByRole("button", { name: "Other first" }).getAttribute("aria-expanded"),
+    ).toBe("true")
+    expect(
+      screen.getByRole("button", { name: "Other second" }).getAttribute("aria-expanded"),
+    ).toBe("false")
+  })
+
   it("expands an answered item and ignores items without answers", () => {
     render(
       <FaqTopicFaq

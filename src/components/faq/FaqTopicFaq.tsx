@@ -1,6 +1,10 @@
-import { useId, useState } from "react"
+import { useEffect, useId, useMemo, useState } from "react"
 import type { FaqAccordionItem } from "../../lib/faq/types"
 import { FaqChevronIcon } from "./FaqIcons"
+
+function firstAnsweredItemId(items: FaqAccordionItem[]): string | null {
+  return items.find((item) => item.answer)?.id ?? null
+}
 
 function FaqTopicFaqItem({
   item,
@@ -73,9 +77,12 @@ export function FaqTopicFaq({ title = "FAQ", items }: FaqTopicFaqProps) {
   if (items.length === 0) return null
 
   const baseId = useId()
-  const defaultOpenId =
-    items.find((item) => item.defaultOpen && item.answer)?.id ?? null
-  const [openId, setOpenId] = useState<string | null>(defaultOpenId)
+  const itemsKey = useMemo(() => items.map((item) => item.id).join("|"), [items])
+  const [openId, setOpenId] = useState<string | null>(() => firstAnsweredItemId(items))
+
+  useEffect(() => {
+    setOpenId(firstAnsweredItemId(items))
+  }, [itemsKey, items])
 
   return (
     <section
