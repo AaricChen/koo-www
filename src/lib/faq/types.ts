@@ -9,6 +9,10 @@ export type FaqAccordionItem = {
 
 export type FaqTopicTextPart = { text: string; emphasis?: boolean }
 
+export type FaqTopicParagraph =
+  | string
+  | { kind: "segments"; parts: FaqTopicTextPart[] }
+
 export type FaqTopicListItem =
   | { kind: "plain"; text: string }
   | { kind: "labeled"; label: string; value: string }
@@ -27,7 +31,11 @@ type FaqTopicSectionLayout = {
 }
 
 export type FaqTopicSection =
-  | ({ kind: "paragraphs"; title?: string; paragraphs: string[] } & FaqTopicSectionLayout)
+  | ({
+      kind: "paragraphs"
+      title?: string
+      paragraphs: FaqTopicParagraph[]
+    } & FaqTopicSectionLayout)
   | ({ kind: "list"; title: string; items: FaqTopicListItem[] } & FaqTopicSectionLayout)
   | ({
       kind: "highlights"

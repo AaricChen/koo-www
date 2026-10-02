@@ -386,7 +386,20 @@ export const FAQ_TOPIC_PAGES: Record<FaqTopicSlug, FaqTopicContent> = {
       ]),
       paraSection("Leverage, fees and funding", [
         "Maximum leverage and order limits vary by instrument and position size.",
-        "Taker fee: 0.02%. Maker fee: -0.005%, meaning a 0.005% rebate when the fill qualifies as maker.",
+        {
+          kind: "segments",
+          parts: [
+            { text: "Taker fee rate: " },
+            { text: "0.02%", emphasis: true },
+            { text: ", with a minimum taker fee of 0.05 USDC per order. Maker fee: " },
+            { text: "-0.005%", emphasis: true },
+            { text: ", meaning a " },
+            { text: "0.005%", emphasis: true },
+            {
+              text: " rebate when the fill qualifies as maker. See Trading Fees for details. ",
+            },
+          ],
+        },
         "Funding settles every eight hours; the rate and cap vary by instrument and time.",
       ]),
       paraSection(
@@ -464,7 +477,20 @@ export const FAQ_TOPIC_PAGES: Record<FaqTopicSlug, FaqTopicContent> = {
       ]),
       paraSection("Leverage, fees and funding", [
         "Check each market’s current maximum leverage and risk limits in the trading app.",
-        "Taker 0.02%; Maker -0.005% when the fill qualifies as maker.",
+        {
+          kind: "segments",
+          parts: [
+            { text: "Taker fee rate: " },
+            { text: "0.02%", emphasis: true },
+            { text: ", with a minimum taker fee of " },
+            { text: "0.05 USDC", emphasis: true },
+            { text: " per order. Maker fee: " },
+            { text: "-0.005%", emphasis: true },
+            {
+              text: " when the fill qualifies as maker. See Trading Fees for details. ",
+            },
+          ],
+        },
         "Funding currently settles every eight hours; actual rates and caps vary.",
       ]),
       paraSection(
@@ -585,10 +611,10 @@ export const FAQ_TOPIC_PAGES: Record<FaqTopicSlug, FaqTopicContent> = {
           "No. Funding is a separate payment between long and short positions.",
       },
       {
-        id: "same-rates",
-        question: "Are these rates the same across current markets?",
+        id: "small-trade-minimum",
+        question: "Can the taker fee exceed 0.02% of a small trade?",
         answer:
-          "Yes. Koo currently applies the same maker and taker rates across its markets.",
+          "Yes. The minimum taker fee is 0.05 USDC per order, so a small order can cost more than 0.02% of its filled notional. The minimum applies once to the order total, not separately to each partial fill.",
       },
     ]),
     "What are Koo’s trading fees?",

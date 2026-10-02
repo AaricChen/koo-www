@@ -2,6 +2,7 @@ import type {
   FaqAccordionItem,
   FaqTopicContent,
   FaqTopicListItem,
+  FaqTopicParagraph,
   FaqTopicSection,
 } from "../types"
 
@@ -99,7 +100,7 @@ export function plainListSection(
 
 export function paraSection(
   title: string,
-  paragraphs: string[],
+  paragraphs: FaqTopicParagraph[],
   layout?: FaqTopicSectionLayout,
 ): FaqTopicSection {
   return { kind: "paragraphs", title, paragraphs, ...layout }

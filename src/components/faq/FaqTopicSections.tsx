@@ -1,5 +1,9 @@
 import { Fragment } from "react"
-import type { FaqTopicListItem, FaqTopicSection } from "../../lib/faq/types"
+import type {
+  FaqTopicListItem,
+  FaqTopicParagraph,
+  FaqTopicSection,
+} from "../../lib/faq/types"
 
 function FaqTopicSectionDivider() {
   return <div className="faq-topic-divider h-px w-full shrink-0" aria-hidden />
@@ -29,6 +33,24 @@ function paragraphSectionClassName(titleVariant?: "default" | "accent") {
   return titleVariant === "accent"
     ? "faq-topic-content__section faq-topic-content__section--step"
     : "faq-topic-content__section"
+}
+
+function paragraphKey(paragraph: FaqTopicParagraph, index: number): string {
+  if (typeof paragraph === "string") return paragraph
+  return `segments-${index}-${paragraph.parts.map((part) => part.text).join("")}`
+}
+
+function renderParagraphBody(paragraph: FaqTopicParagraph) {
+  if (typeof paragraph === "string") return paragraph
+  return paragraph.parts.map((part, partIndex) =>
+    part.emphasis ? (
+      <span key={partIndex} className="faq-topic-content__emphasis">
+        {part.text}
+      </span>
+    ) : (
+      <span key={partIndex}>{part.text}</span>
+    ),
+  )
 }
 
 function renderListItem(item: FaqTopicListItem, index: number) {
@@ -161,9 +183,12 @@ export function FaqTopicSections({
                 </FaqTopicSectionTitle>
               ) : null}
               <div className="faq-topic-content__paragraph-block">
-                {section.paragraphs.map((paragraph) => (
-                  <p key={paragraph} className="faq-topic-content__section-body">
-                    {paragraph}
+                {section.paragraphs.map((paragraph, paragraphIndex) => (
+                  <p
+                    key={paragraphKey(paragraph, paragraphIndex)}
+                    className="faq-topic-content__section-body"
+                  >
+                    {renderParagraphBody(paragraph)}
                   </p>
                 ))}
               </div>

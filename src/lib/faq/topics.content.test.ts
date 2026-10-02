@@ -159,6 +159,7 @@ describe("getFaqTopicContent", () => {
     expect(content.sections[3]?.title).toBe("Leverage, fees and funding")
     if (content.sections[3]?.kind === "paragraphs") {
       expect(content.sections[3].paragraphs).toHaveLength(3)
+      expect(content.sections[3].paragraphs[1]).toMatchObject({ kind: "segments" })
     }
     expect(content.sections[4]?.dividerAfter).toBe(true)
     expect(content.accordion?.[0]?.question).toBe("Are all crypto markets 100×?")
@@ -174,6 +175,10 @@ describe("getFaqTopicContent", () => {
     expect(content.sections[2]?.title).toBe("Execution")
     if (content.sections[2]?.kind === "list") {
       expect(content.sections[2].items[0]).toMatchObject({ kind: "highlight", highlight: "Stocks" })
+    }
+    expect(content.sections[4]?.title).toBe("Leverage, fees and funding")
+    if (content.sections[4]?.kind === "paragraphs") {
+      expect(content.sections[4].paragraphs[1]).toMatchObject({ kind: "segments" })
     }
     expect(content.sections[5]?.dividerAfter).toBe(true)
     expect(content.accordion?.[0]?.question).toBe(
@@ -205,7 +210,10 @@ describe("getFaqTopicContent", () => {
       "Does a limit order always receive the maker rebate?",
     )
     expect(content.accordion?.[1]?.question).toBe("Is funding included in the trading fee?")
-    expect(content.accordion?.[2]?.answer).toContain("same maker and taker rates")
+    expect(content.accordion?.[2]?.question).toBe(
+      "Can the taker fee exceed 0.02% of a small trade?",
+    )
+    expect(content.accordion?.[2]?.answer).toContain("0.05 USDC per order")
   })
 
   it("matches Figma Funding content and FAQ accordion", () => {
