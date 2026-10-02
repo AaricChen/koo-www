@@ -526,12 +526,40 @@ export const FAQ_TOPIC_PAGES: Record<FaqTopicSlug, FaqTopicContent> = {
       ]),
       topicListSection("Formula", [
         {
-          kind: "plain",
-          text: "The percentage-based taker fee is 0.02% of filled notional, with a minimum of 0.05 USDC per order. For multiple partial fills of the same order, the minimum applies to the order total, not separately to each fill. Qualifying maker rebate = maker-filled notional × 0.005%.",
+          kind: "segments",
+          parts: [
+            { text: "The percentage-based taker fee is " },
+            { text: "0.02%", emphasis: true },
+            { text: " of filled notional, with a minimum of " },
+            { text: "0.05 USDC", emphasis: true },
+            {
+              text: " per order. For multiple partial fills of the same order, the minimum applies to the order total, not separately to each fill. ",
+            },
+            {
+              text: "Qualifying maker rebate = maker-filled notional × 0.005%.",
+              emphasis: true,
+            },
+          ],
         },
         {
-          kind: "plain",
-          text: "Examples: a taker order with 10,000 USDC of filled notional costs 2 USDC. A taker order with 100 USDC of filled notional costs the 0.05 USDC minimum, rather than 0.02 USDC. A qualifying 10,000 USDC maker fill earns a 0.5 USDC rebate.",
+          kind: "segments",
+          parts: [
+            { text: "Examples: a taker order with " },
+            { text: "10,000 USDC", emphasis: true },
+            { text: " of filled notional costs " },
+            { text: "2 USDC", emphasis: true },
+            { text: ". A taker order with " },
+            { text: "100 USDC", emphasis: true },
+            { text: " of filled notional costs the " },
+            { text: "0.05 USDC", emphasis: true },
+            { text: " minimum, rather than " },
+            { text: "0.02 USDC", emphasis: true },
+            { text: ". A qualifying " },
+            { text: "10,000 USDC", emphasis: true },
+            { text: " maker fill earns a " },
+            { text: "0.5 USDC", emphasis: true },
+            { text: " rebate." },
+          ],
         },
       ]),
       paraSection(

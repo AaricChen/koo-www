@@ -7,10 +7,13 @@ export type FaqAccordionItem = {
   defaultOpen?: boolean
 }
 
+export type FaqTopicTextPart = { text: string; emphasis?: boolean }
+
 export type FaqTopicListItem =
   | { kind: "plain"; text: string }
   | { kind: "labeled"; label: string; value: string }
   | { kind: "highlight"; highlight: string; rest: string }
+  | { kind: "segments"; parts: FaqTopicTextPart[] }
   /** @deprecated Prefer structured kinds; still rendered for other topics. */
   | { text: ReactNode }
 

@@ -55,6 +55,24 @@ function renderListItem(item: FaqTopicListItem, index: number) {
       </li>
     )
   }
+  if ("kind" in item && item.kind === "segments") {
+    return (
+      <li key={index} className="faq-topic-content__list-item">
+        {item.parts.map((part, partIndex) =>
+          part.emphasis ? (
+            <span
+              key={`${index}-${partIndex}`}
+              className="faq-topic-content__emphasis"
+            >
+              {part.text}
+            </span>
+          ) : (
+            <span key={`${index}-${partIndex}`}>{part.text}</span>
+          ),
+        )}
+      </li>
+    )
+  }
   return (
     <li key={index} className="faq-topic-content__list-item">
       {item.text}

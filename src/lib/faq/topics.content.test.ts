@@ -196,6 +196,9 @@ describe("getFaqTopicContent", () => {
       })
     }
     expect(content.sections[2]?.title).toBe("Formula")
+    if (content.sections[2]?.kind === "list") {
+      expect(content.sections[2].items[0]).toMatchObject({ kind: "segments" })
+    }
     expect(content.sections[3]?.title).toBe("What is not included")
     expect(content.sections[3]?.dividerAfter).toBe(true)
     expect(content.accordion?.[0]?.question).toBe(

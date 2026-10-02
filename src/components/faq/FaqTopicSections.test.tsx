@@ -21,6 +21,31 @@ describe("FaqTopicSections", () => {
     )
   })
 
+  it("renders segmented list parts in Figma secondary blue", () => {
+    render(
+      <FaqTopicSections
+        sections={[
+          {
+            kind: "list",
+            title: "Formula",
+            items: [
+              {
+                kind: "segments",
+                parts: [
+                  { text: "Fee is " },
+                  { text: "0.02%", emphasis: true },
+                ],
+              },
+            ],
+          },
+        ]}
+      />,
+    )
+    const emphasis = screen.getByText("0.02%")
+    expect(emphasis.className).toContain("faq-topic-content__emphasis")
+    expect(screen.getByText(/Fee is/)).not.toBeNull()
+  })
+
   it("renders Key information values in Figma secondary blue", () => {
     render(
       <FaqTopicSections
