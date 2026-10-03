@@ -5,7 +5,7 @@ export function FaqTopicContentHeader({ title }: { title: string }) {
   return (
     <div
       data-figma-node="5632:70286"
-      className="faq-topic-content__header max-lg:hidden"
+      className="faq-topic-content__header"
     >
       <div className="faq-topic-content__heading">
         <span

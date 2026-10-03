@@ -35,6 +35,9 @@ describe("FaqMobileIndexPage", () => {
     expect(categoryTrigger).not.toBeNull()
     expect(categoryTrigger.className).toContain("w-full")
     expect(categoryTrigger.className).toContain("min-w-0")
+    expect(
+      categoryTrigger.closest(".faq-mobile-category-sticky")?.className,
+    ).toContain("bg-section-alt")
     const mobileRoot = categoryTrigger.closest("[data-figma-node='5589:66293']")
     expect(mobileRoot?.className).toContain("px-4")
     expect(

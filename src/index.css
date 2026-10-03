@@ -737,9 +737,15 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 24px;
+    gap: 16px;
     align-self: stretch;
     width: 100%;
+  }
+
+  @media (min-width: 1024px) {
+    .faq-topic-content {
+      gap: 24px;
+    }
   }
 
   .faq-topic-content__header {
@@ -756,7 +762,13 @@
     align-items: center;
     gap: 12px;
     align-self: stretch;
-    min-height: 24px;
+    min-height: 16px;
+  }
+
+  @media (min-width: 1024px) {
+    .faq-topic-content__heading {
+      min-height: 24px;
+    }
   }
 
   .faq-topic-content__accent {
@@ -768,11 +780,18 @@
 
   .faq-topic-content__title {
     font-family: var(--font-sans);
-    font-size: 24px;
+    font-size: 16px;
     font-style: normal;
     font-weight: 600;
-    line-height: 24px;
+    line-height: 16px;
     color: var(--color-foreground);
+  }
+
+  @media (min-width: 1024px) {
+    .faq-topic-content__title {
+      font-size: 24px;
+      line-height: 24px;
+    }
   }
 
   .faq-topic-content__body {
@@ -1132,6 +1151,15 @@
     min-width: 0;
     border-color: var(--color-faq-menu-border);
     background-color: var(--color-faq-menu-surface);
+  }
+
+  /* Mobile FAQ category bar sticks under site header (`5589:66293`). */
+  .faq-mobile-category-sticky {
+    position: sticky;
+    top: 50px;
+    z-index: 40;
+    margin-inline: -16px;
+    padding: 0 16px 12px;
   }
 
   .faq-category-trigger:hover {
