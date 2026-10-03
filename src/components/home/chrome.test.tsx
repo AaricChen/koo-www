@@ -160,7 +160,7 @@ describe("SiteHeader", () => {
 
     expect(container.querySelector('a[href="#"]')).toBeNull()
 
-    fireEvent.click(screen.getAllByRole("button", { name: "Close menu" })[0])
+    fireEvent.click(screen.getByRole("button", { name: "Close menu" }))
     expect(overlay?.classList.contains("is-open")).toBe(false)
     expect(drawer?.classList.contains("is-open")).toBe(false)
     expect(screen.queryByRole("dialog", { name: "Menu" })).toBeNull()

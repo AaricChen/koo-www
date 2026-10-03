@@ -419,12 +419,7 @@ export function SiteHeader() {
         inert={!menuOpen}
       >
         <div className="flex w-full items-center justify-between">
-          <div className="flex items-center gap-1.5">
-            <IconButton label="Close menu" onClick={closeMenu}>
-              <MenuIcon />
-            </IconButton>
-            <MobileMark onClick={closeMenu} />
-          </div>
+          <MobileMark onClick={closeMenu} />
           <button
             ref={closeButtonRef}
             type="button"
