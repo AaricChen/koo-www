@@ -150,7 +150,7 @@ function CommunityChannelCard({
             height={28}
           />
         </span>
-        <div className="flex items-start gap-5">
+        <div className="flex min-w-0 flex-1 items-start gap-5">
           <img
             src={icon}
             alt=""
@@ -159,11 +159,11 @@ function CommunityChannelCard({
             width={48}
             height={48}
           />
-          <div className="flex w-[208px] flex-col gap-4">
+          <div className="flex min-w-0 flex-1 flex-col gap-4">
             <p className="text-xl font-semibold leading-5 text-foreground">
               {title}
             </p>
-            <p className="text-base leading-[22px] text-muted-foreground transition-colors duration-300 group-hover/face:text-foreground">
+            <p className="whitespace-nowrap text-sm leading-[18px] text-muted-foreground transition-colors duration-300 group-hover/face:text-foreground">
               {description}
             </p>
           </div>
@@ -197,7 +197,7 @@ function CommunityMobileChannelCard({
       aria-label={`${title}: ${description}`}
       className="community-card-face-m group/face-m flex w-full cursor-pointer items-center justify-between bg-surface-soft px-4 py-6 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary active:scale-[0.99]"
     >
-      <div className="flex items-start gap-4">
+      <div className="flex min-w-0 flex-1 items-start gap-4">
         <img
           src={icon}
           alt=""
@@ -206,11 +206,11 @@ function CommunityMobileChannelCard({
           width={36}
           height={36}
         />
-        <div className="flex w-[185px] flex-col gap-3">
+        <div className="flex min-w-0 flex-1 flex-col gap-3">
           <p className="text-sm font-semibold leading-[14px] text-foreground">
             {title}
           </p>
-          <p className="text-xs leading-4 text-muted-foreground transition-colors duration-300 group-hover/face-m:text-foreground">
+          <p className="whitespace-nowrap text-[11px] leading-[14px] text-muted-foreground transition-colors duration-300 group-hover/face-m:text-foreground">
             {description}
           </p>
         </div>
