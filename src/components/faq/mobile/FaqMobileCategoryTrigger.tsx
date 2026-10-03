@@ -3,9 +3,11 @@ import { FaqCategoryIcon, FaqChevronIcon } from "../FaqIcons"
 
 export function FaqMobileCategoryTrigger({
   topic,
+  sheetOpen = false,
   onClick,
 }: {
   topic: FaqTopicMeta
+  sheetOpen?: boolean
   onClick: () => void
 }) {
   return (
@@ -26,6 +28,7 @@ export function FaqMobileCategoryTrigger({
       </span>
       <FaqChevronIcon
         aria-hidden
+        direction={sheetOpen ? "down" : "up"}
         className="mr-0.5 size-3.5 shrink-0 text-foreground"
       />
     </button>

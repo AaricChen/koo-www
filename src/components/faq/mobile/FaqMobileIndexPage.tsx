@@ -30,6 +30,7 @@ export function FaqMobileIndexPage({ topicSlug }: { topicSlug: FaqTopicSlug }) {
           <div className="faq-mobile-category-sticky bg-section-alt">
             <FaqMobileCategoryTrigger
               topic={topic}
+              sheetOpen={categoryOpen}
               onClick={() => setCategoryOpen(true)}
             />
           </div>
