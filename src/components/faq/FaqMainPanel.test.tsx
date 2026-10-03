@@ -32,8 +32,9 @@ describe("FaqMainPanel", () => {
     expect(aboutLink.className).toContain("faq-secondary-text-14")
     expect(container.querySelectorAll(".faq-main-panel-divider").length).toBe(0)
 
-    const title = screen.getByRole("heading", { name: "Topic title" })
-    expect(title.className).toContain("faq-topic-content__mobile-title")
+    const pageTitle = screen.getByRole("heading", { name: "What is Koo?" })
+    expect(pageTitle.className).toContain("faq-topic-content__title")
+    expect(screen.queryByRole("heading", { name: "Topic title" })).toBeNull()
 
     const intro = screen.getByText("Topic intro")
     expect(intro.className).toContain("faq-topic-content__description")

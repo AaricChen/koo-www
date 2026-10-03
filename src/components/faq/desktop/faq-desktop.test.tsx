@@ -22,10 +22,8 @@ describe("FaqDesktopIndexPage", () => {
     expect(active?.textContent).toContain("What is Koo?")
     expect(screen.getAllByRole("link", { name: /What is Koo\?/i }).length).toBeGreaterThan(0)
     expect(
-      screen.getByRole("heading", {
-        name: "Derivatives built around your NFT account",
-      }),
-    ).not.toBeNull()
+      screen.getByRole("heading", { name: "What is Koo?" }).className,
+    ).toContain("faq-topic-content__title")
     expect(container.querySelector(".faq-topic-content")).not.toBeNull()
     expect(container.querySelector(".faq-topic-content__accent")).not.toBeNull()
   })

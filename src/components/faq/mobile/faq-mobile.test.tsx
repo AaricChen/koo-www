@@ -41,10 +41,13 @@ describe("FaqMobileIndexPage", () => {
     const mobileRoot = categoryTrigger.closest("[data-figma-node='5589:66293']")
     expect(mobileRoot?.className).toContain("px-4")
     expect(
-      screen.getByRole("heading", {
+      screen.getByRole("heading", { name: "What is Koo?" }).className,
+    ).toContain("faq-topic-content__title")
+    expect(
+      screen.queryByRole("heading", {
         name: "Derivatives built around your NFT account",
       }),
-    ).not.toBeNull()
+    ).toBeNull()
     expect(screen.getByRole("heading", { name: "Key information" })).not.toBeNull()
     expect(screen.getByText("Who Koo is for")).not.toBeNull()
     expect(screen.queryByRole("link", { name: /View the details/i })).toBeNull()
@@ -69,6 +72,8 @@ describe("FaqMobileIndexPage", () => {
     expect(
       screen.getByRole("button", { name: "Select FAQ category: How to Trade?" }),
     ).not.toBeNull()
-    expect(screen.getByRole("heading", { name: "How to trade on Koo" })).not.toBeNull()
+    expect(
+      screen.getByRole("heading", { name: "How to trade on Koo?" }).className,
+    ).toContain("faq-topic-content__title")
   })
 })

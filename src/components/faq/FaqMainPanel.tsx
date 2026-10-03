@@ -74,7 +74,7 @@ export function FaqMainPanelFooter({
 export type FaqMainPanelProps = {
   /** Figma desktop page title with accent bar (`5632:70287`). */
   headerTitle: string
-  /** Mobile overview heading (`5591:67739`); hidden on `lg+`. */
+  /** Topic overview label (content model); not duplicated under the page header on mobile. */
   title: string
   /** Figma intro copy (`5589:64593`). */
   intro?: string
@@ -95,7 +95,7 @@ export type FaqMainPanelProps = {
  */
 export function FaqMainPanel({
   headerTitle,
-  title,
+  title: _overviewTitle,
   intro,
   children,
   accordionTitle,
@@ -106,18 +106,10 @@ export function FaqMainPanel({
   exploreLabel,
   className = "",
 }: FaqMainPanelProps) {
-  const hasTopBody = Boolean(intro || children || title)
+  const hasTopBody = Boolean(intro || children)
   const hasAccordion = Boolean(accordionItems && accordionItems.length > 0)
   const contentChildren = (
     <>
-      {title ? (
-        <h2
-          data-figma-node="5591:67739"
-          className="faq-topic-content__mobile-title w-full break-words lg:hidden"
-        >
-          {title}
-        </h2>
-      ) : null}
       {intro ? (
         <p
           data-figma-node="5632:70290"
@@ -139,7 +131,7 @@ export function FaqMainPanel({
         data-figma-node="5589:64587"
         className="faq-main-panel-inner"
       >
-        {hasTopBody || title ? (
+        {hasTopBody || headerTitle ? (
           <FaqTopicContentArea headerTitle={headerTitle}>
             {contentChildren}
           </FaqTopicContentArea>

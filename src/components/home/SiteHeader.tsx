@@ -18,6 +18,7 @@ import {
   X_URL,
 } from "../../lib/links"
 import { useMatchMedia } from "../../lib/use-match-media"
+import { LG_MIN_WIDTH_QUERY } from "../../lib/viewport"
 import { OutlineButton } from "../ui/Button"
 
 export type SiteHeaderActiveNav = "home" | "faq"
@@ -49,8 +50,6 @@ const navLinkActiveClass =
 
 const mobileNavLinkClass =
   "mobile-nav-item cursor-pointer text-sm leading-[14px] text-muted-foreground transition-colors duration-300 ease-out hover:text-foreground active:font-medium active:text-foreground"
-
-const LG_MIN_WIDTH_QUERY = "(min-width: 1024px)"
 
 function MenuIcon() {
   return (
