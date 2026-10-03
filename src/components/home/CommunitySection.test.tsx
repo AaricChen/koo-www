@@ -34,5 +34,8 @@ describe("CommunitySection", () => {
     expect(document.body.innerHTML).toContain("qr-icon-inactive.svg")
     expect(document.body.innerHTML).toContain("qr-icon-hover.svg")
     expect(document.body.innerHTML).toContain("community-card-qr")
+    expect(document.body.innerHTML).toContain("community-card__description")
+    expect(document.body.innerHTML).toContain('data-figma-node="5395:55854"')
+    expect(document.body.innerHTML).toContain('data-figma-node="5397:56429"')
   })
 })

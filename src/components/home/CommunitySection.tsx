@@ -97,7 +97,7 @@ function CommunityMobileHeroVisual() {
 /** Figma `qrcode` (5435:55638): 160×160 shell, bordered fill + inset QR layer. */
 function CommunityCardQr({ src, label }: { src: string; label: string }) {
   return (
-    <div className="community-card-qr" aria-hidden>
+    <div className="community-card-qr" data-figma-node="5437:56149" aria-hidden>
       <div className="community-card-qr-frame" />
       <div className="community-card-qr-image-wrap">
         <img src={src} alt="" className="community-card-qr-image" />
@@ -121,8 +121,10 @@ function CommunityChannelCard({
         href={href}
         target="_blank"
         rel="noreferrer"
+        data-figma-node="5395:55854"
+        data-figma-node-hover="5435:55545"
         aria-label={`${title}: ${description}`}
-        className="community-card-face group/face relative flex h-full min-h-[168px] w-full cursor-pointer items-end justify-between bg-surface-soft px-5 py-10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+        className="community-card-face group/face relative flex w-full cursor-pointer items-end justify-between gap-5 px-5 py-10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
       >
         <span className="community-card-qr-icon">
           <img
@@ -163,12 +165,12 @@ function CommunityChannelCard({
             <p className="text-xl font-semibold leading-5 text-foreground">
               {title}
             </p>
-            <p className="whitespace-nowrap text-sm leading-[18px] text-muted-foreground transition-colors duration-300 group-hover/face:text-foreground">
+            <p className="community-card__description [overflow-wrap:anywhere]">
               {description}
             </p>
           </div>
         </div>
-        <span className="inline-flex size-7 shrink-0 -rotate-90 opacity-70 transition-[opacity,transform] duration-300 group-hover/face:scale-110 group-hover/face:opacity-100">
+        <span className="inline-flex size-7 shrink-0 -rotate-90">
           <img
             src="/assets/community/arrow.svg"
             alt=""
@@ -194,8 +196,10 @@ function CommunityMobileChannelCard({
       href={href}
       target="_blank"
       rel="noreferrer"
+      data-figma-node="5397:56429"
+      data-figma-node-hover="5397:56419"
       aria-label={`${title}: ${description}`}
-      className="community-card-face-m group/face-m flex w-full cursor-pointer items-center justify-between bg-surface-soft px-4 py-6 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary active:scale-[0.99]"
+      className="community-card-face-m group/face-m flex w-full cursor-pointer items-center justify-between px-4 py-6 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
     >
       <div className="flex min-w-0 flex-1 items-start gap-4">
         <img
@@ -210,12 +214,12 @@ function CommunityMobileChannelCard({
           <p className="text-sm font-semibold leading-[14px] text-foreground">
             {title}
           </p>
-          <p className="whitespace-nowrap text-[11px] leading-[14px] text-muted-foreground transition-colors duration-300 group-hover/face-m:text-foreground">
+          <p className="community-card__description-m [overflow-wrap:anywhere]">
             {description}
           </p>
         </div>
       </div>
-      <span className="inline-flex size-4 shrink-0 -rotate-90 opacity-80">
+      <span className="inline-flex size-4 shrink-0 -rotate-90">
         <img
           src="/assets/community/arrow-mobile.svg"
           alt=""
@@ -236,6 +240,8 @@ export function CommunitySection() {
   return (
     <section
       aria-labelledby="community-heading"
+      data-figma-node="5395:55827"
+      data-figma-node-mobile="5397:56451"
       className="relative overflow-x-clip bg-background"
     >
       <div aria-hidden className="pointer-events-none absolute inset-0">
@@ -275,7 +281,11 @@ export function CommunitySection() {
           </div>
         </div>
 
-        <div className="relative z-10 mt-3 flex w-full flex-col gap-4 lg:-mt-[128px] lg:max-w-[1280px] lg:grid lg:grid-cols-3 lg:gap-6 lg:overflow-visible lg:pt-[128px]">
+        <div
+          data-figma-node="5395:55892"
+          data-figma-node-mobile="5397:56398"
+          className="relative z-10 mt-3 flex w-full flex-col gap-4 lg:-mt-[128px] lg:max-w-[1280px] lg:grid lg:grid-cols-3 lg:gap-6 lg:overflow-visible lg:pt-[128px]"
+        >
           <div className="contents lg:hidden">
             {communityChannels.map((channel) => (
               <CommunityMobileChannelCard key={channel.title} {...channel} />
