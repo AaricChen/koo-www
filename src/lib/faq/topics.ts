@@ -47,6 +47,6 @@ export function getFaqTopicMeta(slug: FaqTopicSlug): FaqTopicMeta {
   return topic
 }
 
-export function faqTopicPath(slug: FaqTopicSlug) {
+export function faqTopicPath(slug: FaqTopicSlug): `/faq/${FaqTopicSlug}` {
   return `/faq/${slug}`
 }

@@ -6,8 +6,11 @@ import { HeroSection } from "../components/home/HeroSection"
 import { SiteFooter } from "../components/home/SiteFooter"
 import { SiteHeader } from "../components/home/SiteHeader"
 import { WhyKooSection } from "../components/home/WhyKooSection"
+import { homePageSeo, usePageSeo } from "../lib/seo"
 
 export function HomePage() {
+  usePageSeo(homePageSeo)
+
   return (
     <>
       <SiteHeader />

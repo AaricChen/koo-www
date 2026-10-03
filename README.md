@@ -41,7 +41,7 @@ pnpm preview
 - Milestones mount either the mobile accordion or the desktop 1440×1480 canvas via `matchMedia(min-width: 1024px)`, not both. Desktop wrapper height does not follow content `scrollHeight`.
 - Chrome must fit `body` `min-width: 320px`: mobile header is a 50px bar (menu + mark + compact Launch App) with a 300px left drawer; Start Trading uses `w-full max-w-[300px]`. Primary nav is `md+`. Community expands to X / Twitter, Discord, and Telegram rows (icons + labels + chevrons; no links until product supplies live URLs).
 - Poppins is self-hosted from `/fonts/poppins-*.woff2`.
-- `index.html` sets `referrer` to `strict-origin-when-cross-origin`.
+- `index.html` sets homepage SEO (P01 title/description, canonical, Open Graph, Twitter cards, Organization/WebSite JSON-LD) and `referrer` to `strict-origin-when-cross-origin`. Per-route updates use `usePageSeo` from `src/lib/seo` with definitions in `src/lib/seo/pages/*` (FAQ: `faq-topic-seo.ts`).
 
 ## Diagnostics
 
