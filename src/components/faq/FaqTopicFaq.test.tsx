@@ -24,6 +24,10 @@ describe("FaqTopicFaq", () => {
 
     expect(container.querySelector(".faq-topic-faq")).not.toBeNull()
     expect(container.querySelector('[data-figma-node="5589:64611"]')).not.toBeNull()
+    expect(container.querySelectorAll(".faq-topic-faq__question-mark")).toHaveLength(2)
+    expect(container.querySelector(".faq-topic-faq__question-text")?.textContent).toBe(
+      "What is Koo?",
+    )
     expect(screen.getByRole("heading", { name: "FAQ" }).className).toContain(
       "faq-topic-faq__heading",
     )

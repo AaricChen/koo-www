@@ -31,12 +31,17 @@ function FaqTopicFaqItem({
         onClick={onToggle}
         className="faq-topic-card-trigger flex w-full cursor-pointer items-center justify-between gap-3 text-left"
       >
-        <span
-          className={`faq-topic-faq__question min-w-0 flex-1 text-foreground ${
-            expanded ? "font-semibold" : "font-normal"
-          }`}
-        >
-          {item.question}
+        <span className="faq-topic-faq__question min-w-0 flex-1 text-foreground">
+          <span className="faq-topic-faq__question-mark" aria-hidden="true">
+            #
+          </span>
+          <span
+            className={`faq-topic-faq__question-text ${
+              expanded ? "font-semibold" : "font-normal"
+            }`}
+          >
+            {item.question}
+          </span>
         </span>
         <span
           className={`faq-topic-faq__chevron inline-flex shrink-0 ${

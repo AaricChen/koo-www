@@ -710,12 +710,6 @@
   }
 
   @media (min-width: 1024px) {
-    .home-faq-list {
-      width: 100%;
-      max-width: 800px;
-      margin-inline: auto;
-    }
-
     .home-faq-panel-body {
       align-items: flex-start;
       padding-top: 24px;
@@ -940,8 +934,22 @@
   }
 
   .faq-topic-faq__question {
+    display: flex;
+    align-items: flex-start;
+    gap: 4px;
     font-size: 14px;
     line-height: 22px;
+  }
+
+  .faq-topic-faq__question-mark {
+    flex-shrink: 0;
+    font-weight: 400;
+    color: var(--color-secondary);
+  }
+
+  .faq-topic-faq__question-text {
+    min-width: 0;
+    flex: 1 1 0;
   }
 
   .faq-topic-faq__answer {
