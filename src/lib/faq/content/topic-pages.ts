@@ -39,12 +39,16 @@ export const FAQ_TOPIC_PAGES: Record<FaqTopicSlug, FaqTopicContent> = {
           rest: " - Koo organizes trading state inside NFT Accounts and supports crypto, TradFi and event-linked contracts.",
         },
       ]),
-      plainListSection("Four core capabilities", [
-        "NFT Accounts",
-        "Yield-bearing Margin",
-        "Event Contracts",
-        "Vault / Insurance-fund Participation",
-      ]),
+      plainListSection(
+        "Four core capabilities",
+        [
+          "NFT Accounts",
+          "Yield-bearing Margin",
+          "Event Contracts",
+          "Vault / Insurance-fund Participation",
+        ],
+        { dividerAfter: true },
+      ),
     ],
     faqItems([
       {

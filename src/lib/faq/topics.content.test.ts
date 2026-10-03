@@ -38,6 +38,7 @@ describe("getFaqTopicContent", () => {
     expect(content.sections[3]).toMatchObject({
       kind: "list",
       title: "Four core capabilities",
+      dividerAfter: true,
     })
     expect(content.accordion?.[0]?.question).toBe("Is Koo a centralized exchange?")
     expect(content.accordion?.[1]?.question).toBe("Is everything on Koo onchain?")

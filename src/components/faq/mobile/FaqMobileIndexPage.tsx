@@ -27,7 +27,7 @@ export function FaqMobileIndexPage({ topicSlug }: { topicSlug: FaqTopicSlug }) {
           data-figma-node="5591:67743"
           className="flex w-full min-w-0 flex-col gap-3"
         >
-          <div className="faq-mobile-category-sticky bg-section-alt">
+          <div className="faq-mobile-category-sticky">
             <FaqMobileCategoryTrigger
               topic={topic}
               sheetOpen={categoryOpen}
