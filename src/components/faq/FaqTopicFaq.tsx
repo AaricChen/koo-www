@@ -79,8 +79,6 @@ export type FaqTopicFaqProps = {
 
 /** Figma FAQ block on topic subpages (`5589:64609` → `5589:64611`). */
 export function FaqTopicFaq({ title = "FAQ", items }: FaqTopicFaqProps) {
-  if (items.length === 0) return null
-
   const baseId = useId()
   const itemsKey = useMemo(() => items.map((item) => item.id).join("|"), [items])
   const [openId, setOpenId] = useState<string | null>(() => firstAnsweredItemId(items))
@@ -88,6 +86,8 @@ export function FaqTopicFaq({ title = "FAQ", items }: FaqTopicFaqProps) {
   useEffect(() => {
     setOpenId(firstAnsweredItemId(items))
   }, [itemsKey, items])
+
+  if (items.length === 0) return null
 
   return (
     <section
