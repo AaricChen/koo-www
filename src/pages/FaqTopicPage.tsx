@@ -1,7 +1,5 @@
 import { Navigate, useParams } from "react-router-dom"
 import { FaqIndexPage } from "../components/faq/FaqIndexPage"
-import { SiteFooter } from "../components/home/SiteFooter"
-import { SiteHeader } from "../components/home/SiteHeader"
 import {
   DEFAULT_FAQ_TOPIC_SLUG,
   type FaqTopicSlug,
@@ -22,12 +20,8 @@ function FaqTopicPageView({ topicSlug }: { topicSlug: FaqTopicSlug }) {
   usePageSeo(getFaqTopicPageSeo(topicSlug))
 
   return (
-    <>
-      <SiteHeader />
-      <main>
-        <FaqIndexPage topicSlug={topicSlug} />
-      </main>
-      <SiteFooter />
-    </>
+    <main>
+      <FaqIndexPage topicSlug={topicSlug} />
+    </main>
   )
 }

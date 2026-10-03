@@ -7,7 +7,7 @@ import {
   type ReactNode,
   type Ref,
 } from "react"
-import { useLocation } from "react-router-dom"
+import { Link, useLocation } from "react-router-dom"
 import {
   APP_URL,
   DISCORD_URL,
@@ -162,8 +162,8 @@ function IconButton({
 
 function MobileMark({ onClick }: { onClick?: () => void }) {
   return (
-    <a
-      href="/"
+    <Link
+      to="/"
       onClick={onClick}
       className="relative block h-4 w-9 shrink-0 overflow-hidden"
     >
@@ -174,8 +174,12 @@ function MobileMark({ onClick }: { onClick?: () => void }) {
         width={36}
         height={16}
       />
-    </a>
+    </Link>
   )
+}
+
+function isInternalAppPath(href: string) {
+  return href === "/" || href.startsWith("/faq")
 }
 
 function navLinkClassForActive(isActive: boolean) {
@@ -284,8 +288,8 @@ export function SiteHeader() {
         </div>
 
         <div className="hidden w-full items-center justify-between overflow-visible px-7 py-5 lg:flex">
-          <a
-            href="/"
+          <Link
+            to="/"
             className="relative block h-10 w-[175px] shrink-0 overflow-hidden"
           >
             <img
@@ -295,7 +299,7 @@ export function SiteHeader() {
               width={175}
               height={40}
             />
-          </a>
+          </Link>
 
           <div className="flex min-w-0 items-center justify-end gap-12 overflow-visible">
             <nav
@@ -305,18 +309,27 @@ export function SiteHeader() {
               {navItems.map((item, index) => (
                 <div key={item.label} className="contents">
                   {index > 0 ? <NavDivider /> : null}
-                  <a
-                    href={item.href}
-                    className={navLinkClassForActive(
-                      "activeKey" in item && item.activeKey === activeNav,
-                    )}
-                    target={item.href.startsWith("http") ? "_blank" : undefined}
-                    rel={
-                      item.href.startsWith("http") ? "noreferrer" : undefined
-                    }
-                  >
-                    {item.label}
-                  </a>
+                  {isInternalAppPath(item.href) ? (
+                    <Link
+                      to={item.href}
+                      className={navLinkClassForActive(
+                        "activeKey" in item && item.activeKey === activeNav,
+                      )}
+                    >
+                      {item.label}
+                    </Link>
+                  ) : (
+                    <a
+                      href={item.href}
+                      className={navLinkClassForActive(
+                        "activeKey" in item && item.activeKey === activeNav,
+                      )}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      {item.label}
+                    </a>
+                  )}
                 </div>
               ))}
               <NavDivider />
@@ -384,12 +397,12 @@ export function SiteHeader() {
                 </div>
               </div>
               <NavDivider />
-              <a
-                href={FAQ_URL}
+              <Link
+                to={FAQ_URL}
                 className={navLinkClassForActive(activeNav === "faq")}
               >
                 FAQ
-              </a>
+              </Link>
             </nav>
 
             <OutlineButton
@@ -435,13 +448,13 @@ export function SiteHeader() {
           aria-label="Mobile"
           className="flex w-full flex-col items-start gap-6 px-1"
         >
-          <a
-            href="/"
+          <Link
+            to="/"
             className={`${mobileNavLinkClassForActive(activeNav === "home")} pr-1`}
             onClick={closeMenu}
           >
             Home
-          </a>
+          </Link>
           <div className="mobile-nav-rule" aria-hidden />
           <a
             href={DOCS_URL}
@@ -525,13 +538,13 @@ export function SiteHeader() {
             </div>
           </div>
           <div className="mobile-nav-rule" aria-hidden />
-          <a
-            href={FAQ_URL}
+          <Link
+            to={FAQ_URL}
             className={`${mobileNavLinkClassForActive(activeNav === "faq")} w-full`}
             onClick={closeMenu}
           >
             FAQ
-          </a>
+          </Link>
         </nav>
       </div>
     </>
