@@ -49,9 +49,9 @@ export const FAQ_TOPIC_SEO_COPY = {
       "Explore selected Koo stock, ETF, precious-metal and oil perpetuals with USDC margin, dynamic funding and current market rules.",
   },
   "trading-fees": {
-    title: "Koo Trading Fees: Maker and Taker Rates",
+    title: "Koo Trading Fees: Maker, Taker and Minimum Fees",
     description:
-      "See Koo’s current 0.02% taker fee and -0.005% maker fee, how maker rebates work and when a limit order can be a taker.",
+      "Koo charges a 0.02% taker fee with a 0.05 USDC minimum per order. Learn about the 0.005% maker rebate and partial fills.",
   },
   funding: {
     title: "Koo Funding Rates: Schedule, Direction and Formula",

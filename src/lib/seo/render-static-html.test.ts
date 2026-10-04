@@ -72,7 +72,7 @@ describe("render-static-html", () => {
   it("renders FAQ title and canonical in head tags", () => {
     const resolved = buildPageSeo(getFaqTopicPageSeo("trading-fees"))
     const head = renderSeoHeadTags(resolved)
-    expect(head).toContain("Koo Trading Fees: Maker and Taker Rates")
+    expect(head).toContain("Koo Trading Fees: Maker, Taker and Minimum Fees")
     expect(head).toContain("https://www.koo.xyz/faq/trading-fees")
   })
 
@@ -84,9 +84,11 @@ describe("render-static-html", () => {
       '<main data-koo-prerender="faq"><h1>Fees</h1></main>',
     )
 
-    expect(html).toContain("<title>Koo Trading Fees: Maker and Taker Rates</title>")
     expect(html).toContain(
-      'content="See Koo’s current 0.02% taker fee and -0.005% maker fee, how maker rebates work and when a limit order can be a taker."',
+      "<title>Koo Trading Fees: Maker, Taker and Minimum Fees</title>",
+    )
+    expect(html).toContain(
+      'content="Koo charges a 0.02% taker fee with a 0.05 USDC minimum per order. Learn about the 0.005% maker rebate and partial fills."',
     )
     expect(html).toContain('href="https://www.koo.xyz/faq/trading-fees"')
     expect(html).not.toContain(HOME_PAGE_TITLE)
