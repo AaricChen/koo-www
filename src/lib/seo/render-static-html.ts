@@ -35,15 +35,28 @@ export function renderSeoHeadTags(resolved: ResolvedPageSeo): string {
   return lines.join("\n    ")
 }
 
+/**
+ * Matches SEO tags whether attributes are on one line or split across lines
+ * (as in the source index.html template).
+ */
 const SEO_HEAD_TAG_PATTERN =
-  /<title>[\s\S]*?<\/title>|<meta name="description"[\s\S]*?\/>|<link rel="canonical"[\s\S]*?\/>|<meta property="og:[^"]+"[\s\S]*?\/>|<meta name="twitter:[^"]+"[\s\S]*?\/>|<script id="koo-page-jsonld"[\s\S]*?<\/script>/g
+  /<title\b[^>]*>[\s\S]*?<\/title>|<meta\b[^>]*\bname=["']description["'][^>]*\/?>|<link\b[^>]*\brel=["']canonical["'][^>]*\/?>|<meta\b[^>]*\bproperty=["']og:[^"']+["'][^>]*\/?>|<meta\b[^>]*\bname=["']twitter:[^"']+["'][^>]*\/?>|<script\b[^>]*\bid=["']koo-page-jsonld["'][^>]*>[\s\S]*?<\/script>/g
+
+function collapseBlankLinesInHead(html: string): string {
+  return html.replace(/<head>([\s\S]*?)<\/head>/i, (_match, headInner: string) => {
+    const cleaned = headInner.replace(/^\s*\n/gm, "").replace(/\n{3,}/g, "\n\n")
+    return `<head>${cleaned}</head>`
+  })
+}
 
 export function applySeoToBuiltIndexHtml(
   html: string,
   resolved: ResolvedPageSeo,
   staticRootHtml?: string,
 ): string {
-  const withoutSeoHead = html.replace(SEO_HEAD_TAG_PATTERN, "")
+  const withoutSeoHead = collapseBlankLinesInHead(
+    html.replace(SEO_HEAD_TAG_PATTERN, ""),
+  )
   const headTags = renderSeoHeadTags(resolved)
   const withHead = withoutSeoHead.replace(
     /<head>\s*/,
