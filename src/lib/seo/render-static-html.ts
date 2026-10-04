@@ -35,10 +35,6 @@ export function renderSeoHeadTags(resolved: ResolvedPageSeo): string {
   return lines.join("\n    ")
 }
 
-export function renderFaqStaticMain(h1: string, intro: string): string {
-  return `<main data-koo-prerender="faq"><h1>${escapeHtml(h1)}</h1><p>${escapeHtml(intro)}</p></main>`
-}
-
 const SEO_HEAD_TAG_PATTERN =
   /<title>[\s\S]*?<\/title>|<meta name="description"[\s\S]*?\/>|<link rel="canonical"[\s\S]*?\/>|<meta property="og:[^"]+"[\s\S]*?\/>|<meta name="twitter:[^"]+"[\s\S]*?\/>|<script id="koo-page-jsonld"[\s\S]*?<\/script>/g
 

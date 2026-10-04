@@ -6,7 +6,7 @@
   "packageManager": "pnpm@11.20.0",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build && tsx scripts/prerender-dist-html.ts",
+    "build": "tsc -b && vite build && tsx --tsconfig tsconfig.app.json scripts/prerender-dist-html.ts",
     "lint": "oxlint",
     "test": "vitest run",
     "preview": "vite preview"

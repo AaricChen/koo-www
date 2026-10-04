@@ -2,9 +2,9 @@ import { describe, expect, it } from "vitest"
 import { buildPageSeo } from "./build-page-seo"
 import { getFaqTopicPageSeo } from "./pages/faq-topic-seo"
 import { homePageSeo } from "./pages/home"
+import { renderHomeStaticRoot } from "./render-prerender-root"
 import {
   applySeoToBuiltIndexHtml,
-  renderFaqStaticMain,
   renderSeoHeadTags,
 } from "./render-static-html"
 
@@ -30,24 +30,26 @@ describe("render-static-html", () => {
     expect(head).toContain("https://www.koo.xyz/faq/trading-fees")
   })
 
-  it("applies SEO and static FAQ main into built index template", () => {
+  it("applies SEO and static root markup into built index template", () => {
     const resolved = buildPageSeo(getFaqTopicPageSeo("what-is-koo"))
-    const html = applySeoToBuiltIndexHtml(
-      sampleIndex,
-      resolved,
-      renderFaqStaticMain("What is Koo?", "Intro paragraph."),
-    )
+    const staticRoot = '<main data-koo-prerender="faq"><h1>What is Koo?</h1></main>'
+    const html = applySeoToBuiltIndexHtml(sampleIndex, resolved, staticRoot)
 
     expect(html).toContain("<h1>What is Koo?</h1>")
-    expect(html).toContain("Intro paragraph.")
     expect(html).toContain('id="root"><main data-koo-prerender="faq">')
     expect(html).not.toContain("Old title")
   })
 
-  it("overwrites home head without static root body", () => {
+  it("injects homepage body into #root", () => {
     const resolved = buildPageSeo(homePageSeo)
-    const html = applySeoToBuiltIndexHtml(sampleIndex, resolved)
+    const html = applySeoToBuiltIndexHtml(
+      sampleIndex,
+      resolved,
+      renderHomeStaticRoot(),
+    )
     expect(html).toContain(homePageSeo.title)
-    expect(html).toContain('<div id="root"></div>')
+    expect(html).toContain('data-koo-prerender="home"')
+    expect(html).toContain("Portable Accounts")
+    expect(html).not.toContain('<div id="root"></div>')
   })
 })

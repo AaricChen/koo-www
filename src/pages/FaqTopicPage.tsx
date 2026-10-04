@@ -16,12 +16,17 @@ export function FaqTopicPage() {
   return <FaqTopicPageView topicSlug={topicSlug} />
 }
 
-function FaqTopicPageView({ topicSlug }: { topicSlug: FaqTopicSlug }) {
-  usePageSeo(getFaqTopicPageSeo(topicSlug))
-
+/** Topic body for CSR and build-time prerender (no SEO side effects). */
+export function FaqTopicPageMain({ topicSlug }: { topicSlug: FaqTopicSlug }) {
   return (
-    <main>
+    <main data-koo-prerender="faq">
       <FaqIndexPage topicSlug={topicSlug} />
     </main>
   )
+}
+
+function FaqTopicPageView({ topicSlug }: { topicSlug: FaqTopicSlug }) {
+  usePageSeo(getFaqTopicPageSeo(topicSlug))
+
+  return <FaqTopicPageMain topicSlug={topicSlug} />
 }

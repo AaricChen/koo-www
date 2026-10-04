@@ -41,8 +41,11 @@ pnpm preview
 - Milestones mount either the mobile accordion or the desktop 1440×1480 canvas via `matchMedia(min-width: 1024px)`, not both. Desktop wrapper height does not follow content `scrollHeight`.
 - Chrome must fit `body` `min-width: 320px`: mobile header is a 50px bar (menu + mark + compact Launch App) with a 300px left drawer; Start Trading uses `w-full max-w-[300px]`. Primary nav is `md+`. Community expands to X / Twitter, Discord, and Telegram rows (icons + labels + chevrons; no links until product supplies live URLs).
 - Poppins is self-hosted from `/fonts/poppins-*.woff2`.
-- `index.html` sets homepage SEO (P01 title/description, canonical, Open Graph, Twitter cards, Organization/WebSite JSON-LD) and `referrer` to `strict-origin-when-cross-origin`. Per-route updates use `usePageSeo` from `src/lib/seo` with definitions in `src/lib/seo/pages/*` (FAQ: `faq-topic-seo.ts`). `pnpm build` prerenders `/` and each `/faq/:slug` into `dist/` with the same `buildPageSeo` head plus a static FAQ H1/intro inside `#root` for no-JS crawlers.
-- Verify prerender: `curl -sL http://127.0.0.1:4173/faq/trading-fees | grep -E '<title>|canonical|<h1>'` after `pnpm build && pnpm preview`.
+- `index.html` sets homepage SEO (P01 title/description, canonical, Open Graph, Twitter cards, Organization/WebSite JSON-LD) and `referrer` to `strict-origin-when-cross-origin`. Per-route updates use `usePageSeo` from `src/lib/seo` with definitions in `src/lib/seo/pages/*` (FAQ: `faq-topic-seo.ts`). `pnpm build` prerenders `/`, `/faq`, and each `/faq/:slug` into `dist/` with the same `buildPageSeo` head plus full page body markup inside `#root` (sections, FAQ Q&A answers, related links) for no-JS crawlers.
+- Verify prerender after `pnpm build && pnpm preview` (use trailing slashes so preview serves nested `index.html` files):
+  - `curl -sL http://127.0.0.1:4173/ | grep -F "Portable Accounts"`
+  - `curl -sL http://127.0.0.1:4173/faq/ | grep -F "Is Koo a centralized exchange"`
+  - `curl -sL http://127.0.0.1:4173/faq/trading-fees/ | grep -F "Maker"`
 
 ## Diagnostics
 

@@ -1,9 +1,15 @@
-import { FAQ_TOPIC_PAGES } from "../faq/content/topic-pages"
-import { FAQ_TOPIC_SLUGS, faqTopicPath } from "../faq/topics"
+import {
+  DEFAULT_FAQ_TOPIC_SLUG,
+  FAQ_TOPIC_SLUGS,
+  faqTopicPath,
+} from "../faq/topics"
 import { buildPageSeo } from "./build-page-seo"
 import { getFaqTopicPageSeo } from "./pages/faq-topic-seo"
 import { homePageSeo } from "./pages/home"
-import { renderFaqStaticMain } from "./render-static-html"
+import {
+  renderFaqTopicStaticRoot,
+  renderHomeStaticRoot,
+} from "./render-prerender-root"
 import type { PageSeoDefinition } from "./types"
 
 export type PrerenderPage = {
@@ -13,17 +19,17 @@ export type PrerenderPage = {
   staticRootHtml?: string
 }
 
-function faqStaticRootHtml(slug: (typeof FAQ_TOPIC_SLUGS)[number]): string {
-  const content = FAQ_TOPIC_PAGES[slug]
-  const h1 = content.pageHeaderTitle ?? content.overviewTitle
-  return renderFaqStaticMain(h1, content.intro)
-}
-
 export function getPrerenderPages(): PrerenderPage[] {
   const pages: PrerenderPage[] = [
     {
       outFile: "index.html",
       definition: homePageSeo,
+      staticRootHtml: renderHomeStaticRoot(),
+    },
+    {
+      outFile: "faq/index.html",
+      definition: getFaqTopicPageSeo(DEFAULT_FAQ_TOPIC_SLUG),
+      staticRootHtml: renderFaqTopicStaticRoot(DEFAULT_FAQ_TOPIC_SLUG),
     },
   ]
 
@@ -31,7 +37,7 @@ export function getPrerenderPages(): PrerenderPage[] {
     pages.push({
       outFile: `faq/${slug}/index.html`,
       definition: getFaqTopicPageSeo(slug),
-      staticRootHtml: faqStaticRootHtml(slug),
+      staticRootHtml: renderFaqTopicStaticRoot(slug),
     })
   }
 

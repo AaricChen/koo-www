@@ -6,11 +6,10 @@ import { HeroSection } from "../components/home/HeroSection"
 import { WhyKooSection } from "../components/home/WhyKooSection"
 import { homePageSeo, usePageSeo } from "../lib/seo"
 
-export function HomePage() {
-  usePageSeo(homePageSeo)
-
+/** Page body for CSR and build-time prerender (no SEO side effects). */
+export function HomePageMain() {
   return (
-    <main>
+    <main data-koo-prerender="home">
       <HeroSection />
       <WhyKooSection />
       <ExclusiveExperienceSection />
@@ -19,4 +18,10 @@ export function HomePage() {
       <EnterKooSection />
     </main>
   )
+}
+
+export function HomePage() {
+  usePageSeo(homePageSeo)
+
+  return <HomePageMain />
 }
