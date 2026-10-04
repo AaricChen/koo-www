@@ -4,6 +4,7 @@ import { fileURLToPath } from "node:url"
 import { buildPageSeo } from "../src/lib/seo/build-page-seo"
 import { getPrerenderPages } from "../src/lib/seo/prerender-pages"
 import { applySeoToBuiltIndexHtml } from "../src/lib/seo/render-static-html"
+import { renderSitemapXml } from "../src/lib/seo/sitemap"
 
 const distDir = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
@@ -30,4 +31,8 @@ for (const page of pages) {
   fs.writeFileSync(outPath, html, "utf8")
 }
 
+const sitemapPath = path.join(distDir, "sitemap.xml")
+fs.writeFileSync(sitemapPath, renderSitemapXml(), "utf8")
+
 console.info(`[koo-www] Prerendered ${pages.length} HTML routes into dist/`)
+console.info(`[koo-www] Wrote ${path.relative(distDir, sitemapPath)}`)

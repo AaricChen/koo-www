@@ -46,6 +46,9 @@ pnpm preview
   - `curl -sL http://127.0.0.1:4173/ | grep -F "Portable Accounts"`
   - `curl -sL http://127.0.0.1:4173/faq/ | grep -F "Is Koo a centralized exchange"`
   - `curl -sL http://127.0.0.1:4173/faq/trading-fees/ | grep -F "Maker"`
+- `public/robots.txt` is copied to `dist/`; `pnpm build` also writes `dist/sitemap.xml` (home + 11 FAQ topic URLs). Verify they are real files, not HTML:
+  - `curl -sL http://127.0.0.1:4173/robots.txt | grep -F "Sitemap:"`
+  - `curl -sL http://127.0.0.1:4173/sitemap.xml | grep -c '<loc>'` (expect `12`)
 
 ## Diagnostics
 
