@@ -596,7 +596,6 @@
   /* Frosted chrome for sticky header + mobile FAQ category bar (no transform on subtree). */
   .site-header,
   .faq-mobile-category-sticky {
-    isolation: isolate;
     background: transparent;
   }
 

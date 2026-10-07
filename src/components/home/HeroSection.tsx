@@ -68,18 +68,22 @@ export function HeroSection() {
         </div>
 
         <div className="animate-fade-up flex w-full flex-col items-center gap-16 lg:gap-[72px] [animation-delay:120ms]">
-          <div className="flex w-full flex-col items-center gap-5 px-4 text-center sm:gap-7 sm:px-10">
-            <h1 className="font-display max-w-[310px] text-[32px] font-bold leading-9 text-foreground sm:max-w-[520px] sm:text-[34px] sm:leading-[1.15] lg:text-[52px] lg:leading-[57px]">
+          <div className="flex w-full flex-col items-center gap-5 px-4 text-center sm:px-10 lg:gap-7">
+            {/* Figma `3020:39483` (desktop) / `3547:12220` (top-m). */}
+            <h1
+              className="font-display max-w-[310px] text-[32px] font-bold leading-9 text-foreground lg:max-w-[520px] lg:text-[52px] lg:leading-[57px]"
+              data-figma-node="3020:39483"
+            >
               <span className="lg:hidden">
-                Portable Accounts
+                Portable Accounts,
                 <br />
-                Productive Capital
+                Productive Capital.
               </span>
               <span className="hidden lg:inline">
                 Portable Accounts, Productive Capital.
               </span>
             </h1>
-            <p className="max-w-[308px] text-sm leading-5 text-muted-foreground sm:max-w-[866px] sm:text-base sm:leading-7 lg:text-xl lg:leading-[30px]">
+            <p className="max-w-[308px] text-sm leading-5 text-muted-foreground lg:max-w-[866px] lg:text-[20px] lg:leading-[30px]">
               Professional event contract trading powered by NFT on-chain
               accounts, yield-earning margin funds and KFC token holder revenue
               sharing.
