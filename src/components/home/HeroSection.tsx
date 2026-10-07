@@ -71,17 +71,11 @@ export function HeroSection() {
           <div className="flex w-full flex-col items-center gap-5 px-4 text-center sm:px-10 lg:gap-7">
             {/* Figma `3020:39483` (desktop) / `3547:12220` (top-m). */}
             <h1
-              className="font-display max-w-[310px] text-[32px] font-bold leading-9 text-foreground lg:max-w-[520px] lg:text-[52px] lg:leading-[57px]"
+              className="font-display text-[32px] font-bold leading-9 text-foreground lg:text-[52px] lg:leading-[57px]"
               data-figma-node="3020:39483"
             >
-              <span className="lg:hidden">
-                Portable Accounts,
-                <br />
-                Productive Capital.
-              </span>
-              <span className="hidden lg:inline">
-                Portable Accounts, Productive Capital.
-              </span>
+              <span className="block whitespace-nowrap">Portable Accounts,</span>
+              <span className="block whitespace-nowrap">Productive Capital.</span>
             </h1>
             <p className="max-w-[308px] text-sm leading-5 text-muted-foreground lg:max-w-[866px] lg:text-[20px] lg:leading-[30px]">
               Professional event contract trading powered by NFT on-chain
