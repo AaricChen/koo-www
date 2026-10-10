@@ -549,7 +549,8 @@
     position: fixed;
     inset: 0;
     z-index: 60;
-    background: rgba(13, 14, 14, 0.6);
+    /* Figma `3561:21396` scrim — full viewport including header */
+    background: rgba(21, 23, 25, 0.6);
     opacity: 0;
     pointer-events: none;
     transition: opacity 320ms cubic-bezier(0.4, 0, 0.2, 1);
@@ -562,6 +563,7 @@
 
   .mobile-nav-drawer {
     --mobile-nav-ease: cubic-bezier(0.22, 1, 0.36, 1);
+    /* Figma `3561:21397` — ow-m-menu drawer (full height) */
     position: fixed;
     inset-block: 0;
     left: 0;

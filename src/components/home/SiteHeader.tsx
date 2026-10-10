@@ -48,8 +48,13 @@ const navLinkClass =
 const navLinkActiveClass =
   "cursor-pointer whitespace-nowrap text-base leading-4 font-medium text-foreground transition-colors duration-300 ease-out hover:text-foreground"
 
+/** Figma `5656:73082` — Home, Docs, Community at 14/14. */
 const mobileNavLinkClass =
   "mobile-nav-item cursor-pointer text-sm leading-[14px] text-muted-foreground transition-colors duration-300 ease-out hover:text-foreground active:font-medium active:text-foreground"
+
+/** Figma `5656:73094` / `5656:73108` — Roadmap, FAQ at 16/16. */
+const mobileNavLinkClassLg =
+  "mobile-nav-item cursor-pointer text-base leading-4 text-muted-foreground transition-colors duration-300 ease-out hover:text-foreground active:font-medium active:text-foreground"
 
 function MenuIcon() {
   return (
@@ -160,12 +165,32 @@ function IconButton({
   )
 }
 
-function MobileMark({ onClick }: { onClick?: () => void }) {
+/** Figma top-m header bar — mark only (`logo-main.svg`, 36×16). */
+function MobileHeaderBarMark() {
+  return (
+    <Link
+      to="/"
+      className="relative block h-4 w-9 shrink-0 overflow-hidden"
+    >
+      <img
+        src="/assets/logo-main.svg"
+        alt="Koo.xyz"
+        className="size-full object-contain object-left"
+        width={36}
+        height={16}
+      />
+    </Link>
+  )
+}
+
+/** Figma `6266:81454` — drawer header wordmark (`sidebar-menu-logo.svg`, 105×24). */
+function MobileDrawerMark({ onClick }: { onClick?: () => void }) {
   return (
     <Link
       to="/"
       onClick={onClick}
-      className="relative block h-4 w-[70px] shrink-0 overflow-hidden"
+      className="relative block h-6 w-[105px] shrink-0 overflow-hidden"
+      data-figma-node="6266:81454"
     >
       <img
         src="/assets/sidebar-menu-logo.svg"
@@ -186,10 +211,9 @@ function navLinkClassForActive(isActive: boolean) {
   return isActive ? navLinkActiveClass : navLinkClass
 }
 
-function mobileNavLinkClassForActive(isActive: boolean) {
-  return isActive
-    ? `${mobileNavLinkClass} font-medium text-foreground`
-    : mobileNavLinkClass
+function mobileNavLinkClassForActive(isActive: boolean, size: "sm" | "lg" = "sm") {
+  const base = size === "lg" ? mobileNavLinkClassLg : mobileNavLinkClass
+  return isActive ? `${base} font-medium text-foreground` : base
 }
 
 export function SiteHeader() {
@@ -275,7 +299,7 @@ export function SiteHeader() {
             >
               <MenuIcon />
             </IconButton>
-            <MobileMark />
+            <MobileHeaderBarMark />
           </div>
           <OutlineButton
             href={APP_URL}
@@ -430,9 +454,13 @@ export function SiteHeader() {
         aria-label="Menu"
         aria-hidden={!menuOpen}
         inert={!menuOpen}
+        data-figma-node="3561:21397"
       >
-        <div className="flex w-full items-center justify-between">
-          <MobileMark onClick={closeMenu} />
+        <div
+          className="flex w-full items-center justify-between"
+          data-figma-node="3561:21398"
+        >
+          <MobileDrawerMark onClick={closeMenu} />
           <button
             ref={closeButtonRef}
             type="button"
@@ -447,6 +475,7 @@ export function SiteHeader() {
         <nav
           aria-label="Mobile"
           className="flex w-full flex-col items-start gap-6 px-1"
+          data-figma-node="5656:73082"
         >
           <Link
             to="/"
@@ -468,7 +497,7 @@ export function SiteHeader() {
           <div className="mobile-nav-rule" aria-hidden />
           <a
             href={ROADMAP_URL}
-            className={`${mobileNavLinkClass} w-full`}
+            className={`${mobileNavLinkClassLg} w-full`}
             target="_blank"
             rel="noreferrer"
             onClick={closeMenu}
@@ -540,7 +569,7 @@ export function SiteHeader() {
           <div className="mobile-nav-rule" aria-hidden />
           <Link
             to={FAQ_URL}
-            className={`${mobileNavLinkClassForActive(activeNav === "faq")} w-full`}
+            className={`${mobileNavLinkClassForActive(activeNav === "faq", "lg")} w-full`}
             onClick={closeMenu}
           >
             FAQ

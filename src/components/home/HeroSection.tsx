@@ -79,7 +79,7 @@ export function HeroSection() {
               <span className="block whitespace-nowrap">Portable Accounts,</span>
               <span className="block whitespace-nowrap">Productive Capital.</span>
             </h1>
-            <p className="max-w-[308px] text-sm leading-5 text-muted-foreground lg:max-w-[866px] lg:text-[20px] lg:leading-[30px]">
+            <p className="max-w-[320px] text-sm leading-5 text-muted-foreground lg:max-w-[866px] lg:text-[20px] lg:leading-[30px]">
               Professional event contract trading powered by NFT on-chain
               accounts, yield-earning margin funds and KFC token holder revenue
               sharing.
