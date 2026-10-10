@@ -6,7 +6,7 @@ export const FAQ_COLOR_TOKENS = {
   foreground: "foreground",
   mutedForeground: "muted-foreground",
   primary: "primary",
-  /** Figma `secondary-color` — `#009EFA` / display-p3 */
+  /** Figma `secondary-color` — `#32ADFF` / display-p3 */
   secondary: "secondary",
   secondaryHover: "secondary-hover",
   secondaryActive: "secondary-active",
