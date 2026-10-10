@@ -22,9 +22,9 @@
 <feGaussianBlur stdDeviation="50" result="effect3_foregroundBlur_5455_46371"/>
 </filter>
 <linearGradient id="paint0_linear_5455_46371" x1="100" y1="167.473" x2="362.226" y2="167.473" gradientUnits="userSpaceOnUse">
-<stop stop-color="#3D7AFF" style="stop-color:#3D7AFF;stop-color:color(display-p3 0.2392 0.4784 1.0000);stop-opacity:1;"/>
-<stop offset="0.5625" stop-color="#3D9BF3" style="stop-color:#3D9BF3;stop-color:color(display-p3 0.2379 0.6083 0.9548);stop-opacity:1;"/>
-<stop offset="0.975962" stop-color="#2FCBEE" style="stop-color:#2FCBEE;stop-color:color(display-p3 0.1840 0.7962 0.9337);stop-opacity:1;"/>
+<stop stop-color="#3582ff" style="stop-color:#3582ff;stop-color:color(display-p3 0.2392 0.4784 1.0000);stop-opacity:1;"/>
+<stop offset="0.5625" stop-color="#32adff" style="stop-color:#32adff;stop-color:color(display-p3 0.2379 0.6083 0.9548);stop-opacity:1;"/>
+<stop offset="0.975962" stop-color="#2bd8ff" style="stop-color:#2bd8ff;stop-color:color(display-p3 0.1840 0.7962 0.9337);stop-opacity:1;"/>
 </linearGradient>
 </defs>
 </svg>
