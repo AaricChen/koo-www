@@ -17,21 +17,13 @@ function FooterLogo({ className }: { className?: string }) {
         "relative block h-[26px] w-[115px] shrink-0 overflow-hidden lg:h-9 lg:w-[158px]"
       }
     >
-      <div className="absolute inset-[20.75%_68.87%_20.92%_0.78%]">
-        <img
-          src="/assets/footer/logo-mark.svg"
-          alt=""
-          aria-hidden
-          className="size-full"
-        />
-      </div>
-      <div className="absolute inset-[23.33%_0.78%_10%_37.74%]">
-        <img
-          src="/assets/footer/logo-wordmark.svg"
-          alt="Koo.xyz"
-          className="size-full"
-        />
-      </div>
+      <img
+        src="/assets/footer/logo.svg"
+        alt="Koo.xyz"
+        className="size-full object-contain object-left"
+        width={158}
+        height={36}
+      />
     </a>
   )
 }

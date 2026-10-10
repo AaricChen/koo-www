@@ -59,7 +59,8 @@ describe("SiteHeader", () => {
     }
     expect(screen.queryByRole("link", { name: "Support" })).toBeNull()
     expect(container.innerHTML).toContain("lg:hidden")
-    expect(container.innerHTML).toContain("logo-main.svg")
+    expect(container.innerHTML).toContain("header-logo.svg")
+    expect(container.innerHTML).toContain("sidebar-menu-logo.svg")
     expect(container.innerHTML).toContain("h-[50px]")
     const launch = screen.getAllByRole("link", { name: "Launch App" })
     expect(launch.length).toBe(2)

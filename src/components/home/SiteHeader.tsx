@@ -165,14 +165,14 @@ function MobileMark({ onClick }: { onClick?: () => void }) {
     <Link
       to="/"
       onClick={onClick}
-      className="relative block h-4 w-9 shrink-0 overflow-hidden"
+      className="relative block h-4 w-[70px] shrink-0 overflow-hidden"
     >
       <img
-        src="/assets/logo-main.svg"
+        src="/assets/sidebar-menu-logo.svg"
         alt="Koo.xyz"
         className="size-full object-contain object-left"
-        width={36}
-        height={16}
+        width={105}
+        height={24}
       />
     </Link>
   )
@@ -293,7 +293,7 @@ export function SiteHeader() {
             className="relative block h-10 w-[175px] shrink-0 overflow-hidden"
           >
             <img
-              src="/assets/koo-logo-2.png"
+              src="/assets/header-logo.svg"
               alt="Koo.xyz"
               className="size-full object-contain object-left"
               width={175}

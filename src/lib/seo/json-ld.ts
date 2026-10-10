@@ -31,7 +31,7 @@ export function buildSiteGraphJsonLd(homeDescription: string) {
         "@id": `${homeUrl}#organization`,
         name: SITE_NAME,
         url: homeUrl,
-        logo: absoluteUrl("/assets/logo-main.svg"),
+        logo: absoluteUrl("/assets/header-logo.svg"),
         sameAs: [...ORGANIZATION_SAME_AS],
       },
       {

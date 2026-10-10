@@ -8,6 +8,8 @@ type BackgroundVideoProps = {
   poster?: string
   className?: string
   playOnCompact?: boolean
+  /** Hero-style: start once and avoid pause/play toggles while scrolling. */
+  persistent?: boolean
 }
 
 export function BackgroundVideo({
@@ -15,6 +17,7 @@ export function BackgroundVideo({
   poster,
   className = "",
   playOnCompact = false,
+  persistent = false,
 }: BackgroundVideoProps) {
   const videoRef = useRef<HTMLVideoElement>(null)
   const isLg = useMatchMedia(LG_MIN_WIDTH_QUERY, false)
@@ -30,22 +33,31 @@ export function BackgroundVideo({
     const motion = window.matchMedia("(prefers-reduced-motion: reduce)")
     if (motion.matches) return
 
+    const play = () => {
+      void video.play().catch((error) => {
+        reportMediaFailure(src, error)
+      })
+    }
+
+    if (persistent) {
+      play()
+      return
+    }
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          void video.play().catch((error) => {
-            reportMediaFailure(src, error)
-          })
+          play()
           return
         }
         video.pause()
       },
-      { threshold: 0.2 },
+      { threshold: 0 },
     )
 
     observer.observe(video)
     return () => observer.disconnect()
-  }, [src, mountVideo])
+  }, [src, mountVideo, persistent])
 
   return (
     <video
@@ -56,7 +68,7 @@ export function BackgroundVideo({
       muted
       loop
       playsInline
-      preload="metadata"
+      preload={persistent ? "auto" : "metadata"}
       aria-hidden
     />
   )

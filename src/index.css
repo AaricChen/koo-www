@@ -1644,14 +1644,15 @@
     transition: background 320ms var(--community-card-ease);
   }
 
+  /* Figma `Linear-1-80%` / Community-card hover (5435:55436). */
   .community-card-face:hover,
   .community-card-face:focus-visible {
     background-color: transparent;
     background-image: linear-gradient(
       to right,
-      rgba(53, 130, 255, 0.6) 0%,
-      rgba(50, 173, 255, 0.6) 56.25%,
-      rgba(43, 216, 255, 0.6) 97.596%
+      rgba(53, 130, 255, 0.8) 0%,
+      rgba(50, 173, 255, 0.8) 56.25%,
+      rgba(43, 216, 255, 0.8) 97.596%
     );
   }
 
@@ -1659,9 +1660,9 @@
     background-color: transparent;
     background-image: linear-gradient(
       to right,
-      rgba(53, 130, 255, 0.6) 0%,
-      rgba(50, 173, 255, 0.6) 56.25%,
-      rgba(43, 216, 255, 0.6) 97.596%
+      rgba(53, 130, 255, 0.8) 0%,
+      rgba(50, 173, 255, 0.8) 56.25%,
+      rgba(43, 216, 255, 0.8) 97.596%
     );
   }
 
@@ -1678,9 +1679,9 @@
     background-color: transparent;
     background-image: linear-gradient(
       to right,
-      rgba(53, 130, 255, 0.6) 0%,
-      rgba(50, 173, 255, 0.6) 56.25%,
-      rgba(43, 216, 255, 0.6) 97.596%
+      rgba(53, 130, 255, 0.8) 0%,
+      rgba(50, 173, 255, 0.8) 56.25%,
+      rgba(43, 216, 255, 0.8) 97.596%
     );
   }
 }
@@ -1795,6 +1796,8 @@
   }
 
   .hero-bg-fade {
+    opacity: 0.6;
+    transform: translateZ(0);
     mask-image: linear-gradient(
       to bottom,
       #000 0%,
@@ -1819,11 +1822,10 @@
     background: linear-gradient(
       to bottom,
       transparent 0%,
-      rgba(6, 7, 8, 0.35) 42%,
+      rgba(6, 7, 8, 0.55) 38%,
       #060708 100%
     );
-    backdrop-filter: blur(18px);
-    -webkit-backdrop-filter: blur(18px);
+    transform: translateZ(0);
     mask-image: linear-gradient(to bottom, transparent 0%, #000 48%, #000 100%);
     -webkit-mask-image: linear-gradient(
       to bottom,
