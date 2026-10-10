@@ -1219,14 +1219,16 @@
     width: 100%;
     min-height: 0;
     max-height: min(510px, calc(85vh - 7.5rem));
-    gap: 8px;
   }
 
   .faq-category-sheet__scroll {
     flex: 1 1 0;
     min-width: 0;
+    overflow-x: hidden;
     overflow-y: auto;
-    padding-right: 2px;
+    /* Left aligns with header `px-[4px]`; right clears the 6px scrollbar + gutter */
+    padding: 0 12px 0 4px;
+    scrollbar-gutter: stable;
     scrollbar-width: thin;
     scrollbar-color: #2b3048 rgba(43, 48, 72, 0.2);
   }
@@ -1236,6 +1238,7 @@
   }
 
   .faq-category-sheet__scroll::-webkit-scrollbar-track {
+    margin-block: 2px;
     border-radius: 8px;
     background: rgba(43, 48, 72, 0.2);
   }
