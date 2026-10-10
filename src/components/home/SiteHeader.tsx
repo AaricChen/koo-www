@@ -125,7 +125,7 @@ function NavDivider() {
   return (
     <span
       aria-hidden
-      className="h-4 w-px shrink-0 bg-[rgba(250,250,250,0.2)]"
+      className="h-4 w-px shrink-0 bg-[rgba(255, 255, 255,0.2)]"
     />
   )
 }

@@ -53,7 +53,7 @@ function MobileProductFrame({ className }: { className?: string }) {
       />
       <div
         aria-hidden
-        className="absolute left-[6.8px] top-[6.8px] h-[214px] w-[301px] rounded-[9px] bg-[rgba(9,9,9,0.6)]"
+        className="absolute left-[6.8px] top-[6.8px] h-[214px] w-[301px] rounded-[9px] bg-[rgba(6, 7, 8,0.6)]"
       />
       <div
         aria-hidden
@@ -105,7 +105,7 @@ function ProductFrame({
         aria-hidden
         className="absolute left-[9%] top-[2.6%] h-[79%] w-[90%] [transform:rotate(3deg)_skewX(3deg)] [backface-visibility:hidden]"
       >
-        <div className="size-full rounded-[14px] bg-[rgba(9,9,9,0.6)]" />
+        <div className="size-full rounded-[14px] bg-[rgba(6, 7, 8,0.6)]" />
       </div>
       <div
         aria-hidden
@@ -176,7 +176,7 @@ export function WhyKooSection() {
                 />
               </div>
               <div className="flex w-full flex-col gap-2.5 lg:gap-3.5">
-                <h3 className="font-display text-base font-semibold leading-5 text-[rgba(250,250,250,0.8)] lg:text-xl lg:text-foreground">
+                <h3 className="font-display text-base font-semibold leading-5 text-[rgba(255, 255, 255,0.8)] lg:text-xl lg:text-foreground">
                   {feature.title}
                 </h3>
                 <p className="text-xs leading-4 text-faint lg:text-sm lg:leading-5 lg:text-muted-foreground">

@@ -71,10 +71,10 @@ function MilestoneTag({
 }
 
 const accentText: Record<PhaseAccent, string> = {
-  green: "text-[#1aaf7d]",
-  blue: "text-[#3d9bf3]",
+  green: "text-[#19c087]",
+  blue: "text-[#32adff]",
   cyan: "text-[#38bdf8]",
-  orange: "text-[#f28d21]",
+  orange: "text-[#f88f20]",
 }
 
 function MilestoneLines({ activeId }: { activeId: PhaseId }) {
@@ -148,7 +148,7 @@ function MilestonePhase({
       onClick={() => onSelect(phase.id)}
       onFocus={() => onSelect(phase.id)}
       onMouseEnter={() => onSelect(phase.id)}
-      className="relative flex cursor-pointer flex-col items-start justify-center text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1aaf7d] focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+      className="relative flex cursor-pointer flex-col items-start justify-center text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#19c087] focus-visible:ring-offset-2 focus-visible:ring-offset-background"
     >
       <div
         className={`milestone-ease pointer-events-none absolute left-[-32px] top-[-10px] h-[366px] w-[392px] duration-500 ${
