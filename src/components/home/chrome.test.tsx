@@ -255,7 +255,7 @@ describe("primary CTAs", () => {
     expect(enterCta.className).toContain("max-w-[300px]")
     expect(enterCta.className.split(" ").includes("w-[300px]")).toBe(false)
     expect(enter.container.innerHTML).not.toContain("section-bg.png")
-    expect(enter.container.innerHTML).toContain("opacity-20")
+    expect(enter.container.innerHTML).toContain("opacity-40")
   })
 })
 
